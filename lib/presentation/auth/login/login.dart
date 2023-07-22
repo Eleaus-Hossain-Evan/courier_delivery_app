@@ -20,7 +20,9 @@ class LoginScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final formKey = useMemoized(GlobalKey.new);
     final phoneController = useTextEditingController();
+    final passwordController = useTextEditingController();
     final phoneFocus = useFocusScopeNode();
+    final passwordFocus = useFocusScopeNode();
 
     ref.listen(
       authProvider,
@@ -55,8 +57,16 @@ class LoginScreen extends HookConsumerWidget {
               KTextFormField2(
                 controller: phoneController,
                 focusNode: phoneFocus,
-                keyboardType: TextInputType.phone,
+                keyboardType: TextInputType.text,
                 hintText: AppStrings.phoneNumberOrEmail,
+                isLabel: true,
+              ),
+              gap16,
+              KTextFormField2(
+                controller: passwordController,
+                focusNode: passwordFocus,
+                keyboardType: TextInputType.text,
+                hintText: AppStrings.password,
                 isLabel: true,
               ),
               gap24,

@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:courier_delivery_app/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -32,7 +33,7 @@ class KCircleAvatar extends StatelessWidget {
         tag: imgUrl.isEmpty ? UniqueKey() : imgUrl,
         child: CircleAvatar(
           radius: enableBorder ? radius + 1 : radius - 1,
-          backgroundColor: bgColor ?? Theme.of(context).colorScheme.primary,
+          backgroundColor: bgColor ?? context.color.primary,
           child: CircleAvatar(
             radius: radius,
             backgroundColor:

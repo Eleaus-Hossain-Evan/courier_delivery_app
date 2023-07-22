@@ -10,6 +10,8 @@ extension TextThemeStylesX on BuildContext {
   ColorScheme get color => Theme.of(this).colorScheme;
   ThemeData get theme => Theme.of(this);
 
+  CustomTextStyle get style => CustomTextStyle.instance;
+
   TextStyle get bodyText1 =>
       Theme.of(this).textTheme.bodyLarge!.copyWith(color: ColorPalate.black);
 

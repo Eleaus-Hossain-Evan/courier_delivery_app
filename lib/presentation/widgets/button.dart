@@ -297,15 +297,16 @@ class KButton extends HookConsumerWidget {
 class KFilledButton extends HookConsumerWidget {
   const KFilledButton({
     Key? key,
-    required this.onPressed,
     required this.text,
     this.backgroundColor,
     this.foregroundColor,
+    required this.onPressed,
     this.loading,
     this.child,
     this.isSecondary = false,
     this.textStyle,
     this.size,
+    this.padding,
   }) : super(key: key);
 
   final String text;
@@ -317,6 +318,8 @@ class KFilledButton extends HookConsumerWidget {
   final bool isSecondary;
   final TextStyle? textStyle;
   final Size? size;
+  final EdgeInsetsGeometry? padding;
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return FilledButton(
@@ -347,6 +350,8 @@ class KFilledButton extends HookConsumerWidget {
             ),
         foregroundColor: foregroundColor ?? ColorPalate.bg200,
         backgroundColor: backgroundColor,
+        fixedSize: size,
+        padding: padding,
       ),
       onPressed: onPressed,
       child: (loading != null && loading!)

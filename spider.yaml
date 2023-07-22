@@ -31,7 +31,7 @@ package: utils/assets
 
 groups:
   - class_name: Images
-    types: [.png, .jpg, .jpeg, .webp, .webm, .bmp, .svg]
+    types: [.png, .jpg, .jpeg, .webp, .webm, .bmp, .svg, jpeg]
     sub_groups:
       - paths:
           - assets/images

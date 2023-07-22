@@ -7,6 +7,8 @@ import 'color_palate.dart';
 class CustomTextStyle {
   CustomTextStyle._();
 
+  static CustomTextStyle get instance => CustomTextStyle._();
+
   static TextStyle textStyle32w600 = TextStyle(
     fontSize: 32.sp,
     fontWeight: FontWeight.w600,
@@ -108,8 +110,12 @@ class CustomTextStyle {
   static TextStyle textStyle14w600 = GoogleFonts.inter(
     fontSize: 14.sp,
     fontWeight: FontWeight.w600,
-    color: ColorPalate.black,
   );
+
+  static TextStyle textStyle14w600B600 = GoogleFonts.inter(
+      fontSize: 14.sp,
+      fontWeight: FontWeight.w600,
+      color: ColorPalate.black600,);
 
   static TextStyle textStyle14w600secondary = GoogleFonts.inter(
     fontSize: 14.sp,
