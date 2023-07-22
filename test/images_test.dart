@@ -5,6 +5,7 @@ import 'package:courier_delivery_app/utils/assets/resources.dart';
 
 void main() {
   test('images assets test', () {
+    expect(File(Images.boxs).existsSync(), isTrue);
     expect(File(Images.deliveryBox).existsSync(), isTrue);
     expect(File(Images.logo).existsSync(), isTrue);
     expect(File(Images.iconFacebook).existsSync(), isTrue);

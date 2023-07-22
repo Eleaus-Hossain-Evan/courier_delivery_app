@@ -26,7 +26,6 @@ class ProfileScreen extends HookConsumerWidget {
     final isLoggedIn = ref.watch(loggedInProvider).loggedIn;
 
     return Scaffold(
-      backgroundColor: ColorPalate.white,
       appBar: const KAppBar(titleText: AppStrings.profile),
       body: SingleChildScrollView(
         padding: EdgeInsets.symmetric(horizontal: 20.w),
@@ -42,7 +41,7 @@ class ProfileScreen extends HookConsumerWidget {
             Container(
               padding: padding20,
               decoration: BoxDecoration(
-                color: ColorPalate.white,
+                color: ColorPalate.bg100,
                 borderRadius: BorderRadius.circular(16.r),
               ),
               child: Column(
@@ -53,10 +52,10 @@ class ProfileScreen extends HookConsumerWidget {
                   //   title: context.local.yourFavorites,
                   //   onTap: () => context.push(FavoritesScreen.route),
                   // ),
-                  KDivider(height: 36.h),
+                  // KDivider(height: 36.h),
                   _optionList(
                     leading: Icons.remove_red_eye_outlined,
-                    title: AppStrings.password,
+                    title: AppStrings.changePassword,
                     onTap: () => context.push(ChangePasswordScreen.route),
                   ),
                   KDivider(height: 36.h),
@@ -86,6 +85,40 @@ class ProfileScreen extends HookConsumerWidget {
                         onNoPressed: () {},
                       );
                     }),
+                  ),
+                ],
+              ),
+            ),
+            gap18,
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: paddingLeft10,
+                child: Text(
+                  "Support",
+                  style: CustomTextStyle.textStyle16w500HG900,
+                ),
+              ),
+            ),
+            gap12,
+            Container(
+              padding: padding20,
+              decoration: BoxDecoration(
+                color: ColorPalate.bg100,
+                borderRadius: BorderRadius.circular(16.r),
+              ),
+              child: Column(
+                children: [
+                  _optionList(
+                    leading: Icons.help_center_outlined,
+                    title: AppStrings.contactUs,
+                    onTap: () {},
+                  ),
+                  KDivider(height: 36.h),
+                  _optionList(
+                    leading: Icons.privacy_tip_outlined,
+                    title: AppStrings.privacyPolicy,
+                    onTap: () {},
                   ),
                 ],
               ),

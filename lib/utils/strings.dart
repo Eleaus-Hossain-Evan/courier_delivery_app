@@ -13,6 +13,7 @@ class AppStrings {
   //#----------------  Profile ----------------
   static const String profile = "Profile";
   static const String password = "Password";
+  static const String changePassword = "Change Password";
   static const String logout = "Logout";
   static const String save = "Save";
   static const String firstName = "First Name";
@@ -20,6 +21,8 @@ class AppStrings {
   static const String email = "Email";
   static const String phoneNumber = "Phone Number";
   static const String phoneNumberOrEmail = "Phone Number or Email";
+  static const String contactUs = "Contact Us";
+  static const String privacyPolicy = "Privacy & Policy";
 
   //#----------------  Home ----------------
   static const String home = "Home";

@@ -8,7 +8,7 @@ extension TextStyleHelpers on TextStyle {
 
 extension TextThemeStylesX on BuildContext {
   ColorScheme get color => Theme.of(this).colorScheme;
-  ThemeData get theme => Theme.of(this);
+  ThemeData get themeData => Theme.of(this);
 
   CustomTextStyle get style => CustomTextStyle.instance;
 

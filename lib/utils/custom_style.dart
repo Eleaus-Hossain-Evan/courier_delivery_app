@@ -106,6 +106,11 @@ class CustomTextStyle {
     fontWeight: FontWeight.w400,
     color: ColorPalate.secondary,
   );
+  static TextStyle textStyle16w400Primary = TextStyle(
+    fontSize: 16.sp,
+    fontWeight: FontWeight.w400,
+    color: ColorPalate.primary300,
+  );
 
   static TextStyle textStyle14w600 = GoogleFonts.inter(
     fontSize: 14.sp,
@@ -113,9 +118,10 @@ class CustomTextStyle {
   );
 
   static TextStyle textStyle14w600B600 = GoogleFonts.inter(
-      fontSize: 14.sp,
-      fontWeight: FontWeight.w600,
-      color: ColorPalate.black600,);
+    fontSize: 14.sp,
+    fontWeight: FontWeight.w600,
+    color: ColorPalate.black600,
+  );
 
   static TextStyle textStyle14w600secondary = GoogleFonts.inter(
     fontSize: 14.sp,

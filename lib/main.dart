@@ -13,6 +13,7 @@ import 'application/auth/loggedin_provider.dart';
 import 'application/local_storage/storage_handler.dart';
 import 'application/auth/auth_provider.dart';
 import 'application/global.dart';
+import 'domain/auth/model/user_model.dart';
 import 'route/go_router.dart';
 import 'utils/api_routes.dart';
 import 'theme/theme.dart';
@@ -69,7 +70,14 @@ class MyApp extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
     final appTheme = ref.watch(themeProvider);
-    final user = ref.watch(loggedInProvider.notifier).user;
+    final user = ref.watch(loggedInProvider.notifier).user.copyWith(
+          name: "name",
+          email: "evan@email.com",
+          firstName: "Evan",
+          lastName: "Hossain",
+          phone: "01234567890",
+          profilePicture: "https://i.pravatar.cc/300",
+        );
 
     useEffect(() {
       Future.wait([

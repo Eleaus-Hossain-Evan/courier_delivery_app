@@ -159,7 +159,7 @@ showFloatBottomSheet(
         // height: height,
         margin: EdgeInsets.all(20.w),
         decoration: BoxDecoration(
-          color: context.theme.scaffoldBackgroundColor,
+          color: context.themeData.scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(12.r),
         ),
         child: IntrinsicHeight(

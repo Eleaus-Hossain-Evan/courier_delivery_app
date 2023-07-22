@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
-import 'package:courier_delivery_app/presentation/home/home_screen.dart';
+import 'package:courier_delivery_app/presentation/main_nav/main_nav.dart';
 import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -65,7 +65,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       },
     );
 
-    ref.read(routerProvider).replace(HomeScreen.route);
+    ref.read(routerProvider).replace(MainNav.route);
   }
 
   void login(LoginBody body) async {
@@ -92,7 +92,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
       },
     );
 
-    ref.read(routerProvider).replace(HomeScreen.route);
+    ref.read(routerProvider).replace(MainNav.route);
   }
 
   Future<bool> loginGetOtp(LoginBody body) async {

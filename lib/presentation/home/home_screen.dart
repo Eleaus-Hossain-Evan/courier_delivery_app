@@ -110,20 +110,25 @@ class HomeScreen extends HookConsumerWidget {
                 ],
               ),
               gap24,
-              ListTile(
-                title: "Evan Hossain".text.make(),
-                subtitle: "Dhaka, Bangladesh".text.make(),
-                // leading: KCircleAvatar(
-                //   imgUrl: "https://i.pravatar.cc/300",
-                //   enableBorder: true,
-                //   radius: 30.r,
-                // ),
-                leading: const CircleAvatar(
-                  backgroundImage: AssetImage(Images.deliveryBox),
-                ),
-                trailing: const Icon(Icons.details)
-                    .iconColor(ColorPalate.secondary200)
-                    .rotate90(),
+              KListViewSeparated(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: "Evan Hossain".text.make(),
+                    subtitle: "Dhaka, Bangladesh".text.make(),
+                    // leading: KCircleAvatar(
+                    //   imgUrl: "https://i.pravatar.cc/300",
+                    //   enableBorder: true,
+                    //   radius: 30.r,
+                    // ),
+                    leading: Images.deliveryBox.circularAssetImage(),
+                    trailing: const Icon(Icons.details)
+                        .iconColor(ColorPalate.secondary200)
+                        .rotate90(),
+                  );
+                },
+                itemCount: 10,
               )
             ],
           ),

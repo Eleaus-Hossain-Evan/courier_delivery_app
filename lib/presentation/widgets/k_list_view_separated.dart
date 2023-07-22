@@ -11,7 +11,7 @@ class KListViewSeparated extends StatelessWidget {
       this.alternateWidget,
       required this.itemCount,
       this.scrollDirection = Axis.vertical,
-      this.gap = 10,
+      this.gap = 0,
       this.controller,
       this.edgePadding,
       this.padding,
@@ -33,16 +33,7 @@ class KListViewSeparated extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
-      padding: padding ??
-          (scrollDirection == Axis.vertical
-              ? EdgeInsets.symmetric(
-                  vertical: edgePadding ?? gap.h,
-                  horizontal: 10.w,
-                )
-              : EdgeInsets.symmetric(
-                  horizontal: edgePadding ?? gap.w,
-                  vertical: 10.h,
-                )),
+      padding: padding,
       scrollDirection: scrollDirection,
       shrinkWrap: shrinkWrap,
       physics: physics,

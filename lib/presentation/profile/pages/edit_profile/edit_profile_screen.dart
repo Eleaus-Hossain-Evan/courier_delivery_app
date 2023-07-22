@@ -61,7 +61,7 @@ class EditProfileScreen extends HookConsumerWidget {
     final phone = useState(phoneController.text);
 
     useEffect(() {
-      Future.microtask(() => ref.read(authProvider.notifier).profileView());
+      // Future.microtask(() => ref.read(authProvider.notifier).profileView());
       return null;
     }, []);
 
@@ -84,8 +84,8 @@ class EditProfileScreen extends HookConsumerWidget {
                     imageFile.value);
               },
               child: Text(
-                "context.local.save",
-                style: CustomTextStyle.textStyle16w400secondary,
+                AppStrings.save,
+                style: CustomTextStyle.textStyle16w400Primary,
               ),
             ),
           ),
@@ -165,21 +165,6 @@ class EditProfileScreen extends HookConsumerWidget {
                   onChanged: (value) {
                     phone.value = value;
                   },
-                ),
-                gap20,
-                Row(
-                  mainAxisAlignment: mainCenter,
-                  children: [
-                    Image.asset(
-                      "KAssets.rightIcon",
-                      fit: BoxFit.fitHeight,
-                      height: 32.h,
-                    ),
-                    Text(
-                      "context.local.mobileVerified",
-                      style: CustomTextStyle.textStyle14w400,
-                    )
-                  ],
                 ),
                 gap28,
               ],

@@ -9,6 +9,7 @@ import '../presentation/auth/login/login.dart';
 import '../presentation/auth/reset_password/reset_password.dart';
 import '../presentation/auth/signup/signup.dart';
 import '../presentation/home/home_screen.dart';
+import '../presentation/main_nav/main_nav.dart';
 import '../presentation/profile/pages/change_password_screen.dart';
 import '../presentation/profile/pages/edit_profile/edit_profile_screen.dart';
 import '../presentation/splash/splash_screen.dart';
@@ -65,7 +66,7 @@ class RouterNotifier extends ChangeNotifier {
     }
 
     if (areWeLoggingIn || areWeRegistering) {
-      return HomeScreen.route;
+      return MainNav.route;
     }
 
     return null;
@@ -76,10 +77,10 @@ class RouterNotifier extends ChangeNotifier {
           path: SplashScreen.route,
           builder: (context, state) => const SplashScreen(),
         ),
-        // GoRoute(
-        //   path: MainNav.route,
-        //   builder: (context, state) => const MainNav(),
-        // ),
+        GoRoute(
+          path: MainNav.route,
+          builder: (context, state) => const MainNav(),
+        ),
         GoRoute(
           path: HomeScreen.route,
           builder: (context, state) => const HomeScreen(),

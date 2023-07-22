@@ -33,7 +33,7 @@ class ProfilePicWidget extends HookConsumerWidget {
       child: Container(
         padding: padding20,
         decoration: BoxDecoration(
-          color: ColorPalate.white,
+          color: ColorPalate.bg100,
           borderRadius: radius16,
         ),
         child: Row(

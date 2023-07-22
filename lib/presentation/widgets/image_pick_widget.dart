@@ -54,7 +54,7 @@ class ImagePickWidget extends HookConsumerWidget {
             onTap: () {
               showModalBottomSheet(
                 context: context,
-                backgroundColor: context.theme.scaffoldBackgroundColor,
+                backgroundColor: context.themeData.scaffoldBackgroundColor,
                 shape: RoundedRectangleBorder(
                   borderRadius: radius0,
                 ),
