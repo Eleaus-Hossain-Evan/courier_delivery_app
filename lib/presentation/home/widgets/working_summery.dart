@@ -64,8 +64,10 @@ class WorkingSummeryItem extends StatelessWidget {
           icon,
           color: textColor,
         ),
-        count.text.xl.bold.color(textColor).make(),
-        title.text.xs.bold.color(textColor).make(),
+        gap4,
+        count.text.xl2.bold.color(textColor).make(),
+        gap6,
+        title.text.minFontSize(5).maxFontSize(9).bold.color(textColor).make(),
       ],
     )
         .box

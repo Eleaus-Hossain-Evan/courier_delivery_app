@@ -177,6 +177,7 @@ class KTextFormField2 extends HookConsumerWidget {
         start: 16, end: 16, top: 10, bottom: 10),
     this.fillColor = Colors.transparent,
     this.borderColor = ColorPalate.secondary200,
+    this.hintTextStyle,
   }) : super(key: key);
 
   final TextEditingController? controller;
@@ -195,6 +196,7 @@ class KTextFormField2 extends HookConsumerWidget {
   final int? maxLines;
   final EdgeInsetsGeometry contentPadding;
   final Color fillColor, borderColor;
+  final TextStyle? hintTextStyle;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -218,7 +220,7 @@ class KTextFormField2 extends HookConsumerWidget {
       maxLines: maxLines,
       decoration: InputDecoration(
         hintText: isLabel ? null : hintText,
-        hintStyle: CustomTextStyle.textStyle16w400HG1000,
+        hintStyle: hintTextStyle ?? CustomTextStyle.textStyle16w400HG1000,
         labelText: isLabel ? hintText : null,
         labelStyle: CustomTextStyle.textStyle16w400HG1000,
         contentPadding: contentPadding,

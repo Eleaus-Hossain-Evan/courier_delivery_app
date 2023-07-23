@@ -10,6 +10,7 @@ import 'package:velocity_x/velocity_x.dart';
 import '../../application/auth/auth_provider.dart';
 import '../../application/home/home_provider.dart';
 import '../../utils/utils.dart';
+import '../main_nav/main_nav.dart';
 import '../widgets/widgets.dart';
 import 'widgets/search_delivery.dart';
 import 'widgets/working_summery.dart';
@@ -89,9 +90,9 @@ class HomeScreen extends HookConsumerWidget {
             crossAxisAlignment: crossStart,
             children: [
               const WorkingSummery(),
-              gap24,
+              gap28,
               const SearchDelivery(),
-              gap24,
+              gap28,
               Row(
                 mainAxisAlignment: mainSpaceBetween,
                 children: [
@@ -106,7 +107,12 @@ class HomeScreen extends HookConsumerWidget {
                       .color(ColorPalate.secondary200)
                       .make()
                       .pSymmetric(h: 4, v: 2)
-                      .onInkTap(() {})
+                      .onInkTap(() {
+                    final navigatorKey =
+                        bottomNavigatorKey.currentWidget as NavigationBar;
+
+                    navigatorKey.onDestinationSelected!(1);
+                  })
                 ],
               ),
               gap24,

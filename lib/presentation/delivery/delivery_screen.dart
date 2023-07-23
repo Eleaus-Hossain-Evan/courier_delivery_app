@@ -1,8 +1,4 @@
 import 'package:courier_delivery_app/presentation/delivery/widgets/completed_delivery.dart';
-import 'package:courier_delivery_app/presentation/widgets/k_list_view_separated.dart';
-import 'package:courier_delivery_app/utils/color_palate.dart';
-import 'package:courier_delivery_app/utils/extensions/extensions.dart';
-import 'package:courier_delivery_app/utils/ui_constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -24,7 +20,7 @@ class DeliveryScreen extends HookConsumerWidget {
       slivers: [
         SliverAppBar(
           centerTitle: true,
-          title: "Delivery Dashboard".text.bold.white.xl.make(),
+          title: AppStrings.deliverDashboard.text.bold.white.xl.make(),
           backgroundColor: context.colors.primary,
           floating: false,
           pinned: true,
@@ -36,7 +32,7 @@ class DeliveryScreen extends HookConsumerWidget {
             child: Row(
               mainAxisAlignment: mainSpaceBetween,
               children: [
-                "Total Pending Orders".text.semiBold.white.make(),
+                AppStrings.totalPendingOrders.text.semiBold.white.make(),
                 "3".text.white.bold.make(),
               ],
             )

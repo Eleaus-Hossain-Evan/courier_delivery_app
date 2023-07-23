@@ -23,10 +23,17 @@ class AppStrings {
   static const String phoneNumberOrEmail = "Phone Number or Email";
   static const String contactUs = "Contact Us";
   static const String privacyPolicy = "Privacy & Policy";
+  static const String bankDetail = "Bank Details";
+  static const String paymentMethod = "Payment Methods";
+  static const String updateHub = "Update Hub";
 
   //#----------------  Home ----------------
   static const String home = "Home";
   static String welcome(String user) => "Welcome $user";
+
+  //#----------------  Delivery ----------------
+  static const String deliverDashboard = "Delivery Dashboard";
+  static const String totalPendingOrders = "Total Pending Orders";
 
   //#----------------  Auth ----------------
   static const String signup = "Sign Up";

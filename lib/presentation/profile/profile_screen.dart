@@ -1,14 +1,13 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:icons_plus/icons_plus.dart';
 
-import '../../application/auth/loggedin_provider.dart';
-import '../../utils/utils.dart';
 import '../../application/auth/auth_provider.dart';
 import '../../application/global.dart';
-import '../../application/home/home_provider.dart';
+import '../../utils/utils.dart';
 import '../auth/login/login.dart';
 import '../widgets/widgets.dart';
 import 'pages/change_password_screen.dart';
@@ -20,10 +19,10 @@ class ProfileScreen extends HookConsumerWidget {
   const ProfileScreen({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(authProvider);
-    final homeState = ref.watch(homeProvider);
-    final localState = ref.watch(appLocalProvider);
-    final isLoggedIn = ref.watch(loggedInProvider).loggedIn;
+    // final state = ref.watch(authProvider);
+    // final homeState = ref.watch(homeProvider);
+    // final localState = ref.watch(appLocalProvider);
+    // final isLoggedIn = ref.watch(loggedInProvider).loggedIn;
 
     return Scaffold(
       appBar: const KAppBar(titleText: AppStrings.profile),
@@ -43,38 +42,39 @@ class ProfileScreen extends HookConsumerWidget {
               decoration: BoxDecoration(
                 color: ColorPalate.bg100,
                 borderRadius: BorderRadius.circular(16.r),
+                border: Border.all(
+                  color: ColorPalate.primary.withOpacity(.2),
+                  width: 1.2.w,
+                ),
               ),
               child: Column(
                 children: [
-                  // KDivider(height: 36.h),
-                  // _optionList(
-                  //   leading: Icons.favorite_border_rounded,
-                  //   title: context.local.yourFavorites,
-                  //   onTap: () => context.push(FavoritesScreen.route),
-                  // ),
-                  // KDivider(height: 36.h),
-                  _optionList(
-                    leading: Icons.remove_red_eye_outlined,
+                  ProfileOptionsItem(
+                    leading: Bootstrap.bank2,
+                    title: AppStrings.bankDetail,
+                    onTap: () => context.push(ChangePasswordScreen.route),
+                  ),
+                  KDivider(height: 36.h),
+                  ProfileOptionsItem(
+                    leading: Iconsax.money_send,
+                    title: AppStrings.paymentMethod,
+                    onTap: () => context.push(ChangePasswordScreen.route),
+                  ),
+                  KDivider(height: 36.h),
+                  ProfileOptionsItem(
+                    leading: Iconsax.map,
+                    title: AppStrings.updateHub,
+                    onTap: () => context.push(ChangePasswordScreen.route),
+                  ),
+                  KDivider(height: 36.h),
+                  ProfileOptionsItem(
+                    leading: BoxIcons.bxs_lock,
                     title: AppStrings.changePassword,
                     onTap: () => context.push(ChangePasswordScreen.route),
                   ),
                   KDivider(height: 36.h),
-                  // _optionList(
-                  //   leading: FontAwesomeIcons.globe,
-                  //   title: context.local.language,
-                  //   trailingText: localState.languageCode == 'en'
-                  //       ? context.local.english
-                  //       : context.local.arabic,
-                  //   onTap: () {
-                  //     // ref.read(appLocalProvider.notifier).update(
-                  //     //   (state) => localState.languageCode == 'en'
-                  //     //       ? const Locale("ar", "AR")
-                  //     //       : const Locale("en", "US"));
-                  //   },
-                  // ),
-                  // KDivider(height: 36.h),
-                  _optionList(
-                    leading: Icons.login_outlined,
+                  ProfileOptionsItem(
+                    leading: EvaIcons.log_out,
                     title: AppStrings.logout,
                     onTap: () => showFloatBottomSheet(context, builder: (_) {
                       return LogoutDialog(
@@ -106,16 +106,20 @@ class ProfileScreen extends HookConsumerWidget {
               decoration: BoxDecoration(
                 color: ColorPalate.bg100,
                 borderRadius: BorderRadius.circular(16.r),
+                border: Border.all(
+                  color: ColorPalate.primary.withOpacity(.2),
+                  width: 1.2.w,
+                ),
               ),
               child: Column(
                 children: [
-                  _optionList(
+                  ProfileOptionsItem(
                     leading: Icons.help_center_outlined,
                     title: AppStrings.contactUs,
                     onTap: () {},
                   ),
                   KDivider(height: 36.h),
-                  _optionList(
+                  ProfileOptionsItem(
                     leading: Icons.privacy_tip_outlined,
                     title: AppStrings.privacyPolicy,
                     onTap: () {},
@@ -128,14 +132,24 @@ class ProfileScreen extends HookConsumerWidget {
       ),
     );
   }
+}
 
-  Widget _optionList({
-    required IconData leading,
-    required String title,
-    String? trailingText,
-    bool visible = true,
-    VoidCallback? onTap,
-  }) {
+class ProfileOptionsItem extends HookConsumerWidget {
+  const ProfileOptionsItem({
+    super.key,
+    required this.leading,
+    required this.title,
+    this.trailingText,
+    this.onTap,
+  });
+
+  final IconData leading;
+  final String title;
+  final bool visible = true;
+  final String? trailingText;
+  final VoidCallback? onTap;
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
     return Visibility(
       visible: visible,
       child: InkWell(
@@ -158,7 +172,7 @@ class ProfileScreen extends HookConsumerWidget {
             trailingText == null
                 ? const SizedBox.shrink()
                 : Text(
-                    trailingText,
+                    trailingText ?? "",
                     style: CustomTextStyle.textStyle14w500Red,
                   ),
             gap12,

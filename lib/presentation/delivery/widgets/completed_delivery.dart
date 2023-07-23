@@ -13,13 +13,14 @@ class CompletedDelivery extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: ColorPalate.bg200,
+      color: ColorPalate.bg100,
       child: KListViewSeparated(
         padding: EdgeInsets.symmetric(
           horizontal: 16.w,
           vertical: 16.h,
         ),
         gap: 12,
+        separator: HeightBox(16.h),
         itemBuilder: (context, index) {
           return Row(
             crossAxisAlignment: crossStart,
@@ -75,9 +76,9 @@ class CompletedDelivery extends StatelessWidget {
           )
               .p8()
               .box
-              .color(ColorPalate.secondary.lighten().withOpacity(.05))
+              .color(ColorPalate.secondary.lighten().withOpacity(.03))
               .border(
-                color: ColorPalate.secondary.lighten().withOpacity(.2),
+                color: ColorPalate.secondary.lighten().withOpacity(.1),
                 width: 1.2.w,
               )
               .roundedSM

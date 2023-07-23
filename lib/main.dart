@@ -13,10 +13,7 @@ import 'application/auth/loggedin_provider.dart';
 import 'application/local_storage/storage_handler.dart';
 import 'application/auth/auth_provider.dart';
 import 'application/global.dart';
-import 'domain/auth/model/user_model.dart';
 import 'route/go_router.dart';
-import 'utils/api_routes.dart';
-import 'theme/theme.dart';
 
 import '../../utils/utils.dart';
 

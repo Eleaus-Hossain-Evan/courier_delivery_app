@@ -17,6 +17,7 @@ class SearchDelivery extends HookWidget {
           child: KTextFormField2(
             controller: searchTextController,
             hintText: "Shipping Number",
+            hintTextStyle: CustomTextStyle.textStyle14w500HG800,
             suffixIcon: IconButton(
               onPressed: () {},
               icon: const Icon(
