@@ -95,7 +95,7 @@ class ProfileScreen extends HookConsumerWidget {
               child: Padding(
                 padding: paddingLeft10,
                 child: Text(
-                  "Support",
+                  AppStrings.support,
                   style: CustomTextStyle.textStyle16w500HG900,
                 ),
               ),

@@ -16,27 +16,27 @@ class WorkingSummery extends StatelessWidget {
       children: [
         const WorkingSummeryItem(
           icon: Icons.access_time_filled,
-          title: "Pending Delivery",
+          title: AppStrings.pendingDelivery,
           count: "23",
           textColor: ColorPalate.secondary200,
           bgColor: ColorPalate.secondary,
         ),
         WorkingSummeryItem(
           icon: Icons.delivery_dining,
-          title: "Canceled Delivery",
+          title: AppStrings.cancelDelivery,
           count: "43",
           textColor: context.color.error,
           bgColor: context.color.error,
         ),
         const WorkingSummeryItem(
           icon: Icons.check_circle,
-          title: "Complete Delivery",
+          title: AppStrings.completedDelivery,
           count: "124",
           textColor: ColorPalate.primary200,
           bgColor: ColorPalate.primary,
         ),
       ],
-    );
+    ).p(16.w);
   }
 }
 
@@ -60,21 +60,28 @@ class WorkingSummeryItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return VStack(
       [
+        gap12,
         Icon(
           icon,
           color: textColor,
-        ),
-        gap4,
-        count.text.xl2.bold.color(textColor).make(),
+        ).px12(),
         gap6,
-        title.text.minFontSize(5).maxFontSize(9).bold.color(textColor).make(),
+        count.text.xl2.bold.color(textColor).make().px12(),
+        gap2,
+        title.text
+            .minFontSize(5)
+            .maxFontSize(9)
+            .bold
+            .color(textColor)
+            .make()
+            .px8(),
+        gap12,
       ],
     )
         .box
         .color(bgColor.withOpacity(.3))
         .roundedSM
         .width(.28.sw)
-        .p12
         .make()
         .box
         .white

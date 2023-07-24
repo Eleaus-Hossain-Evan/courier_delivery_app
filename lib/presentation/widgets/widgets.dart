@@ -24,3 +24,4 @@ export 'bottom_rounded_container.dart';
 export 'k_container.dart';
 export 'k_checkbox_tile.dart';
 export 'image_pick_widget.dart';
+export 'delivery_list_tail.dart';

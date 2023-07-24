@@ -10,6 +10,30 @@ class AppStrings {
   static const String tkSymbol = "\u{09F3}";
   static const String theme = "theme";
 
+  //#----------------  Home ----------------
+  static const String home = "Home";
+  static String welcome(String user) => "Welcome $user";
+  static const String todayDelivery = "Today's Deliveries";
+  static const String viewAll = "View all";
+  static const String pendingDelivery = "Pending Delivery";
+  static const String cancelDelivery = "Cancel Delivery";
+  static const String completedDelivery = "Completed Delivery";
+
+  //#----------------  Delivery ----------------
+  static const String delivery = "Delivery";
+  static const String deliverDashboard = "Delivery Dashboard";
+  static const String totalPendingOrders = "Total Pending Orders";
+  static const String shippingNumber = "Shipping Number";
+
+  //#----------------  Earning ----------------
+  static const String earning = "Earning";
+  static const String myEarnings = "My Earnings";
+  static const String totalEarnings = "Total Earnings";
+  static const String tk = "৳";
+  static const String dailyOrders = "Daily\nOrders";
+  static const String dailyEarings = "Daily\nEarnings";
+  static const String monthlyEarings = "Monthly\nEarnings";
+
   //#----------------  Profile ----------------
   static const String profile = "Profile";
   static const String password = "Password";
@@ -26,14 +50,10 @@ class AppStrings {
   static const String bankDetail = "Bank Details";
   static const String paymentMethod = "Payment Methods";
   static const String updateHub = "Update Hub";
+  static const String support = "Support";
 
-  //#----------------  Home ----------------
-  static const String home = "Home";
-  static String welcome(String user) => "Welcome $user";
-
-  //#----------------  Delivery ----------------
-  static const String deliverDashboard = "Delivery Dashboard";
-  static const String totalPendingOrders = "Total Pending Orders";
+  //#----------------  Auth ----------------
+  static const String notifications = "Notifications";
 
   //#----------------  Auth ----------------
   static const String signup = "Sign Up";

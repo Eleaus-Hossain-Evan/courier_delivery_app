@@ -1,17 +1,18 @@
-import 'dart:developer';
-
 import 'package:bot_toast/bot_toast.dart';
+import 'package:courier_delivery_app/application/home/home_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../../application/auth/auth_provider.dart';
 import '../../application/home/home_provider.dart';
 import '../../utils/utils.dart';
+import '../customer_detail/customer_detail_screen.dart';
 import '../main_nav/main_nav.dart';
 import '../widgets/widgets.dart';
+import 'widgets/home_app_bar.dart';
 import 'widgets/search_delivery.dart';
 import 'widgets/working_summery.dart';
 
@@ -21,8 +22,6 @@ class HomeScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final scrollController = useScrollController();
-    final state = ref.watch(homeProvider);
-    final authState = ref.watch(authProvider);
 
     ref.listen(homeProvider, (previous, next) {
       if (previous!.loading == false && next.loading) {
@@ -33,109 +32,64 @@ class HomeScreen extends HookConsumerWidget {
       }
     });
 
-    useEffect(() {
-      Future.wait([
-        // Future.microtask(() => ref.read(carServiceProvider.notifier).getYear()),
-        // Future.microtask(
-        //     () => ref.read(carServiceProvider.notifier).getAllProblems()),
-      ]);
-      return null;
-    }, []);
-
-    //f53d2d
-
     return Scaffold(
-      appBar: KAppBar(
-        title: Column(
-          crossAxisAlignment: crossStart,
-          children: [
-            Text(
-              "Evan",
-              style: CustomTextStyle.textStyle14w600B600.copyWith(
-                color: ColorPalate.secondary200,
-              ),
-            ),
-            Text(
-              AppStrings.welcome(""),
-              style: CustomTextStyle.textStyle18w600HG1000,
-            ),
-          ],
-        ),
-        leading: Padding(
-          padding: EdgeInsets.all(4.w),
-          child: KCircleAvatar(
-            imgUrl: "https://i.pravatar.cc/300",
-            enableBorder: true,
-            radius: 20.r,
-          ),
-        ),
-        centerTitle: false,
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Badge(
-              isLabelVisible: state.notification,
-              child: const Icon(Icons.notifications_outlined),
-            ),
-          )
-        ],
-      ),
+      appBar: const HomeAppBar(),
       body: SizedBox(
         height: 1.sh,
         width: 1.sw,
         child: SingleChildScrollView(
           controller: scrollController,
-          padding: padding16,
           child: Column(
             crossAxisAlignment: crossStart,
             children: [
               const WorkingSummery(),
-              gap28,
               const SearchDelivery(),
-              gap28,
-              Row(
-                mainAxisAlignment: mainSpaceBetween,
+              gap12,
+              Column(
                 children: [
-                  "Today's Deliveries"
-                      .text
-                      .bold
-                      .lg
-                      .color(ColorPalate.black900)
-                      .make(),
-                  "View all"
-                      .text
-                      .color(ColorPalate.secondary200)
-                      .make()
-                      .pSymmetric(h: 4, v: 2)
-                      .onInkTap(() {
-                    final navigatorKey =
-                        bottomNavigatorKey.currentWidget as NavigationBar;
+                  Row(
+                    mainAxisAlignment: mainSpaceBetween,
+                    children: [
+                      AppStrings.todayDelivery.text.bold.lg
+                          .color(ColorPalate.black900)
+                          .make(),
+                      AppStrings.viewAll.text
+                          .color(ColorPalate.secondary200)
+                          .make()
+                          .pSymmetric(h: 4, v: 2)
+                          .onInkTap(() {
+                        final navigatorKey =
+                            bottomNavigatorKey.currentWidget as NavigationBar;
 
-                    navigatorKey.onDestinationSelected!(1);
-                  })
+                        navigatorKey.onDestinationSelected!(1);
+                      })
+                    ],
+                  ),
+                  gap24,
+                  KListViewSeparated(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    gap: 16,
+                    padding: padding0,
+                    itemBuilder: (context, index) {
+                      return DeliveryListTile(
+                        customerName: "Evan Hossain",
+                        address:
+                            "169/B, North Konipara, Tejgoan, Dhaka, Bangladesh",
+                        distance: "3 kms",
+                      );
+                    },
+                    itemCount: 10,
+                  ),
                 ],
-              ),
-              gap24,
-              KListViewSeparated(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: "Evan Hossain".text.make(),
-                    subtitle: "Dhaka, Bangladesh".text.make(),
-                    // leading: KCircleAvatar(
-                    //   imgUrl: "https://i.pravatar.cc/300",
-                    //   enableBorder: true,
-                    //   radius: 30.r,
-                    // ),
-                    leading: Images.deliveryBox.circularAssetImage(),
-                    trailing: const Icon(Icons.details)
-                        .iconColor(ColorPalate.secondary200)
-                        .rotate90(),
-                  );
-                },
-                itemCount: 10,
               )
+                  .p(16.w)
+                  .box
+                  .color(ColorPalate.bg100)
+                  .topRounded()
+                  .roundedLg
+                  .shadow
+                  .make(),
             ],
           ),
         ),

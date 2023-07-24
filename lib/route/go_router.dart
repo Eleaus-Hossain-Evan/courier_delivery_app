@@ -1,4 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:courier_delivery_app/presentation/customer_detail/customer_detail_screen.dart';
+import 'package:courier_delivery_app/presentation/notification/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:go_router/go_router.dart';
@@ -92,6 +94,20 @@ class RouterNotifier extends ChangeNotifier {
         GoRoute(
           path: SignupScreen.route,
           builder: (context, state) => const SignupScreen(),
+        ),
+        GoRoute(
+          path: NotificationScreen.route,
+          pageBuilder: (context, state) => SlideRightToLeftTransitionPage(
+            key: state.pageKey,
+            child: const NotificationScreen(),
+          ),
+        ),
+        GoRoute(
+          path: CustomerDetailScreen.route,
+          pageBuilder: (context, state) => SlideRightToLeftTransitionPage(
+            key: state.pageKey,
+            child: const CustomerDetailScreen(),
+          ),
         ),
         GoRoute(
           path: ResetPasswordScreen.route,
