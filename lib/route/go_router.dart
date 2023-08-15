@@ -1,4 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:courier_delivery_app/application/auth/auth_provider.dart';
+import 'package:courier_delivery_app/pickup_man/presentation/main_nav_pickup/main_nav_pickup.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -15,6 +17,8 @@ import '../presentation/profile/pages/change_password_screen.dart';
 import '../presentation/profile/pages/edit_profile/profile_detail_screen.dart';
 import '../presentation/profile/pages/html_text.dart';
 import '../presentation/splash/splash_screen.dart';
+import 'pickup_route.dart';
+import 'rider_route.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
   final router = RouterNotifier(ref);
@@ -48,11 +52,12 @@ class RouterNotifier extends ChangeNotifier {
   }
 
   String? _redirectLogic(BuildContext context, GoRouterState state) {
-    final token = _ref.watch(loggedInProvider.notifier).token;
+    // final token = _ref.watch(loggedInProvider.notifier).token;
     final user = _ref.watch(loggedInProvider.notifier).user;
 
     final isLoggedIn = _ref.watch(loggedInProvider).loggedIn; //bool
     // final isOnboarding = _ref.watch(loggedInProvider).onboarding; //bool
+    final isRider = user.role == Role.rider;
 
     // Logger.i('RouterNotifier: isLoggedIn - $isLoggedIn');
     // log('RouterNotifier:  $token, $user');
@@ -68,79 +73,78 @@ class RouterNotifier extends ChangeNotifier {
     }
 
     if (areWeLoggingIn || areWeRegistering) {
-      return MainNav.route;
+      return isRider ? MainNavRider.route : MainNavPickupMan.route;
     }
 
     return null;
   }
 
-  List<GoRoute> get _routes => [
-        GoRoute(
-          path: SplashScreen.route,
-          builder: (context, state) => const SplashScreen(),
+  List<GoRoute> get _routes => [...sharedRoute, ...pickupRoute, ...riderRoute];
+
+  List<GoRoute> sharedRoute = [
+    GoRoute(
+      path: SplashScreen.route,
+      builder: (context, state) => const SplashScreen(),
+    ),
+    GoRoute(
+      path: HomeScreenRider.route,
+      builder: (context, state) => const HomeScreenRider(),
+    ),
+    GoRoute(
+      path: LoginScreen.route,
+      builder: (context, state) => const LoginScreen(),
+    ),
+    GoRoute(
+      path: SignUpScreen.route,
+      builder: (context, state) => const SignUpScreen(),
+    ),
+    GoRoute(
+      path: NotificationScreen.route,
+      pageBuilder: (context, state) => SlideRightToLeftTransitionPage(
+        key: state.pageKey,
+        child: const NotificationScreen(),
+      ),
+    ),
+    GoRoute(
+      path: ResetPasswordScreen.route,
+      pageBuilder: (context, state) => SlideBottomToTopTransitionPage(
+        key: state.pageKey,
+        child: const ResetPasswordScreen(),
+      ),
+    ),
+    GoRoute(
+      path: ProfileDetailScreen.route,
+      pageBuilder: (context, state) => SlideRightToLeftTransitionPage(
+        key: state.pageKey,
+        child: const ProfileDetailScreen(),
+      ),
+    ),
+    GoRoute(
+      path: BankDetailsScreen.route,
+      pageBuilder: (context, state) => SlideRightToLeftTransitionPage(
+        key: state.pageKey,
+        child: const BankDetailsScreen(),
+      ),
+    ),
+    GoRoute(
+      path: HtmlTextScreen.route,
+      pageBuilder: (context, state) => SlideRightToLeftTransitionPage(
+        key: state.pageKey,
+        child: const HtmlTextScreen(
+          details: '',
+          title: '',
         ),
-        GoRoute(
-          path: MainNav.route,
-          builder: (context, state) => const MainNav(),
-        ),
-        GoRoute(
-          path: HomeScreen.route,
-          builder: (context, state) => const HomeScreen(),
-        ),
-        GoRoute(
-          path: LoginScreen.route,
-          builder: (context, state) => const LoginScreen(),
-        ),
-        GoRoute(
-          path: SignUpScreen.route,
-          builder: (context, state) => const SignUpScreen(),
-        ),
-        GoRoute(
-          path: NotificationScreen.route,
-          pageBuilder: (context, state) => SlideRightToLeftTransitionPage(
-            key: state.pageKey,
-            child: const NotificationScreen(),
-          ),
-        ),
-        GoRoute(
-          path: ResetPasswordScreen.route,
-          pageBuilder: (context, state) => SlideBottomToTopTransitionPage(
-            key: state.pageKey,
-            child: const ResetPasswordScreen(),
-          ),
-        ),
-        GoRoute(
-          path: ProfileDetailScreen.route,
-          pageBuilder: (context, state) => SlideRightToLeftTransitionPage(
-            key: state.pageKey,
-            child: const ProfileDetailScreen(),
-          ),
-        ),
-        GoRoute(
-          path: BankDetailsScreen.route,
-          pageBuilder: (context, state) => SlideRightToLeftTransitionPage(
-            key: state.pageKey,
-            child: const BankDetailsScreen(),
-          ),
-        ),
-        GoRoute(
-          path: HtmlTextScreen.route,
-          pageBuilder: (context, state) => SlideRightToLeftTransitionPage(
-            key: state.pageKey,
-            child: const HtmlTextScreen(
-              details: '',
-              title: '',
-            ),
-          ),
-        ),
-        GoRoute(
-          path: ChangePasswordScreen.route,
-          pageBuilder: (context, state) => SlideRightToLeftTransitionPage(
-            key: state.pageKey,
-            child: const ChangePasswordScreen(),
-          ),
-        ),
-      ];
+      ),
+    ),
+    GoRoute(
+      path: ChangePasswordScreen.route,
+      pageBuilder: (context, state) => SlideRightToLeftTransitionPage(
+        key: state.pageKey,
+        child: const ChangePasswordScreen(),
+      ),
+    ),
+  ];
+
   Page<void> _errorPageBuilder(BuildContext context, GoRouterState state) =>
       MaterialPage(
         key: state.pageKey,

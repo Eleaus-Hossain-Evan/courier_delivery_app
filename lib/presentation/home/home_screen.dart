@@ -13,9 +13,9 @@ import 'widgets/home_app_bar.dart';
 import 'widgets/search_delivery.dart';
 import 'widgets/working_summery.dart';
 
-class HomeScreen extends HookConsumerWidget {
-  static String route = "/home";
-  const HomeScreen({super.key});
+class HomeScreenRider extends HookConsumerWidget {
+  static String route = "/home-rider";
+  const HomeScreenRider({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final scrollController = useScrollController();

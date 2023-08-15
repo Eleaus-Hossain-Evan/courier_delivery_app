@@ -11,16 +11,16 @@ import '../profile/profile_screen.dart';
 
 final bottomNavigatorKey = GlobalKey();
 
-class MainNav extends HookConsumerWidget {
-  static const route = '/main_nav';
+class MainNavRider extends HookConsumerWidget {
+  static const route = '/main-nav-rider';
 
-  const MainNav({Key? key}) : super(key: key);
+  const MainNavRider({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final navIndex = useState(0);
     final navWidget = [
-      const HomeScreen(),
+      const HomeScreenRider(),
       const DeliveryScreen(),
       const EarningScreen(),
       const ProfileScreen(),

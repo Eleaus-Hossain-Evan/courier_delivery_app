@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -52,3 +54,12 @@ class LoggedInNotifier extends ChangeNotifier {
         .get(AppStrings.user, defaultValue: UserModel.init().toJson()));
   }
 }
+
+final isAuthenticateProvider = StreamProvider<bool>((ref) {
+  final watchingValue = StreamController<bool>();
+  ref.watch(hiveProvider).getEvent(AppStrings.token).listen((event) {
+    watchingValue.sink.add(event.value);
+  });
+
+  return watchingValue.stream;
+});

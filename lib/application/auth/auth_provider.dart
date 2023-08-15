@@ -74,6 +74,9 @@ class AuthNotifier extends StateNotifier<AuthState> {
         ref
             .read(loggedInProvider.notifier)
             .updateAuthCache(token: r.data.token, user: r.data);
+
+        ref.read(roleProvider.notifier).state = r.data.role;
+
         NetworkHandler.instance.setToken(r.data.token);
         return state = state.copyWith(user: r.data, loading: false);
       },

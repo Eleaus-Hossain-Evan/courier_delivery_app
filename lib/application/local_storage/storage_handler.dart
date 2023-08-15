@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../utils/strings.dart';
@@ -35,4 +37,6 @@ class StorageHandler {
   void delete(String tag) {
     _cacheBox.delete(tag);
   }
+
+  Stream<BoxEvent> getEvent(String key) => _cacheBox.watch(key: key);
 }

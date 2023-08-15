@@ -4,6 +4,7 @@ class AppStrings {
   static const String appName = 'Courier Delivery App';
   static const String token = 'token';
   static const String user = 'user';
+  static const String role = 'role';
   static const String firebaseToken = 'firebaseToken';
   static const String onBoard = "onBoard-key";
   static const String cacheBox = 'cacheBox';
@@ -102,37 +103,6 @@ class AppStrings {
   static const String reTypePassword = "Re-Type Password";
   static const String notMatch = "Password doesn't match";
 
-  //#----------------  Parcel ----------------
-  static const String parcel = "Parcel";
-  static const String deliveryInformation = "Delivery Information";
-  static const String createParcel = "Create Parcel";
-  static const String updateParcel = "Update Parcel";
-  static const String description = "Description";
-  static const String cashCollection = "Cash Collection";
-  static const String category = "Category";
-  static const String selectCategory = "Select Category";
-  static const String materialType = "Material Type";
-  static const String selectMaterialType = "Select Material Type";
-  static const String productPrice = "Product Price";
-  static const String productWeight = "Product Weight";
-  static const String selectProductWeight = "Select Product Weight";
-  static const String invoiceNo = "Invoice no.";
-  static const String selectArea = "Select Area";
-  static const String selectDistrict = "Select District";
-  static const String addressInformation = "Address Information";
-  static const String customerInformation = "Customer Information";
-  static const String createNewParcel = 'Create New Parcel';
-  static const String search = "Search";
-  static const String merchantInformation = "Merchant Information";
-  static const String noShopSelected = "No Shop Selected";
-  static const String otherInformation = "Other Information";
-  static const String deliveryCharge = "Delivery Charge";
-  static const String codCharge = "COD Charge";
-  static const String weightCharge = "Weight Charge";
-  static const String trackParcel = "Track Parcel";
-  static const String createAnother = "Create Another";
-  static const String yourParcelHasBeenCreatedSuccessfully =
-      "Your parcel has been created successfully";
-  static String youCanTruckYourParcel(String id) =>
-      "You can track your parcel with tracking id: #$id";
+  //#----------------  PickUp History ----------------
+  static const String history = "History";
 }

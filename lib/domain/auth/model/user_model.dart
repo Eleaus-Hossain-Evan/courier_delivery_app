@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 
 import 'package:courier_delivery_app/domain/auth/model/salary_model.dart';
 
+import '../../../application/auth/auth_provider.dart';
 import 'bank_account_model.dart';
 import 'hub_model.dart';
 import 'other_account_model.dart';
@@ -16,7 +17,7 @@ class UserModel extends Equatable {
   final int salary; //
   final String defaultPayment; //
   final bool isDisabled;
-  final String role;
+  final Role role;
   final String name;
   final String email;
   final String phone;
@@ -57,7 +58,7 @@ class UserModel extends Equatable {
         salary: 0,
         defaultPayment: '',
         isDisabled: false,
-        role: '',
+        role: Role.rider,
         name: '',
         email: '',
         phone: '',
@@ -78,7 +79,7 @@ class UserModel extends Equatable {
     int? salary,
     String? defaultPayment,
     bool? isDisabled,
-    String? role,
+    Role? role,
     String? name,
     String? email,
     String? phone,
@@ -121,7 +122,7 @@ class UserModel extends Equatable {
       'salary': salary,
       'defaultPayment': defaultPayment,
       'isDisabled': isDisabled,
-      'role': role,
+      'role': role.name,
       'name': name,
       'email': email,
       'phone': phone,
@@ -144,7 +145,7 @@ class UserModel extends Equatable {
       salary: map['salary']?.toInt() ?? 0,
       defaultPayment: map['defaultPayment'] ?? '',
       isDisabled: map['isDisabled'] ?? false,
-      role: map['role'] ?? '',
+      role: Role.values.byName(map['role']),
       name: map['name'] ?? '',
       email: map['email'] ?? '',
       phone: map['phone'] ?? '',
