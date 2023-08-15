@@ -19,14 +19,6 @@ class ProfilePicWidget extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(authProvider);
 
-    String getName() {
-      return ref.watch(appLocalProvider).languageCode == 'en'
-          ? "${state.user.firstName} ${state.user.lastName}"
-          : state.user.nameInArabic.isEmpty
-              ? "_ _"
-              : state.user.nameInArabic;
-    }
-
     return KInkWell(
       onTap: onEditTap,
       borderRadius: radius16,
@@ -38,44 +30,29 @@ class ProfilePicWidget extends HookConsumerWidget {
         ),
         child: Row(
           children: [
-            SizedBox(
-              height: 81.w,
-              width: 81.w,
-              child: state.user.profilePicture.isNotEmpty
-                  ? KCircleAvatar(
-                      imgUrl: state.user.profilePicture,
-                      radius: 40.w,
-                      enableBorder: true,
-                    )
-                  : CircleAvatar(
-                      radius: 40.w,
-                      backgroundColor: context.color.onPrimaryContainer,
-                      child: const Icon(
-                        Icons.person_outline,
-                        size: 80,
-                      ),
-                    ),
-              // child: Image.asset(KAssets.avatar),
+            KUserAvatar(
+              radius: 36.w,
+              enableBorder: true,
             ),
             gap16,
             Column(
               crossAxisAlignment: crossStart,
               children: [
                 Text(
-                  getName(),
+                  state.user.name,
                   style: CustomTextStyle.textStyle16w600,
                 ),
                 gap4,
                 Text(
                   state.user.email,
-                  style: CustomTextStyle.textStyle14w400HG800,
+                  style: CustomTextStyle.textStyle14w400,
                 ),
                 gap4,
                 Text(
                   ref.watch(appLocalProvider).languageCode == 'en'
                       ? state.user.phone
                       : int.parse(state.user.phone).toArabicDigits(),
-                  style: CustomTextStyle.textStyle14w400HG800,
+                  style: CustomTextStyle.textStyle14w400B800,
                 ),
               ],
             ),

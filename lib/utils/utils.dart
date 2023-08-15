@@ -1,4 +1,4 @@
-export 'api_routes.dart';
+export 'api_endpoints/api_pickup_endpoint.dart';
 export 'color_palate.dart';
 export 'custom_style.dart';
 export 'ui_constant.dart';

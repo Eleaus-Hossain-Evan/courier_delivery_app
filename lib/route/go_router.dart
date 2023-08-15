@@ -1,8 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:courier_delivery_app/presentation/customer_detail/customer_detail_screen.dart';
-import 'package:courier_delivery_app/presentation/notification/notification_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -12,8 +9,11 @@ import '../presentation/auth/reset_password/reset_password.dart';
 import '../presentation/auth/signup/signup.dart';
 import '../presentation/home/home_screen.dart';
 import '../presentation/main_nav/main_nav.dart';
+import '../presentation/notification/notification_screen.dart';
+import '../presentation/profile/pages/bank_details_screen.dart';
 import '../presentation/profile/pages/change_password_screen.dart';
-import '../presentation/profile/pages/edit_profile/edit_profile_screen.dart';
+import '../presentation/profile/pages/edit_profile/profile_detail_screen.dart';
+import '../presentation/profile/pages/html_text.dart';
 import '../presentation/splash/splash_screen.dart';
 
 final routerProvider = Provider<GoRouter>((ref) {
@@ -54,17 +54,17 @@ class RouterNotifier extends ChangeNotifier {
     final isLoggedIn = _ref.watch(loggedInProvider).loggedIn; //bool
     // final isOnboarding = _ref.watch(loggedInProvider).onboarding; //bool
 
-    Logger.i('RouterNotifier: isLoggedIn - $isLoggedIn');
-    Logger.i('RouterNotifier:  $token, $user');
+    // Logger.i('RouterNotifier: isLoggedIn - $isLoggedIn');
+    // log('RouterNotifier:  $token, $user');
 
     final areWeLoggingIn = state.matchedLocation == LoginScreen.route;
-    final areWeRegistering = state.matchedLocation == SignupScreen.route;
+    final areWeRegistering = state.matchedLocation == SignUpScreen.route;
 
     if (!isLoggedIn && areWeLoggingIn) {
       return areWeLoggingIn ? null : LoginScreen.route;
     }
     if (!isLoggedIn && areWeRegistering) {
-      return areWeRegistering ? null : SignupScreen.route;
+      return areWeRegistering ? null : SignUpScreen.route;
     }
 
     if (areWeLoggingIn || areWeRegistering) {
@@ -89,24 +89,17 @@ class RouterNotifier extends ChangeNotifier {
         ),
         GoRoute(
           path: LoginScreen.route,
-          builder: (context, state) => LoginScreen(),
+          builder: (context, state) => const LoginScreen(),
         ),
         GoRoute(
-          path: SignupScreen.route,
-          builder: (context, state) => const SignupScreen(),
+          path: SignUpScreen.route,
+          builder: (context, state) => const SignUpScreen(),
         ),
         GoRoute(
           path: NotificationScreen.route,
           pageBuilder: (context, state) => SlideRightToLeftTransitionPage(
             key: state.pageKey,
             child: const NotificationScreen(),
-          ),
-        ),
-        GoRoute(
-          path: CustomerDetailScreen.route,
-          pageBuilder: (context, state) => SlideRightToLeftTransitionPage(
-            key: state.pageKey,
-            child: const CustomerDetailScreen(),
           ),
         ),
         GoRoute(
@@ -117,10 +110,27 @@ class RouterNotifier extends ChangeNotifier {
           ),
         ),
         GoRoute(
-          path: EditProfileScreen.route,
+          path: ProfileDetailScreen.route,
           pageBuilder: (context, state) => SlideRightToLeftTransitionPage(
             key: state.pageKey,
-            child: const EditProfileScreen(),
+            child: const ProfileDetailScreen(),
+          ),
+        ),
+        GoRoute(
+          path: BankDetailsScreen.route,
+          pageBuilder: (context, state) => SlideRightToLeftTransitionPage(
+            key: state.pageKey,
+            child: const BankDetailsScreen(),
+          ),
+        ),
+        GoRoute(
+          path: HtmlTextScreen.route,
+          pageBuilder: (context, state) => SlideRightToLeftTransitionPage(
+            key: state.pageKey,
+            child: const HtmlTextScreen(
+              details: '',
+              title: '',
+            ),
           ),
         ),
         GoRoute(
@@ -201,5 +211,24 @@ class SlideBottomToTopTransitionPage extends CustomTransitionPage {
           },
           child:
               child, // Here you may also wrap this child with some common designed widget
+        );
+}
+
+class NoTransitionPage extends CustomTransitionPage {
+  NoTransitionPage({
+    LocalKey? key,
+    required Widget child,
+  }) : super(
+          key: key,
+          fullscreenDialog: true,
+          transitionsBuilder: (
+            BuildContext context,
+            Animation<double> animation,
+            Animation<double> secondaryAnimation,
+            Widget child,
+          ) {
+            return child;
+          },
+          child: child,
         );
 }

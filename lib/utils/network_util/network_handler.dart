@@ -41,7 +41,8 @@ class NetworkHandler {
         'Content-Type': 'application/json',
         'Content': 'application/json',
         'Accept': 'application/json',
-        if (_token != null && _token!.isNotEmpty) "Authorization": "$_token"
+        if (_token != null && _token!.isNotEmpty)
+          "Authorization": "Bearer $_token"
       };
     } else {
       return {
@@ -60,7 +61,7 @@ class NetworkHandler {
     final Map<String, String> _header = header(withToken);
 
     final url = Uri.parse('$_baseUrl$endPoint');
-    Logger.v('URL : $url, Header : $_header');
+    Logger.v('METHOD : GET\nURL : $url\nHeader : $_header');
 
     try {
       final response = await client.get(
@@ -84,7 +85,7 @@ class NetworkHandler {
           url: "$_baseUrl$endPoint",
           header: _header,
           body: const {},
-          error: const {"message": 'No Internet connection 😑'},
+          error: const CleanError(message: 'No Internet connection 😑'),
         ),
       );
     } on HttpException {
@@ -98,7 +99,7 @@ class NetworkHandler {
           url: "$_baseUrl$endPoint",
           header: _header,
           body: const {},
-          error: const {"message": "Couldn't find 😱"},
+          error: const CleanError(message: "Couldn't find 😱"),
         ),
       );
     } on FormatException {
@@ -112,7 +113,7 @@ class NetworkHandler {
           url: "$_baseUrl$endPoint",
           header: _header,
           body: const {},
-          error: const {"message": "Bad response format 👎"},
+          error: const CleanError(message: "Bad response format 👎"),
         ),
       );
     } catch (e) {
@@ -127,7 +128,7 @@ class NetworkHandler {
           url: "$_baseUrl$endPoint",
           header: _header,
           body: const {},
-          error: e.toString(),
+          error: CleanError(message: e.toString()),
         ),
       );
     }
@@ -142,8 +143,7 @@ class NetworkHandler {
     final Map<String, String> _header = header(withToken);
 
     final url = Uri.parse('$_baseUrl$endPoint');
-    Logger.v('URL : $url, Header : $_header');
-    Logger.v('BODY : $body');
+    Logger.v('METHOD : POST\nURL : $url\nHeader : $_header\nBODY : $body');
 
     try {
       final response = await client.post(
@@ -168,7 +168,7 @@ class NetworkHandler {
           url: "$_baseUrl$endPoint",
           header: _header,
           body: const {},
-          error: const {"message": 'No Internet connection 😑'},
+          error: const CleanError(message: 'No Internet connection 😑'),
         ),
       );
     } on HttpException {
@@ -182,7 +182,7 @@ class NetworkHandler {
           url: "$_baseUrl$endPoint",
           header: _header,
           body: const {},
-          error: const {"message": "Couldn't find 😱"},
+          error: const CleanError(message: "Couldn't find 😱"),
         ),
       );
     } on FormatException {
@@ -196,7 +196,7 @@ class NetworkHandler {
           url: "$_baseUrl$endPoint",
           header: _header,
           body: const {},
-          error: const {"message": "Bad response format 👎"},
+          error: const CleanError(message: "Bad response format 👎"),
         ),
       );
     } catch (e) {
@@ -211,7 +211,7 @@ class NetworkHandler {
           url: "$_baseUrl$endPoint",
           header: _header,
           body: const {},
-          error: e.toString(),
+          error: CleanError(message: e.toString()),
         ),
       );
     }
@@ -223,13 +223,10 @@ class NetworkHandler {
     required Map<String, dynamic> body,
     bool withToken = true,
   }) async {
-    Logger.v('BODY : $body');
-
     final Map<String, String> _header = header(withToken);
 
     final url = Uri.parse('$_baseUrl$endPoint');
-    Logger.v('URL : $url, Header : $_header');
-    Logger.v('BODY : $body');
+    Logger.v('METHOD : PUT\nURL : $url\nHeader : $_header\nBODY : $body');
 
     try {
       final response = await client.put(
@@ -254,7 +251,7 @@ class NetworkHandler {
           url: "$_baseUrl$endPoint",
           header: _header,
           body: const {},
-          error: const {"message": 'No Internet connection 😑'},
+          error: const CleanError(message: 'No Internet connection 😑'),
         ),
       );
     } on HttpException {
@@ -268,7 +265,7 @@ class NetworkHandler {
           url: "$_baseUrl$endPoint",
           header: _header,
           body: const {},
-          error: const {"message": "Couldn't find 😱"},
+          error: const CleanError(message: "Couldn't find 😱"),
         ),
       );
     } on FormatException {
@@ -282,7 +279,7 @@ class NetworkHandler {
           url: "$_baseUrl$endPoint",
           header: _header,
           body: const {},
-          error: const {"message": "Bad response format 👎"},
+          error: const CleanError(message: "Bad response format 👎"),
         ),
       );
     } catch (e) {
@@ -297,7 +294,7 @@ class NetworkHandler {
           url: "$_baseUrl$endPoint",
           header: _header,
           body: const {},
-          error: e.toString(),
+          error: CleanError(message: e.toString()),
         ),
       );
     }
@@ -313,8 +310,7 @@ class NetworkHandler {
 
     final url = Uri.parse('$_baseUrl$endPoint');
 
-    Logger.v('URL : $url, Header : $_header');
-    Logger.v('BODY : $body');
+    Logger.v('METHOD : PATCH\nURL : $url\nHeader : $_header\nBODY : $body');
 
     try {
       final response = await client.patch(
@@ -339,7 +335,7 @@ class NetworkHandler {
           url: "$_baseUrl$endPoint",
           header: _header,
           body: const {},
-          error: const {"message": 'No Internet connection 😑'},
+          error: const CleanError(message: 'No Internet connection 😑'),
         ),
       );
     } on HttpException {
@@ -353,7 +349,7 @@ class NetworkHandler {
           url: "$_baseUrl$endPoint",
           header: _header,
           body: const {},
-          error: const {"message": "Couldn't find 😱"},
+          error: const CleanError(message: "Couldn't find 😱"),
         ),
       );
     } on FormatException {
@@ -367,7 +363,7 @@ class NetworkHandler {
           url: "$_baseUrl$endPoint",
           header: _header,
           body: const {},
-          error: const {"message": "Bad response format 👎"},
+          error: const CleanError(message: "Bad response format 👎"),
         ),
       );
     } catch (e) {
@@ -382,7 +378,90 @@ class NetworkHandler {
           url: "$_baseUrl$endPoint",
           header: _header,
           body: const {},
-          error: e.toString(),
+          error: CleanError(message: e.toString()),
+        ),
+      );
+    }
+  }
+
+  Future<Either<CleanFailure, T>> delete<T>({
+    required String endPoint,
+    required T Function(Map<String, dynamic> data) fromData,
+    Map<String, dynamic>? body,
+    bool withToken = true,
+  }) async {
+    final Map<String, String> _header = header(withToken);
+
+    final url = Uri.parse('$_baseUrl$endPoint');
+
+    Logger.v('METHOD : DELETE\nURL : $url\nHeader : $_header\nBODY : $body');
+
+    try {
+      final response = await client.delete(
+        url,
+        headers: _header,
+      );
+
+      return handleResponse(
+        endPoint: endPoint,
+        response: response,
+        fromData: fromData,
+      );
+    } on SocketException {
+      Logger.e("<<SocketException>>");
+      return left(
+        CleanFailure.withData(
+          statusCode: -1,
+          enableDialogue: _enableDialogue,
+          tag: endPoint,
+          method: 'GET',
+          url: "$_baseUrl$endPoint",
+          header: _header,
+          body: const {},
+          error: const CleanError(message: 'No Internet connection 😑'),
+        ),
+      );
+    } on HttpException {
+      Logger.e("<<HttpException>>");
+      return left(
+        CleanFailure.withData(
+          statusCode: -1,
+          enableDialogue: _enableDialogue,
+          tag: endPoint,
+          method: 'GET',
+          url: "$_baseUrl$endPoint",
+          header: _header,
+          body: const {},
+          error: const CleanError(message: "Couldn't find 😱"),
+        ),
+      );
+    } on FormatException {
+      Logger.e("<<FormatException>>");
+      return left(
+        CleanFailure.withData(
+          statusCode: -1,
+          enableDialogue: _enableDialogue,
+          tag: endPoint,
+          method: 'GET',
+          url: "$_baseUrl$endPoint",
+          header: _header,
+          body: const {},
+          error: const CleanError(message: "Bad response format 👎"),
+        ),
+      );
+    } catch (e) {
+      Logger.e("1st catch Header: $_header");
+      Logger.e("1st catch Error: $e");
+      return left(
+        CleanFailure.withData(
+          statusCode: -1,
+          enableDialogue: _enableDialogue,
+          tag: endPoint,
+          method: 'GET',
+          url: "$_baseUrl$endPoint",
+          header: _header,
+          body: const {},
+          error: CleanError(message: e.toString()),
         ),
       );
     }
@@ -393,7 +472,7 @@ class NetworkHandler {
     required String endPoint,
     required T Function(Map<String, dynamic> data) fromData,
   }) {
-    Logger.v("request: ${response.request}");
+    // Logger.v("request: ${response.request}");
     Logger.json(response.body);
 
     if (isSuccessful(response.statusCode)) {
@@ -418,7 +497,7 @@ class NetworkHandler {
             statusCode: response.statusCode,
             header: response.request?.headers ?? {},
             body: _regResponse,
-            error: e,
+            error: CleanError(message: e.toString()),
           ),
         );
       }
@@ -438,7 +517,7 @@ class NetworkHandler {
           url: response.request?.url.toString() ?? '',
           header: response.request?.headers ?? {},
           body: const {},
-          error: jsonDecode(response.body),
+          error: CleanError(message: jsonDecode(response.body)["message"]),
         ),
       );
     }

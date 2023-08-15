@@ -1,83 +1,84 @@
 import 'dart:convert';
 
-import 'package:equatable/equatable.dart';
-
-class SignupBody extends Equatable {
-  final String firstName;
-  final String lastName;
-  final String phone;
-  final String language;
-  final String usedReferralCode;
+class SignUpBody {
+  final String name;
   final String email;
+  final String password;
+  final String phone;
+  final String address;
 
-  const SignupBody({
-    required this.firstName,
-    required this.lastName,
-    required this.phone,
-    required this.language,
-    required this.usedReferralCode,
+  SignUpBody({
+    required this.name,
     required this.email,
+    required this.password,
+    required this.phone,
+    required this.address,
   });
 
-  SignupBody copyWith({
-    String? firstName,
-    String? lastName,
-    String? phone,
-    String? language,
-    String? usedReferralCode,
+  SignUpBody copyWith({
+    String? name,
     String? email,
+    String? password,
+    String? phone,
+    String? address,
   }) {
-    return SignupBody(
-      firstName: firstName ?? this.firstName,
-      lastName: lastName ?? this.lastName,
-      phone: phone ?? this.phone,
-      language: language ?? this.language,
-      usedReferralCode: usedReferralCode ?? this.usedReferralCode,
+    return SignUpBody(
+      name: name ?? this.name,
       email: email ?? this.email,
+      password: password ?? this.password,
+      phone: phone ?? this.phone,
+      address: address ?? this.address,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'firstName': firstName,
-      'lastName': lastName,
-      'phone': phone,
-      'language': language,
-      'usedReferralCode': usedReferralCode,
+      'name': name,
       'email': email,
+      'password': password,
+      'phone': phone,
+      'address': address,
     };
   }
 
-  factory SignupBody.fromMap(Map<String, dynamic> map) {
-    return SignupBody(
-      firstName: map['firstName'] ?? '',
-      lastName: map['lastName'] ?? '',
-      phone: map['phone'] ?? '',
-      language: map['language'] ?? '',
-      usedReferralCode: map['usedReferralCode'] ?? '',
+  factory SignUpBody.fromMap(Map<String, dynamic> map) {
+    return SignUpBody(
+      name: map['name'] ?? '',
       email: map['email'] ?? '',
+      password: map['password'] ?? '',
+      phone: map['phone'] ?? '',
+      address: map['address'] ?? '',
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory SignupBody.fromJson(String source) =>
-      SignupBody.fromMap(json.decode(source));
+  factory SignUpBody.fromJson(String source) =>
+      SignUpBody.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'SIgnupBody(firstName: $firstName, lastName: $lastName, phone: $phone, language: $language, usedReferralCode: $usedReferralCode, email: $email)';
+    return 'SignUpBody(name: $name, email: $email, password: $password, phone: $phone, address: $address)';
   }
 
   @override
-  List<Object> get props {
-    return [
-      firstName,
-      lastName,
-      phone,
-      language,
-      usedReferralCode,
-      email,
-    ];
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is SignUpBody &&
+        other.name == name &&
+        other.email == email &&
+        other.password == password &&
+        other.phone == phone &&
+        other.address == address;
+  }
+
+  @override
+  int get hashCode {
+    return name.hashCode ^
+        email.hashCode ^
+        password.hashCode ^
+        phone.hashCode ^
+        address.hashCode;
   }
 }

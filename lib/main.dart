@@ -47,7 +47,7 @@ Future<void> main() async {
   final String token = box.get(AppStrings.token, defaultValue: '');
 
   NetworkHandler.instance
-    ..setup(baseUrl: APIRoute.BASE_URL, showLogs: false)
+    ..setup(baseUrl: EndPointPickUp.BASE_URL, showLogs: false)
     ..setToken(token);
 
   Logger.d('token: $token');
@@ -68,12 +68,12 @@ class MyApp extends HookConsumerWidget {
     final router = ref.watch(routerProvider);
     final appTheme = ref.watch(themeProvider);
     final user = ref.watch(loggedInProvider.notifier).user.copyWith(
-          name: "name",
-          email: "evan@email.com",
-          firstName: "Evan",
-          lastName: "Hossain",
-          phone: "01234567890",
-          profilePicture: "https://i.pravatar.cc/300",
+        // name: "name",
+        // email: "evan@email.com",
+        // firstName: "Evan",
+        // lastName: "Hossain",
+        // phone: "01234567890",
+        // profilePicture: "https://i.pravatar.cc/300",
         );
 
     useEffect(() {

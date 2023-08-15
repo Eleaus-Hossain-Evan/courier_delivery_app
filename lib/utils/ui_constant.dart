@@ -27,7 +27,7 @@ double defaultBorderRadius = 12.00.r;
 double defaultHorizontalPadding = gap16.mainAxisExtent;
 double defaultOutsideMarin = 8.00.w;
 
-EdgeInsetsDirectional padding0 = EdgeInsetsDirectional.zero;
+EdgeInsets padding0 = EdgeInsets.zero;
 EdgeInsetsDirectional padding2 = EdgeInsetsDirectional.all(2.w);
 EdgeInsetsDirectional padding4 = EdgeInsetsDirectional.all(4.w);
 EdgeInsetsDirectional padding6 = EdgeInsetsDirectional.all(6.w);

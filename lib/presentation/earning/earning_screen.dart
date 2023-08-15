@@ -1,13 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:velocity_x/velocity_x.dart';
-
-import 'package:courier_delivery_app/presentation/widgets/k_list_view_separated.dart';
 
 import '../../utils/utils.dart';
 import 'widgets/earning_list_tile.dart';
@@ -18,8 +13,6 @@ class EarningScreen extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final scrollController = useScrollController();
-
-    final isScrollUp = useState(false);
 
     void scrollListener() {
       // scrollController.
@@ -50,13 +43,13 @@ class EarningScreen extends HookConsumerWidget {
             delegate: SummerSection(),
           ),
           SliverList.separated(
-            itemBuilder: (context, index) => EarningListTile(
+            itemBuilder: (context, index) => const EarningListTile(
               name: "Samsul Alom",
               orderId: "#1446576867862",
               amount: '7',
             ),
             itemCount: 15,
-            separatorBuilder: (context, index) => HeightBox(16),
+            separatorBuilder: (context, index) => const HeightBox(16),
           ),
 
           // SliverToBoxAdapter(

@@ -2,112 +2,159 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
-import 'address_info.dart';
+import 'package:courier_delivery_app/domain/auth/model/salary_model.dart';
+
+import 'bank_account_model.dart';
+import 'hub_model.dart';
+import 'other_account_model.dart';
 
 class UserModel extends Equatable {
   final String id;
-  final String firstName;
-  final String lastName;
+  final String serialId; //
+  final String address; //
+  final String image; //
+  final int salary; //
+  final String defaultPayment; //
+  final bool isDisabled;
+  final String role;
   final String name;
   final String email;
   final String phone;
-  final String profilePicture;
-  final String myReferralCode;
-  final String language;
-  final String nameInArabic;
-  final AddressInfo addressInfo;
+  final BankAccountModel bankAccount;
+  final OthersAccountModel othersAccount;
+  final List<SalaryModel> salaryHistory;
+  final String createdAt;
+  final String updatedAt;
+  final HubModel hub;
   final String token;
 
   const UserModel({
     required this.id,
-    required this.firstName,
-    required this.lastName,
+    required this.serialId,
+    required this.address,
+    required this.image,
+    required this.salary,
+    required this.defaultPayment,
+    required this.isDisabled,
+    required this.role,
     required this.name,
     required this.email,
     required this.phone,
-    required this.profilePicture,
-    required this.myReferralCode,
-    required this.language,
-    required this.nameInArabic,
-    required this.addressInfo,
+    required this.bankAccount,
+    required this.othersAccount,
+    required this.salaryHistory,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.hub,
     required this.token,
   });
 
   factory UserModel.init() => UserModel(
         id: '',
-        firstName: "",
-        lastName: '',
+        serialId: '',
+        address: '',
+        image: '',
+        salary: 0,
+        defaultPayment: '',
+        isDisabled: false,
+        role: '',
         name: '',
         email: '',
         phone: '',
-        profilePicture: '',
-        myReferralCode: '',
-        language: '',
-        nameInArabic: '',
-        addressInfo: AddressInfo.init(),
+        bankAccount: BankAccountModel.init(),
+        othersAccount: OthersAccountModel.init(),
+        salaryHistory: const [],
+        createdAt: '',
+        updatedAt: '',
+        hub: HubModel.init(),
         token: '',
       );
 
   UserModel copyWith({
     String? id,
-    String? firstName,
-    String? lastName,
+    String? serialId,
+    String? address,
+    String? image,
+    int? salary,
+    String? defaultPayment,
+    bool? isDisabled,
+    String? role,
     String? name,
     String? email,
     String? phone,
-    String? profilePicture,
-    String? myReferralCode,
-    String? language,
-    String? nameInArabic,
-    AddressInfo? addressInfo,
+    BankAccountModel? bankAccount,
+    OthersAccountModel? othersAccount,
+    List<SalaryModel>? salaryHistory,
+    String? createdAt,
+    String? updatedAt,
+    HubModel? hub,
     String? token,
   }) {
     return UserModel(
       id: id ?? this.id,
-      firstName: firstName ?? this.firstName,
-      lastName: lastName ?? this.lastName,
+      serialId: serialId ?? this.serialId,
+      address: address ?? this.address,
+      image: image ?? this.image,
+      salary: salary ?? this.salary,
+      defaultPayment: defaultPayment ?? this.defaultPayment,
+      isDisabled: isDisabled ?? this.isDisabled,
+      role: role ?? this.role,
       name: name ?? this.name,
       email: email ?? this.email,
       phone: phone ?? this.phone,
-      profilePicture: profilePicture ?? this.profilePicture,
-      myReferralCode: myReferralCode ?? this.myReferralCode,
-      language: language ?? this.language,
-      nameInArabic: nameInArabic ?? this.nameInArabic,
-      addressInfo: addressInfo ?? this.addressInfo,
+      bankAccount: bankAccount ?? this.bankAccount,
+      othersAccount: othersAccount ?? this.othersAccount,
+      salaryHistory: salaryHistory ?? this.salaryHistory,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      hub: hub ?? this.hub,
       token: token ?? this.token,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'id': id,
-      'firstName': firstName,
-      'lastName': lastName,
+      '_id': id,
+      'serialId': serialId,
+      'address': address,
+      'image': image,
+      'salary': salary,
+      'defaultPayment': defaultPayment,
+      'isDisabled': isDisabled,
+      'role': role,
       'name': name,
       'email': email,
       'phone': phone,
-      'profilePicture': profilePicture,
-      'myReferralCode': myReferralCode,
-      'language': language,
-      'nameInArabic': nameInArabic,
-      'addressInfo': addressInfo.toMap(),
+      'bankAccount': bankAccount.toMap(),
+      'othersAccount': othersAccount.toMap(),
+      'salaryHistory': salaryHistory.map((x) => x.toMap()).toList(),
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
+      'hub': hub.toMap(),
       'token': token,
     };
   }
 
   factory UserModel.fromMap(Map<String, dynamic> map) {
     return UserModel(
-      id: map['id'] ?? '',
-      firstName: map['firstName'] ?? '',
-      lastName: map['lastName'] ?? '',
+      id: map['_id'] ?? '',
+      serialId: map['serialId'] ?? '',
+      address: map['address'] ?? '',
+      image: map['image'] ?? '',
+      salary: map['salary']?.toInt() ?? 0,
+      defaultPayment: map['defaultPayment'] ?? '',
+      isDisabled: map['isDisabled'] ?? false,
+      role: map['role'] ?? '',
       name: map['name'] ?? '',
       email: map['email'] ?? '',
       phone: map['phone'] ?? '',
-      profilePicture: map['profilePicture'] ?? '',
-      myReferralCode: map['myReferralCode'] ?? '',
-      language: map['language'] ?? '',
-      nameInArabic: map['nameInArabic'] ?? '',
-      addressInfo: AddressInfo.fromMap(map['addressInfo']),
+      bankAccount: BankAccountModel.fromMap(map['bankAccount']),
+      othersAccount: OthersAccountModel.fromMap(map['othersAccount']),
+      salaryHistory: List<SalaryModel>.from(
+          map['salaryHistory']?.map((x) => SalaryModel.fromMap(x)) ?? const []),
+      createdAt: map['createdAt'] ?? '',
+      updatedAt: map['updatedAt'] ?? '',
+      hub: map['hub'] != null ? HubModel.fromMap(map['hub']) : HubModel.init(),
       token: map['token'] ?? '',
     );
   }
@@ -119,23 +166,29 @@ class UserModel extends Equatable {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, firstName: $firstName, lastName: $lastName, name: $name, email: $email, phone: $phone, profilePicture: $profilePicture, myReferralCode: $myReferralCode, language: $language, nameInArabic: $nameInArabic, addressInfo: $addressInfo, token: $token)';
+    return 'UserModel(id: $id, serialId: $serialId, address: $address, image: $image, salary: $salary, defaultPayment: $defaultPayment, isDisabled: $isDisabled, role: $role, name: $name, email: $email, phone: $phone, bankAccount: $bankAccount, othersAccount: $othersAccount, salaryHistory: $salaryHistory, createdAt: $createdAt, updatedAt: $updatedAt, hub: $hub, token: $token)';
   }
 
   @override
   List<Object> get props {
     return [
       id,
-      firstName,
-      lastName,
+      serialId,
+      address,
+      image,
+      salary,
+      defaultPayment,
+      isDisabled,
+      role,
       name,
       email,
       phone,
-      profilePicture,
-      myReferralCode,
-      language,
-      nameInArabic,
-      addressInfo,
+      bankAccount,
+      othersAccount,
+      salaryHistory,
+      createdAt,
+      updatedAt,
+      hub,
       token,
     ];
   }

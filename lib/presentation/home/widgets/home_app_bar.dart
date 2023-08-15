@@ -29,14 +29,13 @@ class HomeAppBar extends HookConsumerWidget implements PreferredSizeWidget {
           ),
           Text(
             AppStrings.welcome(""),
-            style: CustomTextStyle.textStyle18w600HG1000,
+            style: CustomTextStyle.textStyle18w600Black1000,
           ),
         ],
       ),
       leading: Padding(
         padding: EdgeInsets.all(4.w),
-        child: KCircleAvatar(
-          imgUrl: "https://i.pravatar.cc/300",
+        child: KUserAvatar(
           enableBorder: true,
           radius: 20.r,
         ),

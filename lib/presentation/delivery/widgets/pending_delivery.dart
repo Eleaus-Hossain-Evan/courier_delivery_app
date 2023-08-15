@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../utils/utils.dart';
-import '../../customer_detail/customer_detail_screen.dart';
 import '../../widgets/widgets.dart';
 
 class PendingDelivery extends StatelessWidget {

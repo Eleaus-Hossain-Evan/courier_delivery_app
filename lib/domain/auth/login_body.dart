@@ -4,29 +4,35 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 class LoginBody extends Equatable {
-  final String phone;
+  final String value;
+  final String password;
 
   const LoginBody({
-    required this.phone,
+    required this.value,
+    required this.password,
   });
 
   LoginBody copyWith({
-    String? phone,
+    String? value,
+    String? password,
   }) {
     return LoginBody(
-      phone: phone ?? this.phone,
+      value: value ?? this.value,
+      password: password ?? this.password,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
-      'phone': phone,
+      'value': value,
+      'password': password,
     };
   }
 
   factory LoginBody.fromMap(Map<String, dynamic> map) {
     return LoginBody(
-      phone: map['phone'] ?? '',
+      value: map['value'] ?? '',
+      password: map['password'] ?? '',
     );
   }
 
@@ -34,7 +40,7 @@ class LoginBody extends Equatable {
   bool get stringify => true;
 
   @override
-  List<Object> get props => [phone];
+  List<Object> get props => [value, password];
 
   String toJson() => json.encode(toMap());
 
@@ -42,7 +48,7 @@ class LoginBody extends Equatable {
       LoginBody.fromMap(json.decode(source));
 
   @override
-  String toString() => 'LoginBody(phone: $phone)';
+  String toString() => 'LoginBody(value: $value, password: $password)';
 }
 
 class LoginOtpBody extends Equatable {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import '../../utils/utils.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class KTitleText extends StatelessWidget {
   const KTitleText(this.title,
@@ -24,7 +24,7 @@ class KTitleText extends StatelessWidget {
     return Text(
       title,
       style: style ??
-          context.labelLarge.copyWith(
+          context.labelLarge!.copyWith(
             fontSize: fontSize ?? 20.sp,
             fontWeight: fontWeight,
             color: fontColor,

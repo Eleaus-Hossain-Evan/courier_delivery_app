@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../utils/api_routes.dart';
+import '../../utils/api_endpoints/api_pickup_endpoint.dart';
 
 class KCachedNetworkImageNoBase extends StatelessWidget {
   const KCachedNetworkImageNoBase(
@@ -97,7 +97,7 @@ class KCachedNetworkImageWdLoading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CachedNetworkImage(
-      imageUrl: APIRoute.BASE_URL + imageUrl,
+      imageUrl: EndPointPickUp.BASE_URL + imageUrl,
       fit: fit,
       imageBuilder: (context, imageProvider) {
         return Hero(
@@ -160,7 +160,7 @@ class KCachedNetworkImage extends StatelessWidget {
     return imageUrl.isEmpty
         ? const SizedBox.expand()
         : CachedNetworkImage(
-            imageUrl: "${APIRoute.BASE_URL}$imageUrl",
+            imageUrl: "${EndPointPickUp.BASE_URL}$imageUrl",
             fit: fit,
             height: height,
             width: width,

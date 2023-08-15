@@ -4,6 +4,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import '../../../application/auth/auth_provider.dart';
 import '../../../domain/auth/login_body.dart';
@@ -18,22 +19,20 @@ class LoginScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final role = ref.watch(roleProvider);
     final formKey = useMemoized(GlobalKey.new);
-    final phoneController = useTextEditingController();
-    final passwordController = useTextEditingController();
+    final phoneController = useTextEditingController(text: '01521334558');
+    final passwordController = useTextEditingController(text: '123456');
     final phoneFocus = useFocusScopeNode();
     final passwordFocus = useFocusScopeNode();
 
-    ref.listen(
-      authProvider,
-      (previous, next) {
-        if (previous!.loading == true && next.loading == false) {
-          BotToast.closeAllLoading();
-        } else {
-          BotToast.showLoading();
-        }
-      },
-    );
+    ref.listen(authProvider, (previous, next) {
+      if (previous!.loading == true && next.loading == false) {
+        BotToast.closeAllLoading();
+      } else {
+        BotToast.showLoading();
+      }
+    });
 
     return Scaffold(
       body: Form(
@@ -51,30 +50,65 @@ class LoginScreen extends HookConsumerWidget {
               gap8,
               Text(
                 AppStrings.loginBelowText,
-                style: CustomTextStyle.textStyle16w400HG900,
+                style: CustomTextStyle.textStyle16w400Black900,
               ),
               gap32,
               KTextFormField2(
                 controller: phoneController,
+                containerPadding: padding0,
                 focusNode: phoneFocus,
                 keyboardType: TextInputType.text,
                 hintText: AppStrings.phoneNumberOrEmail,
                 isLabel: true,
+                onFieldSubmitted: (_) => passwordFocus.requestFocus(),
               ),
               gap16,
               KTextFormField2(
                 controller: passwordController,
+                containerPadding: padding0,
                 focusNode: passwordFocus,
                 keyboardType: TextInputType.text,
                 hintText: AppStrings.password,
                 isLabel: true,
+                onFieldSubmitted: (_) => passwordFocus.unfocus(),
+              ),
+              gap16,
+              Row(
+                mainAxisAlignment: mainSpaceBetween,
+                children: [
+                  "Log In as".text.caption(context).bold.make(),
+                  gap16,
+                  ...Role.values
+                      .map(
+                        (e) => Flexible(
+                          child: Row(
+                            mainAxisSize: mainMin,
+                            children: [
+                              Radio<Role>(
+                                value: e,
+                                groupValue: role,
+                                onChanged: (v) =>
+                                    ref.read(roleProvider.notifier).state = e,
+                              ),
+                              (e == Role.rider ? "Rider" : "PickUp Man")
+                                  .text
+                                  .caption(context)
+                                  .make(),
+                            ],
+                          ),
+                        ),
+                      )
+                      .toList()
+                ],
               ),
               gap24,
               FilledButton(
                 onPressed: () async {
-                  ref
-                      .read(authProvider.notifier)
-                      .login(LoginBody(phone: phoneController.text));
+                  FocusManager.instance.primaryFocus!.unfocus();
+                  ref.read(authProvider.notifier).login(LoginBody(
+                        value: phoneController.text,
+                        password: passwordController.text,
+                      ));
                 },
                 child: const Text(
                   AppStrings.login,
@@ -147,15 +181,13 @@ class LoginScreen extends HookConsumerWidget {
               gap24,
               Align(
                 alignment: Alignment.center,
-                child: Text(
-                  AppStrings.dontHaveAccount,
-                  style: CustomTextStyle.textStyle16w500HG900,
-                ),
+                child: Text(AppStrings.dontHaveAccount,
+                    style: CustomTextStyle.textStyle16w500Black900),
               ),
               gap16,
               KElevatedButton(
                 onPressed: () {
-                  context.replace(SignupScreen.route);
+                  context.replace(SignUpScreen.route);
                 },
                 text: AppStrings.createAccount,
               ),

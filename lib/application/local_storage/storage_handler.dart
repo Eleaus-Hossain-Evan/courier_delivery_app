@@ -2,12 +2,12 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../utils/strings.dart';
 
-final hiveProvider = Provider<StorageHandler>((_) => StorageHandler());
+final hiveProvider = Provider<StorageHandler>((_) => StorageHandler.instance);
 
 class StorageHandler {
   StorageHandler._();
-  // static final StorageHandler _instance = StorageHandler._();
-  // static StorageHandler get instance => _instance;
+  static final StorageHandler _instance = StorageHandler._();
+  static StorageHandler get instance => _instance;
 
   late Box _cacheBox;
 

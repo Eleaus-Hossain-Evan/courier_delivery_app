@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../utils/ui_constant.dart';
 import '../../utils/utils.dart';
 
 class KDivider extends StatelessWidget {
@@ -11,21 +10,26 @@ class KDivider extends StatelessWidget {
     this.color,
     this.thickness,
     this.height,
+    this.visible = true,
   }) : super(key: key);
 
   final EdgeInsetsGeometry? padding;
   final Color? color;
   final double? thickness;
   final double? height;
+  final bool visible;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: padding ?? EdgeInsets.zero,
-      child: Divider(
-        thickness: thickness ?? 1.h,
-        height: height ?? 0,
-        color: color ?? ColorPalate.black600,
+    return Visibility(
+      visible: visible,
+      child: Padding(
+        padding: padding ?? EdgeInsets.zero,
+        child: Divider(
+          thickness: thickness ?? 1.h,
+          height: height ?? 0,
+          color: color ?? ColorPalate.black600,
+        ),
       ),
     );
   }

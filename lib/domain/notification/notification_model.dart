@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 class NotificationModel extends Equatable {
   final String id;
-  NotificationModel({
+  const NotificationModel({
     required this.id,
   });
 

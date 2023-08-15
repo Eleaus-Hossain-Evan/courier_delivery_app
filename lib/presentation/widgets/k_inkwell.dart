@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../../utils/utils.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class KInkWell extends StatelessWidget {
   const KInkWell({
@@ -32,9 +31,9 @@ class KInkWell extends StatelessWidget {
             borderRadius: borderRadius ?? BorderRadius.zero),
         // borderRadius: borderRadius ?? BorderRadius.zero,
         radius: radius,
-        highlightColor: context.color.secondary.withOpacity(.12),
+        highlightColor: context.colors.secondary.withOpacity(.12),
         splashColor: rippleColor?.withOpacity(.12) ??
-            context.color.secondary.withOpacity(.12),
+            context.colors.secondary.withOpacity(.12),
         // overlayColor: MaterialStateProperty.resolveWith((states) {
         //   if (states.contains(MaterialState.hovered)) {
         //     return rippleColor?.withOpacity(.12) ??

@@ -1,19 +1,16 @@
 import 'dart:io';
 
-import 'package:bot_toast/bot_toast.dart';
-import 'package:courier_delivery_app/presentation/main_nav/main_nav.dart';
-import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../domain/auth/login_body.dart';
 import '../../domain/auth/model/user_model.dart';
+import '../../domain/auth/password_update_body.dart';
 import '../../domain/auth/profile_update_body.dart';
 import '../../domain/auth/signup_body.dart';
 import '../../infrastructure/auth_repository.dart';
 import '../../route/go_router.dart';
 import '../../utils/utils.dart';
 import '../global.dart';
-import '../local_storage/storage_handler.dart';
 import 'auth_state.dart';
 import 'loggedin_provider.dart';
 
@@ -21,181 +18,167 @@ final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   return AuthNotifier(AuthRepo(), ref);
 }, name: 'authProvider');
 
+enum Role { rider, pickupman }
+
+final roleProvider = StateProvider<Role>((ref) {
+  return Role.rider;
+});
+
 class AuthNotifier extends StateNotifier<AuthState> {
   final AuthRepo repo;
   final Ref ref;
 
-  AuthNotifier(this.repo, this.ref) : super(AuthState.init());
+  AuthNotifier(
+    this.repo,
+    this.ref,
+  ) : super(AuthState.init());
 
   void setUser(UserModel user) {
     state = state.copyWith(user: user);
   }
 
-  void setLanguage(String l) {
-    state = state.copyWith(language: l);
-  }
-
-  void signUp(SignupBody body) async {
+  void signUp(SignUpBody body) async {
     state = state.copyWith(loading: true);
 
-    // final res = await repo.signUp(body);
+    final res = await repo.signUp(body);
 
-    // showNotification(
-    //   title: res.match((l) {
-    //     return l.error;
-    //   }, (r) => r.message),
-    // );
-
-    // state = res.fold(
-    //   (l) {
-    //     // CleanFailureDialogue.show(context, failure: l);
-    //     // showSnackBar(context, l.error);
-    //     return state.copyWith(failure: l, loading: false);
-    //   },
-    //   (r) {
-    //     success = r.success;
-    //     return state.copyWith(user: r.user, loading: false);
-    //   },
-    // );
-    // return success;
-    await Future.delayed(
-      const Duration(seconds: 1),
-      () {
-        return state = state.copyWith(loading: false);
+    state = res.fold(
+      (l) {
+        showErrorToast(l.error.message);
+        return state.copyWith(failure: l, loading: false);
+      },
+      (r) {
+        showToast(r.message);
+        ref
+            .read(loggedInProvider.notifier)
+            .updateAuthCache(token: r.data.token, user: r.data);
+        return state.copyWith(user: r.data, loading: false);
       },
     );
-
-    ref.read(routerProvider).replace(MainNav.route);
   }
 
   void login(LoginBody body) async {
     state = state.copyWith(loading: true);
 
-    // final result = await repo.loginGetOtp(body);
-
-    // state = result.fold(
-    //   (l) {
-    //     showToast(l.error);
-    //     return state = state.copyWith(failure: l, loading: false);
-    //   },
-    //   (r) {
-    //     success = r.success;
-    //     showToast(r.message);
-    //     return state.copyWith(loading: false);
-    //   },
-    // );
-
-    await Future.delayed(
-      const Duration(seconds: 1),
-      () {
-        return state = state.copyWith(loading: false);
-      },
-    );
-
-    ref.read(routerProvider).replace(MainNav.route);
-  }
-
-  Future<bool> loginGetOtp(LoginBody body) async {
-    bool success = false;
-    state = state.copyWith(loading: true);
-
-    final result = await repo.loginGetOtp(body);
+    final result = ref.watch(roleProvider) == Role.pickupman
+        ? await repo.loginPickUp(body)
+        : await repo.loginRider(body);
 
     state = result.fold(
       (l) {
-        showToast(l.error);
-        return state = state.copyWith(failure: l, loading: false);
-      },
-      (r) {
-        success = r.success;
-        showToast(r.message);
-        return state.copyWith(loading: false);
-      },
-    );
-    return success;
-  }
-
-  Future<bool> loginCheckOtp(LoginOtpBody body) async {
-    bool success = false;
-    state = state.copyWith(loading: true);
-
-    final result = await repo.loginCheckOtp(body);
-
-    state = result.fold(
-      (l) {
-        BotToast.showText(text: l.error, contentColor: ColorPalate.error);
+        showErrorToast(l.error.message);
         return state = state.copyWith(failure: l, loading: false);
       },
       (r) {
         showToast(r.message);
         ref
             .read(loggedInProvider.notifier)
-            .updateAuthCache(token: r.user.token, user: r.user);
-        // ref.read(loggedInProvider.notifier).isLoggedIn();
-        success = r.success;
-
-        final String deviceToken = ref
-            .read(hiveProvider)
-            .get(AppStrings.firebaseToken, defaultValue: '');
-
-        Logger.d("deviceToken: $deviceToken");
-
-        if (deviceToken.isNotEmpty) repo.setDeviceToken(deviceToken);
-
-        return state.copyWith(user: r.user, loading: false);
+            .updateAuthCache(token: r.data.token, user: r.data);
+        NetworkHandler.instance.setToken(r.data.token);
+        return state = state.copyWith(user: r.data, loading: false);
       },
     );
-    return success;
   }
 
   void logout() {
     state = state.copyWith(user: UserModel.init());
 
     ref.read(loggedInProvider.notifier).deleteAuthCache();
+    NetworkHandler.instance.setToken("");
 
     // _ref.read(loggedInProvider.notifier).isLoggedIn();
 
     showToast('${state.user.name} logging out');
   }
 
-  void profileView() async {
+  Future<bool> passwordUpdate(PasswordUpdateBody body) async {
+    bool success = false;
     state = state.copyWith(loading: true);
+
+    repo.passwordUpdate(body).then((result) {
+      state = result.fold(
+        (l) {
+          showErrorToast(l.error.message);
+          return state = state.copyWith(failure: l, loading: false);
+        },
+        (r) {
+          success = r.success;
+          showToast(r.message);
+          ref.read(routerProvider).pop();
+          return state = state.copyWith(user: r.data, loading: false);
+        },
+      );
+    });
+
+    return success;
+  }
+
+  Future<bool> profileView() async {
+    bool success = false;
+    // state = state.copyWith(loading: true);
     final result = await repo.profileView();
 
     state = result.fold(
       (l) {
-        BotToast.showText(text: l.error, contentColor: ColorPalate.error);
+        showErrorToast(l.error.message);
         return state = state.copyWith(failure: l, loading: false);
       },
       (r) {
-        return state.copyWith(user: r.user, loading: false);
+        success = r.success;
+        // ref.read(loggedInProvider).changeSavedUser(r.data);
+        return state.copyWith(user: r.data, loading: false);
       },
     );
+
+    return success;
   }
 
-  void profileUpdate(ProfileUpdateBody user, File? image) async {
-    state = state.copyWith(loading: true);
-    String? imageUrl;
+  Future<bool> profileUpdate(ProfileUpdateBody updateUser, File? image) async {
+    bool success = false;
+
+    // state = state.copyWith(loading: true);
+
     if (image != null) {
-      imageUrl = await uploadImage(image);
+      uploadImage(image);
     }
-    user = user.copyWith(profilePicture: imageUrl ?? user.profilePicture);
-    Logger.v('user: $user');
-    final result = await repo.profileUpdate(user);
+
+    final result = await repo.profileUpdate(state.user.copyWith(
+      name: updateUser.name,
+      email: updateUser.email,
+      phone: updateUser.phone,
+      address: updateUser.address,
+    ));
 
     state = result.fold(
       (l) {
-        BotToast.showText(text: l.error, contentColor: ColorPalate.error);
+        showErrorToast(l.error.message);
         return state = state.copyWith(failure: l, loading: false);
       },
       (r) {
-        ref.read(routerProvider).pop();
-        return state.copyWith(user: r.user, loading: false);
+        success = r.success;
+        return state.copyWith(user: r.data, loading: false);
       },
     );
+
+    return success;
   }
 
-  Future<String> uploadImage(File file) {
-    return repo.imageUpload(file);
+  Future<bool> uploadImage(File file) async {
+    bool success = false;
+    state = state.copyWith(loading: true);
+    final result = await repo.imageUpload(file);
+
+    state = result.fold(
+      (l) {
+        showErrorToast(l.error.message);
+        return state = state.copyWith(failure: l, loading: false);
+      },
+      (r) {
+        success = true;
+        return state.copyWith(user: r.data, loading: false);
+      },
+    );
+
+    return success;
   }
 }

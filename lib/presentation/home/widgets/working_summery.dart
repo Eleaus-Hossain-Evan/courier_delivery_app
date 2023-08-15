@@ -25,8 +25,8 @@ class WorkingSummery extends StatelessWidget {
           icon: Icons.delivery_dining,
           title: AppStrings.cancelDelivery,
           count: "43",
-          textColor: context.color.error,
-          bgColor: context.color.error,
+          textColor: context.colors.error,
+          bgColor: context.colors.error,
         ),
         const WorkingSummeryItem(
           icon: Icons.check_circle,

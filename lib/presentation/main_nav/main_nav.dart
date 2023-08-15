@@ -44,7 +44,7 @@ class MainNav extends HookConsumerWidget {
               icon: Icon(
                 Icons.home_filled,
                 color: navIndex.value == 0
-                    ? context.color.primary
+                    ? context.colors.primary
                     : ColorPalate.black600,
               ),
               label: AppStrings.home,
@@ -53,7 +53,7 @@ class MainNav extends HookConsumerWidget {
               icon: Icon(
                 Icons.delivery_dining,
                 color: navIndex.value == 1
-                    ? context.color.primary
+                    ? context.colors.primary
                     : ColorPalate.black600,
               ),
               label: AppStrings.delivery,
@@ -62,7 +62,7 @@ class MainNav extends HookConsumerWidget {
               icon: Icon(
                 Icons.currency_exchange_rounded,
                 color: navIndex.value == 2
-                    ? context.color.primary
+                    ? context.colors.primary
                     : ColorPalate.black600,
               ),
               label: AppStrings.earning,
@@ -71,7 +71,7 @@ class MainNav extends HookConsumerWidget {
               icon: Icon(
                 Icons.account_box_rounded,
                 color: navIndex.value == 3
-                    ? context.color.primary
+                    ? context.colors.primary
                     : ColorPalate.black600,
               ),
               label: AppStrings.profile,

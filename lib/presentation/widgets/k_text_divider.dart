@@ -27,7 +27,7 @@ class KTextDivider extends HookConsumerWidget {
           ),
           Text(
             text.toUpperCase(),
-            style: CustomTextStyle.textStyle12w600HG1000
+            style: CustomTextStyle.textStyle12w600B1000
                 .copyWith(letterSpacing: 1.5.w),
           ),
           Expanded(

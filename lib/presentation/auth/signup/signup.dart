@@ -1,36 +1,35 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:courier_delivery_app/domain/auth/signup_body.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import '../../../application/auth/auth_provider.dart';
-import '../../../domain/auth/signup_body.dart';
 import '../../../utils/utils.dart';
 import '../../widgets/widgets.dart';
 import '../login/login.dart';
 
-class SignupScreen extends HookConsumerWidget {
-  static String route = "/signup";
-  const SignupScreen({super.key});
+class SignUpScreen extends HookConsumerWidget {
+  static String route = "/sign-up";
+  const SignUpScreen({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(authProvider);
-
     final formKey = useMemoized(GlobalKey<FormState>.new);
     final firstNameController = useTextEditingController();
-    final lastNameController = useTextEditingController();
     final emailController = useTextEditingController();
     final phoneController = useTextEditingController();
-    final referralController = useTextEditingController();
+    final passwordController = useTextEditingController();
+    final reTypePasswordController = useTextEditingController();
 
     final firstNameFocusNode = useFocusNode();
-    final lastNameFocusNode = useFocusNode();
     final emailFocusNode = useFocusNode();
     final phoneFocusNode = useFocusNode();
-    final referralFocusNode = useFocusNode();
+    final passwordFocusNode = useFocusNode();
+    final reTypePasswordFocusNode = useFocusNode();
 
     ref.listen(authProvider, (previous, next) {
       if (previous!.loading == false && next.loading) {
@@ -56,15 +55,15 @@ class SignupScreen extends HookConsumerWidget {
               crossAxisAlignment: crossStart,
               children: [
                 Text(
-                  AppStrings.signup.toTitleCase(),
+                  AppStrings.signUp.toTitleCase(),
                   style: CustomTextStyle.textStyle32w600,
                 ),
                 gap20,
                 Padding(
                   padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 40, 0),
                   child: Text(
-                    AppStrings.signupBelowText,
-                    style: context.bodyMedium.copyWith(
+                    AppStrings.signUpBelowText,
+                    style: context.bodyMedium!.copyWith(
                       fontWeight: FontWeight.w400,
                       fontSize: 16,
                       color: ColorPalate.black,
@@ -72,37 +71,20 @@ class SignupScreen extends HookConsumerWidget {
                   ),
                 ),
                 gap36,
-                Row(
-                  children: [
-                    Flexible(
-                      child: KTextFormField2(
-                        focusNode: firstNameFocusNode,
-                        hintText: AppStrings.firstName,
-                        isLabel: true,
-                        controller: firstNameController,
-                        textInputAction: TextInputAction.next,
-                        onFieldSubmitted: (value) {
-                          lastNameFocusNode.requestFocus();
-                        },
-                      ),
-                    ),
-                    gap16,
-                    Flexible(
-                      child: KTextFormField2(
-                        hintText: AppStrings.lastName,
-                        isLabel: true,
-                        controller: lastNameController,
-                        textInputAction: TextInputAction.next,
-                        focusNode: lastNameFocusNode,
-                        onFieldSubmitted: (value) {
-                          emailFocusNode.requestFocus();
-                        },
-                      ),
-                    ),
-                  ],
+                KTextFormField2(
+                  containerPadding: padding0,
+                  focusNode: firstNameFocusNode,
+                  hintText: AppStrings.name,
+                  isLabel: true,
+                  controller: firstNameController,
+                  textInputAction: TextInputAction.next,
+                  onFieldSubmitted: (value) {
+                    emailFocusNode.requestFocus();
+                  },
                 ),
                 gap16,
                 KTextFormField2(
+                  containerPadding: padding0,
                   hintText: AppStrings.email,
                   isLabel: true,
                   controller: emailController,
@@ -114,13 +96,38 @@ class SignupScreen extends HookConsumerWidget {
                 ),
                 gap16,
                 KTextFormField2(
+                  containerPadding: padding0,
                   hintText: AppStrings.phoneNumber,
                   isLabel: true,
                   controller: phoneController,
                   focusNode: phoneFocusNode,
                   keyboardType: TextInputType.phone,
                   onFieldSubmitted: (value) {
-                    referralFocusNode.requestFocus();
+                    passwordFocusNode.requestFocus();
+                  },
+                ),
+                gap16,
+                KTextFormField2(
+                  containerPadding: padding0,
+                  hintText: AppStrings.password,
+                  isLabel: true,
+                  controller: passwordController,
+                  focusNode: passwordFocusNode,
+                  keyboardType: TextInputType.phone,
+                  onFieldSubmitted: (value) {
+                    reTypePasswordFocusNode.requestFocus();
+                  },
+                ),
+                gap16,
+                KTextFormField2(
+                  containerPadding: padding0,
+                  hintText: AppStrings.reTypePassword,
+                  isLabel: true,
+                  controller: reTypePasswordController,
+                  focusNode: reTypePasswordFocusNode,
+                  keyboardType: TextInputType.phone,
+                  onFieldSubmitted: (value) {
+                    reTypePasswordFocusNode.unfocus();
                   },
                 ),
                 gap24,
@@ -128,7 +135,7 @@ class SignupScreen extends HookConsumerWidget {
                 Text(
                   AppStrings.signUpPrivacyPolicy,
                   textAlign: TextAlign.center,
-                  style: context.caption.copyWith(
+                  style: context.bodySmall!.copyWith(
                     fontWeight: FontWeight.w400,
                     fontSize: 12.sp,
                     letterSpacing: .02,
@@ -140,68 +147,26 @@ class SignupScreen extends HookConsumerWidget {
                   onPressed: () async {
                     FocusManager.instance.primaryFocus?.unfocus();
                     ref.read(authProvider.notifier).signUp(
-                          SignupBody(
-                            firstName: firstNameController.text,
-                            lastName: lastNameController.text,
+                          SignUpBody(
+                            name: firstNameController.text,
                             email: emailController.text,
                             phone: phoneController.text,
-                            usedReferralCode: referralController.text,
-                            language: state.language,
+                            address: '',
+                            password: passwordController.text,
                           ),
                         );
                   },
-                  text: AppStrings.signup,
+                  text: AppStrings.signUp,
                 ),
-                gap24,
-                Center(
-                  child: Text(
-                    AppStrings.orSignupWith,
-                    textAlign: TextAlign.center,
-                    style: context.headline6.copyWith(
-                      color: ColorPalate.black600,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      letterSpacing: 1.50,
-                    ),
-                  ),
-                ),
+
                 gap16,
-                Row(
-                  children: [
-                    Flexible(
-                      child: KElevatedButton(
-                        // backgroundColor: ColorPalate.fbColor,
-                        onPressed: () => context.push(SignupScreen.route),
-                        text: '',
-                        child: Image.asset(
-                          Images.iconFacebook,
-                          height: 40.h,
-                          width: 40.w,
-                        ),
-                      ),
-                    ),
-                    gap16,
-                    Flexible(
-                      child: KElevatedButton(
-                        // backgroundColor: ColorPalate.googleColor,
-                        onPressed: () => context.push(SignupScreen.route),
-                        text: '',
-                        child: Image.asset(
-                          Images.iconGoogle,
-                          height: 20.h,
-                          width: 20.w,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                gap28,
+
                 Align(
                   alignment: Alignment.center,
                   child: Text.rich(
                     TextSpan(
                       text: AppStrings.alreadyHaveAccount,
-                      style: context.headline6.copyWith(
+                      style: context.headlineSmall!.copyWith(
                         color: ColorPalate.black600,
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
@@ -214,7 +179,7 @@ class SignupScreen extends HookConsumerWidget {
                         ),
                         TextSpan(
                           text: AppStrings.login,
-                          style: context.headlineMedium.copyWith(
+                          style: context.headlineMedium!.copyWith(
                             color: ColorPalate.primary,
                             fontSize: 16,
                             fontWeight: FontWeight.w700,

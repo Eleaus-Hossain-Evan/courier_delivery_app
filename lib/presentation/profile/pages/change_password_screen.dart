@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_validator/form_validator.dart';
-import 'package:go_router/go_router.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../../utils/strings.dart';
-import '../../../utils/ui_constant.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import '../../../application/auth/auth_provider.dart';
+import '../../../domain/auth/password_update_body.dart';
 import '../../../utils/utils.dart';
-import '../../widgets/k_titled_text_form_field.dart';
 import '../../widgets/widgets.dart';
 
 class ChangePasswordScreen extends HookConsumerWidget {
@@ -19,6 +16,7 @@ class ChangePasswordScreen extends HookConsumerWidget {
   const ChangePasswordScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final loading = useState(false);
     final currentPasswordController = useTextEditingController();
     final newPasswordController = useTextEditingController();
     final reNewPasswordController = useTextEditingController();
@@ -27,39 +25,33 @@ class ChangePasswordScreen extends HookConsumerWidget {
     final newPasswordFocus = useFocusNode();
 
     final formKey = useMemoized(GlobalKey<FormState>.new);
-    return Scaffold(
-      appBar: KAppBar(
+
+    ref.listen(authProvider, (previous, next) {
+      if (previous!.loading == false && next.loading) {
+        // BotToast.showLoading();
+        loading.value = true;
+      }
+      if (previous.loading == true && next.loading == false) {
+        // BotToast.closeAllLoading();
+        loading.value = false;
+      }
+    });
+
+    return CustomScaffold(
+      appBar: const KAppBarBGTransparent(
         titleText: AppStrings.password,
-        actions: [
-          SizedBox(
-            width: 80.w,
-            child: TextButton(
-              child: Text(
-                AppStrings.save,
-                style: CustomTextStyle.textStyle16w400secondary,
-              ),
-              onPressed: () {},
-            ),
-          ),
-        ],
       ),
       body: Form(
         key: formKey,
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Container(
-            padding: paddingH16,
-            decoration: BoxDecoration(
-              color: ColorPalate.white,
-              borderRadius: BorderRadius.circular(16.r),
-            ),
+          padding: EdgeInsets.symmetric(horizontal: 20.w).copyWith(top: 160.h),
+          child: ContainerBGWhite(
+            padding: paddingV20,
             child: Column(
               children: [
-                gap24,
                 KTextFormField2(
-                  hintText: "context.local.currentPassword",
+                  hintText: AppStrings.currentPassword,
                   controller: currentPasswordController,
-                  borderColor: ColorPalate.secondary,
                   textInputAction: TextInputAction.next,
                   validator: ValidationBuilder()
                       .required()
@@ -70,9 +62,9 @@ class ChangePasswordScreen extends HookConsumerWidget {
                     newPasswordFocus.requestFocus();
                   },
                 ),
-                gap24,
+                gap16,
                 KTextFormField2(
-                  hintText: "context.local.newPassword",
+                  hintText: AppStrings.newPassword,
                   controller: newPasswordController,
                   borderColor: ColorPalate.secondary,
                   focusNode: newPasswordFocus,
@@ -84,7 +76,7 @@ class ChangePasswordScreen extends HookConsumerWidget {
                       .add((value) {
                     if (currentPasswordController.text ==
                         newPasswordController.text) {
-                      return "context.local.notSame";
+                      return "Can't be same with current password";
                     }
                     return null;
                   }).build(),
@@ -92,9 +84,9 @@ class ChangePasswordScreen extends HookConsumerWidget {
                     reNewPasswordFocus.requestFocus();
                   },
                 ),
-                gap24,
+                gap16,
                 KTextFormField2(
-                  hintText: " context.local.retypeNewPassword",
+                  hintText: AppStrings.reTypePassword,
                   borderColor: ColorPalate.secondary,
                   focusNode: reNewPasswordFocus,
                   controller: reNewPasswordController,
@@ -106,12 +98,33 @@ class ChangePasswordScreen extends HookConsumerWidget {
                       .add((value) {
                     if (reNewPasswordController.text !=
                         newPasswordController.text) {
-                      return "context.local.passwordNotMatched";
+                      return AppStrings.notMatch;
                     }
                     return null;
                   }).build(),
                 ),
-                gap24,
+                gap16,
+                SizedBox(
+                  width: 100.w,
+                  child: KFilledButton(
+                    loading: loading.value,
+                    onPressed: () async {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      if (formKey.currentState!.validate()) {
+                        ref
+                            .read(authProvider.notifier)
+                            .passwordUpdate(PasswordUpdateBody(
+                              oldPassword: currentPasswordController.text,
+                              password: newPasswordController.text,
+                            ));
+                      }
+                    },
+                    text: '',
+                    backgroundColor: context.colors.secondary,
+                    foregroundColor: ColorPalate.black800,
+                    child: AppStrings.save.text.base.make(),
+                  ),
+                ),
               ],
             ),
           ),
