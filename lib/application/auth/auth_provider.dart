@@ -70,14 +70,20 @@ class AuthNotifier extends StateNotifier<AuthState> {
         return state = state.copyWith(failure: l, loading: false);
       },
       (r) {
+        //showing success toast
         showToast(r.message);
+
+        //set token to network service class instance
+        NetworkHandler.instance.setToken(r.data.token);
+
+        // save token and user data to local store
         ref
             .read(loggedInProvider.notifier)
             .updateAuthCache(token: r.data.token, user: r.data);
 
+        // set role, which getting from api
         ref.read(roleProvider.notifier).state = r.data.role;
 
-        NetworkHandler.instance.setToken(r.data.token);
         return state = state.copyWith(user: r.data, loading: false);
       },
     );

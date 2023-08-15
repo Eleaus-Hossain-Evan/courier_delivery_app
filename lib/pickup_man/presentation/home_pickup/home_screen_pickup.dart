@@ -1,7 +1,8 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:courier_delivery_app/pickup_man/application/parcel_pickup/parcel_pickup_provider.dart';
+import 'package:courier_delivery_app/pickup_man/domain/parcel/parcel_list_response.dart';
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -11,10 +12,11 @@ import 'package:shimmer/shimmer.dart';
 import '../../../application/home/home_provider.dart';
 import '../../../presentation/widgets/widgets.dart';
 import '../../../utils/utils.dart';
-import '../main_nav_pickup/main_nav_pickup.dart';
 import 'widgets/home_app_bar.dart';
 import 'widgets/search_delivery.dart';
 import 'widgets/working_summery.dart';
+
+const searchPageSize = 10;
 
 class HomeScreenPickup extends HookConsumerWidget {
   static String route = "/home-pickup";
@@ -22,6 +24,10 @@ class HomeScreenPickup extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final scrollController = useScrollController();
+
+    final page = useState(1);
+
+    final parcelResponse = ref.watch(parcelPickupProvider(page: page.value));
 
     ref.listen(homeProvider, (previous, next) {
       if (previous!.loading == false && next.loading) {
@@ -37,89 +43,81 @@ class HomeScreenPickup extends HookConsumerWidget {
       body: SizedBox(
         height: 1.sh,
         width: 1.sw,
-        child: SingleChildScrollView(
-          controller: scrollController,
-          child: Column(
-            crossAxisAlignment: crossStart,
-            children: [
-              const WorkingSummery(),
-              const SearchDelivery(),
-              gap12,
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: mainSpaceBetween,
-                    children: [
-                      AppStrings.todayDelivery.text.bold.lg
-                          .color(ColorPalate.black900)
-                          .make(),
-                      AppStrings.viewAll.text
-                          .color(ColorPalate.secondary200)
-                          .make()
-                          .pSymmetric(h: 4, v: 2)
-                          .onInkTap(() {
-                        final navigatorKey = bottomNavigatorKeyPickup
-                            .currentWidget as NavigationBar;
+        child: EasyRefresh(
+          header: const MaterialHeader(),
+          onRefresh: () async {
+            page.value = 1;
+            ref.refresh(parcelPickupProvider().future).then((value) =>
+                value == ParcelListResponse.init()
+                    ? IndicatorResult.fail
+                    : IndicatorResult.success);
+          },
+          onLoad: () {
+            page.value++;
+            ref.read(parcelPickupProvider(page: page.value).future).then(
+                (value) => value == ParcelListResponse.init()
+                    ? IndicatorResult.fail
+                    : IndicatorResult.success);
+          },
+          child: SingleChildScrollView(
+            controller: scrollController,
+            child: Column(
+              crossAxisAlignment: crossStart,
+              children: [
+                const WorkingSummery(),
+                const SearchDelivery(),
+                gap12,
+                Row(
+                  mainAxisAlignment: mainSpaceBetween,
+                  children: [
+                    AppStrings.recentDelivery.text.bold.lg
+                        .color(ColorPalate.black900)
+                        .make(),
+                    // AppStrings.viewAll.text
+                    //     .color(ColorPalate.secondary200)
+                    //     .make()
+                    //     .pSymmetric(h: 4, v: 2)
+                    //     .onInkTap(() {
+                    //   final navigatorKey =
+                    //       bottomNavigatorKeyPickup.currentWidget as NavigationBar;
 
-                        navigatorKey.onDestinationSelected!(1);
-                      })
-                    ],
-                  ),
-                  gap24,
-                  ListView.custom(
-                      shrinkWrap: true,
+                    //   navigatorKey.onDestinationSelected!(1);
+                    // })
+                  ],
+                ).px16(),
+                gap24,
+                parcelResponse.when(
+                  data: (data) {
+                    return KListViewSeparated(
                       physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      gap: 0,
                       padding: padding0,
-                      childrenDelegate: SliverChildBuilderDelegate(
-                        (context, index) {
-                          const pageSize = 10;
-
-                          final page = index ~/ pageSize + 1;
-                          final indexInPage = index % pageSize;
-                          final parcelResponse = ref.watch(
-                            parcelPickupProvider(
-                              type: ParcelPickupType.assign,
-                              page: page,
-                            ),
-                          );
-
-                          return parcelResponse.when(
-                            data: (data) {
-                              if (indexInPage >= data.length) return null;
-
-                              final parcel = data[indexInPage];
-                              return const DeliveryListTile(
-                                customerName: "Evan Hossain",
-                                address:
-                                    "169/B, North Konipara, Tejgoan, Dhaka, Bangladesh",
-                                distance: "3 kms",
-                              );
-                            },
-                            error: (err, stack) {
-                              Logger.e(err);
-                              return Text('Error $err');
-                            },
-                            loading: () => const PackageItemShimmer(),
-                          );
-                        },
-                      )),
-                ],
-              )
-                  .p(16.w)
-                  .box
-                  .color(ColorPalate.bg100)
-                  .topRounded()
-                  .roundedLg
-                  .shadow
-                  .make(),
-            ],
+                      itemBuilder: (context, index) {
+                        final parcel = data[index];
+                        return DeliveryListTile.loading(
+                          customerName: parcel.parcel.merchantInfo.name,
+                          address: parcel.parcel.merchantInfo.address,
+                          distance: "",
+                        );
+                      },
+                      itemCount: data.length,
+                    );
+                  },
+                  error: (error, stackTrace) => Center(
+                    child: error.toString().text.caption(context).make(),
+                  ),
+                  loading: () =>
+                      const CircularProgressIndicator().objectBottomCenter(),
+                ),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
 }
-
 
 class PackageItemShimmer extends StatelessWidget {
   const PackageItemShimmer({super.key});

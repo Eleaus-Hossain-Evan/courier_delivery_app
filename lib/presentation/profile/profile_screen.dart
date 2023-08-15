@@ -34,8 +34,8 @@ class ProfileScreen extends HookConsumerWidget {
       appBar: const KAppBar(titleText: AppStrings.profile),
       body: EasyRefresh(
         controller: refreshController,
-        onRefresh: () => ref.read(authProvider.notifier).profileView().then(
-            (value) => value ? IndicatorResult.success : IndicatorResult.fail),
+        // onRefresh: () => ref.read(authProvider.notifier).profileView().then(
+        //     (value) => value ? IndicatorResult.success : IndicatorResult.fail),
         child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           child: Column(

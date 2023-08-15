@@ -74,28 +74,29 @@ class LoginScreen extends HookConsumerWidget {
               ),
               gap16,
               Row(
-                mainAxisAlignment: mainSpaceBetween,
+                // mainAxisAlignment: mainSpaceBetween,
                 children: [
                   "Log In as".text.caption(context).bold.make(),
-                  gap16,
+                  const Spacer(),
                   ...Role.values
                       .map(
-                        (e) => Flexible(
-                          child: Row(
-                            mainAxisSize: mainMin,
-                            children: [
-                              Radio<Role>(
-                                value: e,
-                                groupValue: role,
-                                onChanged: (v) =>
-                                    ref.read(roleProvider.notifier).state = e,
-                              ),
-                              (e == Role.rider ? "Rider" : "PickUp Man")
-                                  .text
-                                  .caption(context)
-                                  .make(),
-                            ],
-                          ),
+                        (e) => Row(
+                          mainAxisSize: mainMin,
+                          children: [
+                            Radio<Role>(
+                              value: e,
+                              groupValue: role,
+                              // materialTapTargetSize:
+                              //     MaterialTapTargetSize.shrinkWrap,
+                              // visualDensity: VisualDensity.compact,
+                              onChanged: (v) =>
+                                  ref.read(roleProvider.notifier).state = e,
+                            ),
+                            (e == Role.rider ? "Rider" : "PickUp Man")
+                                .text
+                                .caption(context)
+                                .make(),
+                          ],
                         ),
                       )
                       .toList()

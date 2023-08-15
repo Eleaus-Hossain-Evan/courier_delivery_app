@@ -36,14 +36,5 @@ class EndPointPickUp {
   static const String PROFILE_UPDATE = "${API_V1}merchant/update-by-himself";
 
   //#<<----------------Parcel------------------>>
-  static const WEIGHT_CHARGE = "${API_V1}weight-charge/fetch-all";
-  static const PARCEL_CATEGORY = "${API_V1}category/fetch-all";
-  static const PARCEL_CREATE = "${API_V1}parcel/create-by-merchant";
-  static const PARCEL_UPDATE = "${API_V1}parcel/update-by-merchant/";
-  static const FETCH_ALL_PARCEL =
-      "${API_V1}parcel/fetch-all-parcel-by-merchant?";
-
-  static const ORDER_CREATE = "";
-
-  static const SUBMIT_REVIEW = "";
+  static const String PARCEL_PICKUPMAN = "${API_V1}parcel/pickupman-parcels?";
 }

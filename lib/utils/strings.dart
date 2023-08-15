@@ -103,6 +103,10 @@ class AppStrings {
   static const String reTypePassword = "Re-Type Password";
   static const String notMatch = "Password doesn't match";
 
+  //#----------------  Pickup Home ----------------
+
+  static const String recentDelivery = "Recent Deliveries";
+
   //#----------------  PickUp History ----------------
   static const String history = "History";
 }

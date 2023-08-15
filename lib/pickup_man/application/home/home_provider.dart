@@ -1,7 +1,5 @@
-import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../application/global.dart';
 import '../../infrastructure/home_repo.dart';
 import 'home_state.dart';
 
@@ -19,17 +17,17 @@ class HomeNotifier extends StateNotifier<HomeState> {
     state = state.copyWith(notification: false);
   }
 
-  void getHomeData() async {
-    state = state.copyWith(loading: true);
-    final result = await repo.getHomeDate();
+  // void getHomeData() async {
+  //   state = state.copyWith(loading: true);
+  //   final result = await repo.getHomeDate();
 
-    Logger.d("result: $result");
-    result.fold(
-      (l) {
-        showErrorToast(l.error.message);
-        return state = state.copyWith(failure: l, loading: false);
-      },
-      (r) => state = state.copyWith(homeData: r.data, loading: false),
-    );
-  }
+  //   Logger.d("result: $result");
+  //   result.fold(
+  //     (l) {
+  //       showErrorToast(l.error.message);
+  //       return state = state.copyWith(failure: l, loading: false);
+  //     },
+  //     (r) => state = state.copyWith(homeData: r.data, loading: false),
+  //   );
+  // }
 }

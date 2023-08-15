@@ -6,7 +6,7 @@ part of 'parcel_pickup_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$parcelPickupHash() => r'7a77d19cdbee384a9607fed319ede42b4a37ccf9';
+String _$parcelPickupHash() => r'1290ffb90957293f5c2bf592f2906e8cfd31a177';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,30 +29,20 @@ class _SystemHash {
   }
 }
 
-abstract class _$ParcelPickup
-    extends BuildlessAutoDisposeAsyncNotifier<List<TopLevelCommonParcelModel>> {
-  late final ParcelPickupType type;
-  late final int page;
-  late final int limit;
+typedef ParcelPickupRef
+    = AutoDisposeFutureProviderRef<List<TopLevelCommonParcelModel>>;
 
-  Future<List<TopLevelCommonParcelModel>> build({
-    ParcelPickupType type = ParcelPickupType.assign,
-    int page = 1,
-    int limit = 10,
-  });
-}
-
-/// See also [ParcelPickup].
-@ProviderFor(ParcelPickup)
+/// See also [parcelPickup].
+@ProviderFor(parcelPickup)
 const parcelPickupProvider = ParcelPickupFamily();
 
-/// See also [ParcelPickup].
+/// See also [parcelPickup].
 class ParcelPickupFamily
     extends Family<AsyncValue<List<TopLevelCommonParcelModel>>> {
-  /// See also [ParcelPickup].
+  /// See also [parcelPickup].
   const ParcelPickupFamily();
 
-  /// See also [ParcelPickup].
+  /// See also [parcelPickup].
   ParcelPickupProvider call({
     ParcelPickupType type = ParcelPickupType.assign,
     int page = 1,
@@ -91,19 +81,21 @@ class ParcelPickupFamily
   String? get name => r'parcelPickupProvider';
 }
 
-/// See also [ParcelPickup].
-class ParcelPickupProvider extends AutoDisposeAsyncNotifierProviderImpl<
-    ParcelPickup, List<TopLevelCommonParcelModel>> {
-  /// See also [ParcelPickup].
+/// See also [parcelPickup].
+class ParcelPickupProvider
+    extends AutoDisposeFutureProvider<List<TopLevelCommonParcelModel>> {
+  /// See also [parcelPickup].
   ParcelPickupProvider({
     this.type = ParcelPickupType.assign,
     this.page = 1,
     this.limit = 10,
   }) : super.internal(
-          () => ParcelPickup()
-            ..type = type
-            ..page = page
-            ..limit = limit,
+          (ref) => parcelPickup(
+            ref,
+            type: type,
+            page: page,
+            limit: limit,
+          ),
           from: parcelPickupProvider,
           name: r'parcelPickupProvider',
           debugGetCreateSourceHash:
@@ -135,17 +127,6 @@ class ParcelPickupProvider extends AutoDisposeAsyncNotifierProviderImpl<
     hash = _SystemHash.combine(hash, limit.hashCode);
 
     return _SystemHash.finish(hash);
-  }
-
-  @override
-  Future<List<TopLevelCommonParcelModel>> runNotifierBuild(
-    covariant ParcelPickup notifier,
-  ) {
-    return notifier.build(
-      type: type,
-      page: page,
-      limit: limit,
-    );
   }
 }
 // ignore_for_file: type=lint

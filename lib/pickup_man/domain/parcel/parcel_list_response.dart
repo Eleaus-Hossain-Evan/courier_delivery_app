@@ -10,12 +10,19 @@ class ParcelListResponse extends Equatable {
   final List<TopLevelCommonParcelModel> data;
   final String message;
   final bool success;
+
   const ParcelListResponse({
     required this.metaData,
     required this.data,
     required this.message,
     required this.success,
   });
+
+  factory ParcelListResponse.init() => ParcelListResponse(
+      metaData: MetaDataModel.init(),
+      data: const [],
+      message: '',
+      success: false);
 
   ParcelListResponse copyWith({
     MetaDataModel? metaData,

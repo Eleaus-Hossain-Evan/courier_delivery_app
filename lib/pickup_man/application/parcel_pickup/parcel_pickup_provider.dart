@@ -9,21 +9,24 @@ part 'parcel_pickup_provider.g.dart';
 enum ParcelPickupType { assign }
 
 @riverpod
-class ParcelPickup extends _$ParcelPickup {
-  final repo = ParcelPickupRepo();
-  @override
-  Future<List<TopLevelCommonParcelModel>> build({
-    ParcelPickupType type = ParcelPickupType.assign,
-    int page = 1,
-    int limit = 10,
-  }) async {
-    final result = await repo.getPickupParcelList();
+Future<List<TopLevelCommonParcelModel>> parcelPickup(
+  ParcelPickupRef ref, {
+  ParcelPickupType type = ParcelPickupType.assign,
+  int page = 1,
+  int limit = 10,
+}) async {
+  final result = await ParcelPickupRepo()
+      .getPickupParcelList(type: type, page: page, limit: limit);
+  var preList = <TopLevelCommonParcelModel>[];
 
-    return result.fold((l) {
-      showErrorToast(l.error.message);
-      return [];
-    }, (r) => r.data);
-  }
+  ref.listenSelf((previous, next) {
+    preList = next.value ?? [];
+  });
 
-  // Add methods to mutate the state
+  // preList = ref.state.value ?? [];
+
+  return result.fold((l) {
+    showErrorToast(l.error.message);
+    return preList;
+  }, (r) => [...preList, ...r.data]);
 }

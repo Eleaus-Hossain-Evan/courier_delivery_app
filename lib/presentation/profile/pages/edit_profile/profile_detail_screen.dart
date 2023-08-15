@@ -97,173 +97,168 @@ class ProfileDetailScreen extends HookConsumerWidget {
           ),
         ],
       ),
-      body: RefreshIndicator.adaptive(
-        onRefresh: () {
-          return ref.read(authProvider.notifier).profileView();
-        },
-        child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(horizontal: 20.w).copyWith(top: 150.h),
-          child: Form(
-            key: formKey,
-            child: Column(
-              children: [
-                //  Personal Info------------------
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 20.w).copyWith(top: 150.h),
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              //  Personal Info------------------
 
-                ProfileSection(
-                  title: AppStrings.personalInfo,
-                  leading: Icon(
-                    BoxIcons.bxs_user_account,
-                    size: 18.sp,
-                    color: ColorPalate.secondary,
-                  ),
-                  visible: true,
-                  containerPadding: paddingV20,
-                  child: Column(
-                    crossAxisAlignment: crossStart,
-                    children: [
-                      ImagePickWidget(
-                        imageFile: imageFile,
-                        imagePath: state.user.image,
-                        defaultWidget: Icon(
-                          Icons.person,
-                          size: 68.sp,
-                          color: context.colors.secondaryContainer,
-                        ),
-                        editIcon: isEditable.value ? isUpdate.value : true,
-                        onTapUploadImage: isEditable.value
-                            ? null
-                            : (file) async {
-                                Logger.w(file);
-                                final success = await ref
-                                    .read(authProvider.notifier)
-                                    .uploadImage(file);
-                                if (success) imageFile.value = null;
-                              },
-                      ),
-                      gap24,
-                      KTextFormField2(
-                        hintText: AppStrings.name,
-                        controller: nameController,
-                        isLabel: true,
-                        enabled: isUpdate.value,
-                        validator: ValidationBuilder().maxLength(15).build(),
-                      ),
-                      gap16,
-                      KTextFormField2(
-                        hintText: AppStrings.email,
-                        controller: emailController,
-                        isLabel: true,
-                        readOnly: true,
-                        enabled: isUpdate.value,
-                        validator:
-                            ValidationBuilder().maxLength(30).email().build(),
-                      ),
-                      gap16,
-                      KTextFormField2(
-                        hintText: AppStrings.phoneNumber,
-                        controller: phoneController,
-                        isLabel: true,
-                        readOnly: true,
-                        enabled: isUpdate.value,
-                        validator: ValidationBuilder()
-                            .maxLength(11)
-                            .minLength(11)
-                            .phone()
-                            .build(),
-                      ),
-                    ],
-                  ),
+              ProfileSection(
+                title: AppStrings.personalInfo,
+                leading: Icon(
+                  BoxIcons.bxs_user_account,
+                  size: 18.sp,
+                  color: ColorPalate.secondary,
                 ),
-
-                //  Address ----------------
-
-                ProfileSection(
-                  title: AppStrings.address,
-                  leading: const Icon(
-                    FontAwesome.address_card,
-                    size: 18,
-                    color: ColorPalate.secondary,
-                  ),
-                  visible: isEditable.value,
-                  containerPadding: paddingV20,
-                  replacement: Row(
-                    children: [
-                      gap16,
-                      state.user.address.text.lg.make().flexible(),
-                    ],
-                  ).px16(),
-                  child: KTextFormField2(
-                    controller: addressController,
-                    hintText: AppStrings.address,
-                    enabled: isUpdate.value,
-                    isLabel: true,
-                  ),
-                ),
-
-                //  Hub ----------------
-
-                ProfileSection(
-                  title: AppStrings.hubDetail,
-                  leading: Icon(
-                    FontAwesome.map_location_dot,
-                    size: 18.sp,
-                    color: ColorPalate.secondary,
-                  ),
-                  visible: state.user.hub == HubModel.init(),
-                  containerPadding: paddingV20,
-                  replacement: Column(
-                    children: [
-                      BankDetailItem(
-                        title: "Hub Name",
-                        value: state.user.hub.name,
+                visible: true,
+                containerPadding: paddingV20,
+                child: Column(
+                  crossAxisAlignment: crossStart,
+                  children: [
+                    ImagePickWidget(
+                      imageFile: imageFile,
+                      imagePath: state.user.image,
+                      defaultWidget: Icon(
+                        Icons.person,
+                        size: 68.sp,
+                        color: context.colors.secondaryContainer,
                       ),
-                      gap16,
-                      BankDetailItem(
-                        title: "Hub Address",
-                        value: state.user.hub.address,
-                      ),
-                    ],
-                  ).px16(),
-                  child: "No Hub assigned!".text.make(),
+                      editIcon: isEditable.value ? isUpdate.value : true,
+                      onTapUploadImage: isEditable.value
+                          ? null
+                          : (file) async {
+                              Logger.w(file);
+                              final success = await ref
+                                  .read(authProvider.notifier)
+                                  .uploadImage(file);
+                              if (success) imageFile.value = null;
+                            },
+                    ),
+                    gap24,
+                    KTextFormField2(
+                      hintText: AppStrings.name,
+                      controller: nameController,
+                      isLabel: true,
+                      enabled: isUpdate.value,
+                      validator: ValidationBuilder().maxLength(15).build(),
+                    ),
+                    gap16,
+                    KTextFormField2(
+                      hintText: AppStrings.email,
+                      controller: emailController,
+                      isLabel: true,
+                      readOnly: true,
+                      enabled: isUpdate.value,
+                      validator:
+                          ValidationBuilder().maxLength(30).email().build(),
+                    ),
+                    gap16,
+                    KTextFormField2(
+                      hintText: AppStrings.phoneNumber,
+                      controller: phoneController,
+                      isLabel: true,
+                      readOnly: true,
+                      enabled: isUpdate.value,
+                      validator: ValidationBuilder()
+                          .maxLength(11)
+                          .minLength(11)
+                          .phone()
+                          .build(),
+                    ),
+                  ],
                 ),
+              ),
 
-                // showing full detail when user is approved
+              //  Address ----------------
 
-                Visibility(
-                  visible: !isEditable.value,
-                  child: const ViewOnlyWidget(),
+              ProfileSection(
+                title: AppStrings.address,
+                leading: const Icon(
+                  FontAwesome.address_card,
+                  size: 18,
+                  color: ColorPalate.secondary,
                 ),
-                gap20,
-                Visibility(
-                  visible: isUpdate.value,
-                  child: KFilledButton(
-                    text: AppStrings.save,
-                    loading: isLoading.value,
-                    onPressed: () async {
-                      isLoading.value = true;
-                      FocusManager.instance.primaryFocus!.unfocus();
-                      ref
-                          .read(authProvider.notifier)
-                          .profileUpdate(
-                              ProfileUpdateBody(
-                                name: nameController.text.trim(),
-                                email: emailController.text.trim(),
-                                phone: phoneController.text.trim(),
-                                address: addressController.text.trim(),
-                              ),
-                              imageFile.value)
-                          .then((value) {
-                        isLoading.value = false;
-                        if (value) {
-                          isUpdate.value = false;
-                        }
-                      });
-                    },
-                  ),
+                visible: isEditable.value,
+                containerPadding: paddingV20,
+                replacement: Row(
+                  children: [
+                    gap16,
+                    state.user.address.text.lg.make().flexible(),
+                  ],
+                ).px16(),
+                child: KTextFormField2(
+                  controller: addressController,
+                  hintText: AppStrings.address,
+                  enabled: isUpdate.value,
+                  isLabel: true,
                 ),
-                gap36,
-              ],
-            ),
+              ),
+
+              //  Hub ----------------
+
+              ProfileSection(
+                title: AppStrings.hubDetail,
+                leading: Icon(
+                  FontAwesome.map_location_dot,
+                  size: 18.sp,
+                  color: ColorPalate.secondary,
+                ),
+                visible: state.user.hub == HubModel.init(),
+                containerPadding: paddingV20,
+                replacement: Column(
+                  children: [
+                    BankDetailItem(
+                      title: "Hub Name",
+                      value: state.user.hub.name,
+                    ),
+                    gap16,
+                    BankDetailItem(
+                      title: "Hub Address",
+                      value: state.user.hub.address,
+                    ),
+                  ],
+                ).px16(),
+                child: "No Hub assigned!".text.make(),
+              ),
+
+              // showing full detail when user is approved
+
+              Visibility(
+                visible: !isEditable.value,
+                child: const ViewOnlyWidget(),
+              ),
+              gap20,
+              Visibility(
+                visible: isUpdate.value,
+                child: KFilledButton(
+                  text: AppStrings.save,
+                  loading: isLoading.value,
+                  onPressed: () async {
+                    isLoading.value = true;
+                    FocusManager.instance.primaryFocus!.unfocus();
+                    ref
+                        .read(authProvider.notifier)
+                        .profileUpdate(
+                            ProfileUpdateBody(
+                              name: nameController.text.trim(),
+                              email: emailController.text.trim(),
+                              phone: phoneController.text.trim(),
+                              address: addressController.text.trim(),
+                            ),
+                            imageFile.value)
+                        .then((value) {
+                      isLoading.value = false;
+                      if (value) {
+                        isUpdate.value = false;
+                      }
+                    });
+                  },
+                ),
+              ),
+              gap36,
+            ],
           ),
         ),
       ),
