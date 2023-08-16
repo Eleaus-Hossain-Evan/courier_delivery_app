@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:courier_delivery_app/pickup_man/application/parcel_pickup/parcel_pickup_provider.dart';
 import 'package:easy_refresh/easy_refresh.dart';
@@ -70,6 +72,8 @@ class HomeScreenPickup extends HookConsumerWidget {
       };
     }, []);
 
+    log(currentType.toString());
+
     return Scaffold(
       appBar: const HomeAppBar(),
       body: SizedBox(
@@ -136,6 +140,36 @@ class HomeScreenPickup extends HookConsumerWidget {
 
                     //   navigatorKey.onDestinationSelected!(1);
                     // })
+                    SizedBox(
+                      width: .4.sw,
+                      child: KDropDownSearchWidget(
+                        hintText: 'Status',
+                        items: ParcelPickupType.values,
+                        selectedItem: currentType.value,
+                        compareFn: (p0, p1) => p0.name == p1.name,
+                        itemAsString: (p0) => p0.name.capitalized,
+                        containerMargin: padding0,
+                        onChanged: (p0) {
+                          currentType.value = p0!;
+                          // log('currentType.value == p0: ${currentType.value == p0}');
+
+                          page.value = 1;
+                          ref
+                              .refresh(parcelPickupProvider.notifier)
+                              .parcelPickupList(
+                                page: page.value,
+                                limit: pageSize,
+                                type: currentType.value,
+                              )
+                              .then((value) {
+                            if (value) {
+                              easyController.resetFooter();
+                              easyController.resetHeader();
+                            }
+                          });
+                        },
+                      ),
+                    ),
                   ],
                 ).px16(),
                 gap24,
