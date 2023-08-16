@@ -10,6 +10,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../presentation/widgets/widgets.dart';
 import '../../../utils/utils.dart';
+import '../../domain/parcel/model/top_level_common_parcel_model.dart';
 import '../widgets/parcel_list_tile.dart';
 import 'widgets/home_app_bar.dart';
 import 'widgets/search_delivery.dart';
@@ -25,6 +26,7 @@ class HomeScreenPickup extends HookConsumerWidget {
     final scrollController = useScrollController();
     final easyController = useMemoized(() => EasyRefreshController());
     final state = ref.watch(parcelPickupProvider);
+    final currentType = useState(ParcelPickupType.all);
 
     final page = useState(1);
     final totalPage = useState(0);
@@ -54,9 +56,12 @@ class HomeScreenPickup extends HookConsumerWidget {
     }
 
     useEffect(() {
-      Future.microtask(() => ref
-          .read(parcelPickupProvider.notifier)
-          .parcelPickupList(page: page.value, limit: pageSize));
+      Future.microtask(
+          () => ref.read(parcelPickupProvider.notifier).parcelPickupList(
+                page: page.value,
+                limit: pageSize,
+                type: currentType.value,
+              ));
 
       scrollController.addListener(pagination);
       return () {
@@ -78,7 +83,11 @@ class HomeScreenPickup extends HookConsumerWidget {
             // state.copyWith(parcelPickupResponse: ParcelListResponse.init());
             return ref
                 .refresh(parcelPickupProvider.notifier)
-                .parcelPickupList(page: page.value, limit: pageSize)
+                .parcelPickupList(
+                  page: page.value,
+                  limit: pageSize,
+                  type: currentType.value,
+                )
                 .then((value) =>
                     value ? IndicatorResult.success : IndicatorResult.fail);
           },
@@ -94,7 +103,11 @@ class HomeScreenPickup extends HookConsumerWidget {
               page.value = page.value + 1;
               ref
                   .read(parcelPickupProvider.notifier)
-                  .parcelPickupList(page: page.value, limit: pageSize)
+                  .parcelPickupList(
+                    page: page.value,
+                    limit: pageSize,
+                    type: currentType.value,
+                  )
                   .then((value) =>
                       value ? IndicatorResult.success : IndicatorResult.fail);
             }
@@ -139,8 +152,12 @@ class HomeScreenPickup extends HookConsumerWidget {
                     //     .handleResponse(index, pageSize, page.value);
                     return ParcelListTile(
                       model: parcel,
-                      onTapReceive: () {},
-                      onTapCancel: () {},
+                      onTapReceive: () => ref
+                          .read(parcelPickupProvider.notifier)
+                          .receivedParcel(parcel.id),
+                      onTapCancel: () => ref
+                          .read(parcelPickupProvider.notifier)
+                          .cancelParcel(parcel.id),
                     );
                   },
                   itemCount: state.parcelPickupResponse.data.length,
