@@ -1,6 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:courier_delivery_app/pickup_man/application/parcel_pickup/parcel_pickup_provider.dart';
-import 'package:courier_delivery_app/pickup_man/domain/parcel/parcel_list_response.dart';
 import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -9,14 +8,14 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../application/home/home_provider.dart';
 import '../../../presentation/widgets/widgets.dart';
 import '../../../utils/utils.dart';
+import '../widgets/parcel_list_tile.dart';
 import 'widgets/home_app_bar.dart';
 import 'widgets/search_delivery.dart';
 import 'widgets/working_summery.dart';
 
-const searchPageSize = 10;
+const pageSize = 2;
 
 class HomeScreenPickup extends HookConsumerWidget {
   static String route = "/home-pickup";
@@ -24,19 +23,47 @@ class HomeScreenPickup extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final scrollController = useScrollController();
+    final easyController = useMemoized(() => EasyRefreshController());
+    final state = ref.watch(parcelPickupProvider);
 
     final page = useState(1);
+    final totalPage = useState(0);
 
-    final parcelResponse = ref.watch(parcelPickupProvider(page: page.value));
-
-    ref.listen(homeProvider, (previous, next) {
+    ref.listen(parcelPickupProvider, (previous, next) {
       if (previous!.loading == false && next.loading) {
         BotToast.showLoading();
       }
       if (previous.loading == true && next.loading == false) {
         BotToast.closeAllLoading();
       }
+      totalPage.value = next.parcelPickupResponse.metaData.totalPage;
     });
+
+    void pagination() {
+      // if (scrollController.position.maxScrollExtent <=
+      //     scrollController.position.pixels + 10.sh) {
+      //   log("${page.value} < ${totalPage.value}");
+      //   if (page.value < totalPage.value) {
+      //     // easyController.callLoad();
+      //     page.value = page.value + 1;
+      //     ref
+      //         .read(parcelPickupProvider.notifier)
+      //         .parcelPickupList(page: page.value, limit: pageSize);
+      //   }
+      // }
+    }
+
+    useEffect(() {
+      Future.microtask(() => ref
+          .read(parcelPickupProvider.notifier)
+          .parcelPickupList(page: page.value, limit: pageSize));
+
+      scrollController.addListener(pagination);
+      return () {
+        scrollController.removeListener(pagination);
+        BotToast.closeAllLoading();
+      };
+    }, []);
 
     return Scaffold(
       appBar: const HomeAppBar(),
@@ -44,20 +71,33 @@ class HomeScreenPickup extends HookConsumerWidget {
         height: 1.sh,
         width: 1.sw,
         child: EasyRefresh(
+          controller: easyController,
           header: const MaterialHeader(),
           onRefresh: () async {
             page.value = 1;
-            ref.refresh(parcelPickupProvider().future).then((value) =>
-                value == ParcelListResponse.init()
-                    ? IndicatorResult.fail
-                    : IndicatorResult.success);
+            // state.copyWith(parcelPickupResponse: ParcelListResponse.init());
+            return ref
+                .refresh(parcelPickupProvider.notifier)
+                .parcelPickupList(page: page.value, limit: pageSize)
+                .then((value) =>
+                    value ? IndicatorResult.success : IndicatorResult.fail);
           },
-          onLoad: () {
-            page.value++;
-            ref.read(parcelPickupProvider(page: page.value).future).then(
-                (value) => value == ParcelListResponse.init()
-                    ? IndicatorResult.fail
-                    : IndicatorResult.success);
+          onLoad: () async {
+            if (page.value == totalPage.value) {
+              return IndicatorResult.noMore;
+            }
+            if (page.value < totalPage.value) {
+              easyController.callLoad(
+                scrollController: scrollController,
+                force: true,
+              );
+              page.value = page.value + 1;
+              ref
+                  .read(parcelPickupProvider.notifier)
+                  .parcelPickupList(page: page.value, limit: pageSize)
+                  .then((value) =>
+                      value ? IndicatorResult.success : IndicatorResult.fail);
+            }
           },
           child: SingleChildScrollView(
             controller: scrollController,
@@ -86,30 +126,25 @@ class HomeScreenPickup extends HookConsumerWidget {
                   ],
                 ).px16(),
                 gap24,
-                parcelResponse.when(
-                  data: (data) {
-                    return KListViewSeparated(
-                      physics: const NeverScrollableScrollPhysics(),
-                      shrinkWrap: true,
-                      gap: 0,
-                      padding: padding0,
-                      itemBuilder: (context, index) {
-                        final parcel = data[index];
-                        return DeliveryListTile.loading(
-                          customerName: parcel.parcel.merchantInfo.name,
-                          address: parcel.parcel.merchantInfo.address,
-                          distance: "",
-                        );
-                      },
-                      itemCount: data.length,
+                KListViewSeparated(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  gap: 0,
+                  padding: padding0,
+                  separator: const Divider(),
+                  itemBuilder: (context, index) {
+                    final parcel = state.parcelPickupResponse.data[index];
+                    // ref
+                    //     .read(parcelPickupProvider.notifier)
+                    //     .handleResponse(index, pageSize, page.value);
+                    return ParcelListTile(
+                      model: parcel,
+                      onTapReceive: () {},
+                      onTapCancel: () {},
                     );
                   },
-                  error: (error, stackTrace) => Center(
-                    child: error.toString().text.caption(context).make(),
-                  ),
-                  loading: () =>
-                      const CircularProgressIndicator().objectBottomCenter(),
-                ),
+                  itemCount: state.parcelPickupResponse.data.length,
+                ).box.white.roundedSM.shadowSm.make().px16(),
               ],
             ),
           ),

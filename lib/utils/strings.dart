@@ -107,6 +107,11 @@ class AppStrings {
 
   static const String recentDelivery = "Recent Deliveries";
 
+  //#----------------  PickUp List ----------------
+  static const String pickup = "Pick Up";
+  static const String pickupList = "Pick Up List";
+
   //#----------------  PickUp History ----------------
   static const String history = "History";
+  static const String pickupHistory = "Pick Up History";
 }

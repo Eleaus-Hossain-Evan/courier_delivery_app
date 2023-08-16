@@ -2,6 +2,7 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 import '../../utils/utils.dart';
 import '../presentation/widgets/widgets.dart';
@@ -159,7 +160,7 @@ showFloatBottomSheet(
         // height: height,
         margin: EdgeInsets.all(20.w),
         decoration: BoxDecoration(
-          color: context.themeData.scaffoldBackgroundColor,
+          color: context.theme.scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(12.r),
         ),
         child: IntrinsicHeight(

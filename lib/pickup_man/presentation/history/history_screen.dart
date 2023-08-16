@@ -17,7 +17,7 @@ class HistoryScreen extends HookConsumerWidget {
       slivers: [
         SliverAppBar(
           centerTitle: true,
-          title: AppStrings.deliverDashboard.text.bold.white.xl.make(),
+          title: AppStrings.pickupHistory.text.bold.white.xl.make(),
           backgroundColor: context.colors.primary,
           floating: true,
           pinned: true,

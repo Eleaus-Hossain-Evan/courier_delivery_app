@@ -1,4 +1,35 @@
+import 'package:equatable/equatable.dart';
 
-class ParcelPickupState{
-  
+import '../../domain/parcel/parcel_list_response.dart';
+
+class ParcelPickupState extends Equatable {
+  final bool loading;
+  final ParcelListResponse parcelPickupResponse;
+
+  const ParcelPickupState({
+    required this.loading,
+    required this.parcelPickupResponse,
+  });
+
+  factory ParcelPickupState.init() => ParcelPickupState(
+        loading: false,
+        parcelPickupResponse: ParcelListResponse.init(),
+      );
+
+  ParcelPickupState copyWith({
+    bool? loading,
+    ParcelListResponse? parcelPickupResponse,
+  }) {
+    return ParcelPickupState(
+      loading: loading ?? this.loading,
+      parcelPickupResponse: parcelPickupResponse ?? this.parcelPickupResponse,
+    );
+  }
+
+  @override
+  String toString() =>
+      'ParcelPickupState(loading: $loading, parcelPickupResponse: $parcelPickupResponse)';
+
+  @override
+  List<Object> get props => [loading, parcelPickupResponse];
 }

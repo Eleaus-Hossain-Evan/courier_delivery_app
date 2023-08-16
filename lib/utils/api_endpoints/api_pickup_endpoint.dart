@@ -37,4 +37,5 @@ class EndPointPickUp {
 
   //#<<----------------Parcel------------------>>
   static const String PARCEL_PICKUPMAN = "${API_V1}parcel/pickupman-parcels?";
+  static const String UPDATE_PARCEL_PICKUPMAN = "${API_V1}parcel/update-parcels-status-by-pickupman/";
 }

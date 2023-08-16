@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../utils/utils.dart';
-import '../customer_detail/customer_detail_screen.dart';
 import 'widgets.dart';
 
 class DeliveryListTile extends StatelessWidget {
@@ -25,7 +23,7 @@ class DeliveryListTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return KInkWell(
             onTap: () {
-              GoRouter.of(context).push(CustomerDetailScreen.route);
+              // GoRouter.of(context).push(CustomerDetailScreen.route);
             },
             child: Row(
               crossAxisAlignment: crossStart,
@@ -57,26 +55,17 @@ class DeliveryListTile extends StatelessWidget {
                               .make(),
                         ],
                       ),
+                      gap4,
+                      Row(
+                        children: [
+                          const Icon(Icons.location_on)
+                              .iconSize(16.sp)
+                              .iconColor(context.theme.primaryColorDark),
+                          distance.text.caption(context).make(),
+                        ],
+                      ),
                     ],
                   ),
-                ),
-                Column(
-                  mainAxisAlignment: mainSpaceBetween,
-                  mainAxisSize: mainMax,
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(Icons.location_on)
-                            .iconSize(16.sp)
-                            .iconColor(context.theme.primaryColorDark),
-                        distance.text.caption(context).make(),
-                      ],
-                    ),
-                    gap24,
-                    const Icon(Icons.arrow_forward_ios)
-                        .iconColor(ColorPalate.secondary200)
-                        .iconSize(16.sp),
-                  ],
                 ),
               ],
             ).p8())

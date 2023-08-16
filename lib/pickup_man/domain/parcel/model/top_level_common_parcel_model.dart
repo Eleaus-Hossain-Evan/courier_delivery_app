@@ -5,9 +5,11 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../domain/parcel/model/parcel_model.dart';
 
+enum ParcelPickupType { all, assign, received, cancel }
+
 class TopLevelCommonParcelModel extends Equatable {
   final String id;
-  final String status;
+  final ParcelPickupType status;
   final List<StatusHistoryModel> statusHistory;
   final String createdAt;
   final String updatedAt;
@@ -23,7 +25,7 @@ class TopLevelCommonParcelModel extends Equatable {
 
   TopLevelCommonParcelModel copyWith({
     String? id,
-    String? status,
+    ParcelPickupType? status,
     List<StatusHistoryModel>? statusHistory,
     String? createdAt,
     String? updatedAt,
@@ -42,7 +44,7 @@ class TopLevelCommonParcelModel extends Equatable {
   Map<String, dynamic> toMap() {
     return {
       '_id': id,
-      'status': status,
+      'status': status.name,
       'statusHistory': statusHistory.map((x) => x.toMap()).toList(),
       'createdAt': createdAt,
       'updatedAt': updatedAt,
@@ -53,7 +55,7 @@ class TopLevelCommonParcelModel extends Equatable {
   factory TopLevelCommonParcelModel.fromMap(Map<String, dynamic> map) {
     return TopLevelCommonParcelModel(
       id: map['_id'] ?? '',
-      status: map['status'] ?? '',
+      status: ParcelPickupType.values.byName(map['status']),
       statusHistory: List<StatusHistoryModel>.from(
           map['statusHistory']?.map((x) => StatusHistoryModel.fromMap(x)) ??
               const []),
