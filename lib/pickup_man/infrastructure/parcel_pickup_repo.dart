@@ -21,7 +21,7 @@ class ParcelPickupRepo {
       withToken: true,
     );
 
-    Logger.d(data);
+    // Logger.d(data);
 
     return data;
   }
@@ -30,7 +30,7 @@ class ParcelPickupRepo {
     ParcelPickupType type = ParcelPickupType.all,
     required String id,
   }) async {
-    final data = await api.post(
+    final data = await api.patch(
       body: {"status": type.name},
       fromData: (json) => UpdateParcelResponse.fromMap(json),
       endPoint: "${EndPointPickUp.UPDATE_PARCEL_PICKUPMAN}$id",

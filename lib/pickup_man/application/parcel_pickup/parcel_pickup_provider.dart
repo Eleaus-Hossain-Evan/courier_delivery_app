@@ -18,6 +18,8 @@ class ParcelPickupNotifier extends StateNotifier<ParcelPickupState> {
 
   ParcelPickupNotifier(this.ref, this.repo) : super(ParcelPickupState.init());
 
+  void setState(ParcelPickupState state) => state = this.state;
+
   Future<bool> parcelPickupList({
     ParcelPickupType type = ParcelPickupType.all,
     int page = 1,
@@ -34,12 +36,13 @@ class ParcelPickupNotifier extends StateNotifier<ParcelPickupState> {
 
       state = state.copyWith(loading: false);
     }, (r) {
-      final preList = state.parcelPickupResponse.data;
-      final newList = r.data;
-      Logger.i(r);
+      final finalList = [...state.parcelPickupResponse.data, ...r.data]
+        ..removeDuplicates(by: (item) => item.id);
+
+      // finalList.removeDuplicates(by: (item) => item.id);
+      // Logger.i(r);
       state = state.copyWith(
-          loading: false,
-          parcelPickupResponse: r.copyWith(data: [...preList, ...newList]));
+          loading: false, parcelPickupResponse: r.copyWith(data: finalList));
     });
 
     return success;
@@ -59,9 +62,27 @@ class ParcelPickupNotifier extends StateNotifier<ParcelPickupState> {
   Future<bool> updateParcel({
     ParcelPickupType type = ParcelPickupType.all,
     required String id,
+    required int page,
   }) async {
     var success = false;
-    state = state.copyWith(loading: true);
+    // state = state.copyWith(loading: true);
+
+    // final index =
+    //     state.parcelPickupResponse.data.lock.indexWhere((e) => e.id == id);
+    // Logger.i(index);
+
+    // final parcelList =
+    //     state.parcelPickupResponse.data.lock[index].copyWith(status: type);
+    // Logger.i('parcelList: $parcelList');
+    // final parcelListNew =
+    //     state.parcelPickupResponse.data.lock.replace(index, parcelList);
+    // Logger.i('parcelListNew: $parcelListNew');
+
+    // state = state.copyWith(
+    //     loading: false,
+    //     parcelPickupResponse:
+    //         state.parcelPickupResponse.copyWith(data: parcelListNew.unlock));
+    // Logger.i('state: $state');
 
     final result = await repo.updatePickupParcel(type: type, id: id);
 
@@ -69,25 +90,41 @@ class ParcelPickupNotifier extends StateNotifier<ParcelPickupState> {
       showErrorToast(l.error.message);
 
       state = state.copyWith(loading: false);
-    }, (r) {
+    }, (r) async {
       Logger.i(r);
 
-      final parcelList = state.parcelPickupResponse.data.lock
-        ..where((e) => e.id == r.data.id)
-        ..firstOrNull?.copyWith(status: r.data.status);
+      // final parcelList = state.parcelPickupResponse.data.lock
+      //   ..firstWhere((e) => e.id == r.data.id).copyWith(status: r.data.status);
+
+      final index =
+          state.parcelPickupResponse.data.lock.indexWhere((e) => e.id == id);
+      Logger.i(index);
+
+      final parcelList =
+          state.parcelPickupResponse.data.lock[index].copyWith(status: type);
+      Logger.i('parcelList: $parcelList');
+      final parcelListNew =
+          state.parcelPickupResponse.data.lock.replace(index, parcelList);
+      Logger.i('parcelListNew: $parcelListNew');
+
+      // state = state.copyWith(
+      //     loading: false,
+      //     parcelPickupResponse:
+      //         state.parcelPickupResponse.copyWith(data: parcelListNew.unlock));
+      // Logger.i('state: $state');
 
       state = state.copyWith(
           loading: false,
           parcelPickupResponse:
-              state.parcelPickupResponse.copyWith(data: parcelList.unlock));
+              state.parcelPickupResponse.copyWith(data: parcelListNew.unlock));
     });
 
     return success;
   }
 
-  Future<bool> receivedParcel(String id) =>
-      updateParcel(id: id, type: ParcelPickupType.received);
+  Future<bool> receivedParcel(String id, int page) =>
+      updateParcel(id: id, type: ParcelPickupType.received, page: page);
 
-  Future<bool> cancelParcel(String id) =>
-      updateParcel(id: id, type: ParcelPickupType.cancel);
+  Future<bool> cancelParcel(String id, int page) =>
+      updateParcel(id: id, type: ParcelPickupType.cancel, page: page);
 }
