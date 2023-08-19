@@ -11,9 +11,8 @@ class EndPointRider {
 
   //#<<---------------- AUTH ------------------>>
   static const String SIGN_UP = "${API_V1}merchant/registration";
-  static const String LOGIN = "${API_V1}merchant/login";
-  static const String PROFILE_VIEW =
-      "${API_V1}merchant/single-fetch-by-himself";
+  static const String LOGIN = "${API_V1}rider/login";
+  static const String PROFILE_VIEW = "${API_V1}rider/single-fetch/";
   static const String PASSWORD_UPDATE =
       "${API_V1}merchant/password-update-by-himself";
 
@@ -37,14 +36,7 @@ class EndPointRider {
   static const String PROFILE_UPDATE = "${API_V1}merchant/update-by-himself";
 
   //#<<----------------Parcel------------------>>
-  static const WEIGHT_CHARGE = "${API_V1}weight-charge/fetch-all";
-  static const PARCEL_CATEGORY = "${API_V1}category/fetch-all";
-  static const PARCEL_CREATE = "${API_V1}parcel/create-by-merchant";
-  static const PARCEL_UPDATE = "${API_V1}parcel/update-by-merchant/";
-  static const FETCH_ALL_PARCEL =
-      "${API_V1}parcel/fetch-all-parcel-by-merchant?";
-
-  static const ORDER_CREATE = "";
-
-  static const SUBMIT_REVIEW = "";
+  static const String PARCEL_PICKUPMAN = "${API_V1}parcel/rider-parcels?";
+  static const String UPDATE_PARCEL_PICKUPMAN =
+      "${API_V1}parcel/update-parcels-status-by-rider/";
 }

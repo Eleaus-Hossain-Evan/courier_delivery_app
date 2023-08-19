@@ -7,6 +7,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../application/auth/auth_provider.dart';
+import '../../../application/global.dart';
 import '../../../utils/utils.dart';
 import '../../widgets/widgets.dart';
 
@@ -19,7 +20,8 @@ class BankDetailsScreen extends HookConsumerWidget {
   const BankDetailsScreen({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final bankDetail = ref.watch(authProvider).user.bankAccount;
+    final state = ref.watch(authProvider);
+    final bankDetail = state.user.bankAccount;
 
     final accHolder = useTextEditingController(text: bankDetail.accName);
     final bankName = useTextEditingController(text: bankDetail.bankName);
@@ -50,7 +52,12 @@ class BankDetailsScreen extends HookConsumerWidget {
           Visibility(
             visible: !isUpdate.value,
             child: IconButton(
-                onPressed: () => isUpdate.value = !isUpdate.value,
+                onPressed: () {
+                  state.user.role == Role.pickupman
+                      ? showErrorToast(
+                          "You can't edit details now,\nPlease, contact with admin.")
+                      : isUpdate.value = !isUpdate.value;
+                },
                 icon: const Icon(FontAwesome.pen_to_square)
                     .iconColor(ColorPalate.white)
                     .iconSize(18.sp)),

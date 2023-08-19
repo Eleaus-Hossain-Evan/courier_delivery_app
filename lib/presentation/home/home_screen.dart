@@ -1,17 +1,22 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:courier_delivery_app/application/parcel_rider/parcel_rider_provider.dart';
+import 'package:courier_delivery_app/domain/parcel/model/top_level_rider_parcel_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../../application/home/home_provider.dart';
+import '../../pickup_man/application/parcel_pickup/parcel_pickup_provider.dart';
 import '../../utils/utils.dart';
 import '../main_nav/main_nav.dart';
 import '../widgets/widgets.dart';
 import 'widgets/home_app_bar.dart';
 import 'widgets/search_delivery.dart';
 import 'widgets/working_summery.dart';
+
+const pageSize = 2;
 
 class HomeScreenRider extends HookConsumerWidget {
   static String route = "/home-rider";
@@ -20,74 +25,149 @@ class HomeScreenRider extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final scrollController = useScrollController();
 
-    ref.listen(homeProvider, (previous, next) {
+    final refreshController = useMemoized(
+        () => RefreshController(initialLoadStatus: LoadStatus.canLoading));
+    final state = ref.watch(parcelPickupProvider);
+    final currentType = useState(ParcelRiderType.all);
+
+    final page = useState(1);
+    final totalPage = useState(0);
+
+    ref.listen(parcelRiderProvider, (previous, next) {
       if (previous!.loading == false && next.loading) {
         BotToast.showLoading();
       }
       if (previous.loading == true && next.loading == false) {
         BotToast.closeAllLoading();
       }
+
+      totalPage.value = next.parcelRiderResponse.metaData.totalPage;
     });
+
+    useEffect(() {
+      Future.microtask(
+          () => ref.read(parcelRiderProvider.notifier).parcelPickupList(
+                page: page.value,
+                limit: pageSize,
+                type: currentType.value,
+              ));
+
+      // scrollController.addListener(pagination);
+      return () {
+        // scrollController.removeListener(pagination);
+        BotToast.closeAllLoading();
+      };
+    }, []);
 
     return Scaffold(
       appBar: const HomeAppBar(),
       body: SizedBox(
         height: 1.sh,
         width: 1.sw,
-        child: SingleChildScrollView(
-          controller: scrollController,
-          child: Column(
-            crossAxisAlignment: crossStart,
-            children: [
-              const WorkingSummery(),
-              const SearchDelivery(),
-              gap12,
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: mainSpaceBetween,
-                    children: [
-                      AppStrings.todayDelivery.text.bold.lg
-                          .color(ColorPalate.black900)
-                          .make(),
-                      AppStrings.viewAll.text
-                          .color(ColorPalate.secondary200)
-                          .make()
-                          .pSymmetric(h: 4, v: 2)
-                          .onInkTap(() {
-                        final navigatorKey =
-                            bottomNavigatorKey.currentWidget as NavigationBar;
-
-                        navigatorKey.onDestinationSelected!(1);
-                      })
-                    ],
-                  ),
-                  gap24,
-                  KListViewSeparated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    gap: 16,
-                    padding: padding0,
-                    itemBuilder: (context, index) {
-                      return const DeliveryListTile(
-                        customerName: "Evan Hossain",
-                        address:
-                            "169/B, North Konipara, Tejgoan, Dhaka, Bangladesh",
-                        distance: "3 kms",
+        child: SmartRefresher(
+          controller: refreshController,
+          enablePullDown: true,
+          enablePullUp: true,
+          // header: const MaterialHeader(),
+          onRefresh: () async {
+            page.value = 1;
+            // state.copyWith(parcelPickupResponse: ParcelListResponse.init());
+            return ref
+                .refresh(parcelRiderProvider.notifier)
+                .parcelPickupList(
+                  page: page.value,
+                  limit: pageSize,
+                  type: currentType.value,
+                )
+                .then((value) {
+              // return value ? IndicatorResult.success : IndicatorResult.fail;
+              refreshController.refreshCompleted(resetFooterState: true);
+            });
+          },
+          onLoading: () async {
+            if (state.parcelPickupResponse.data.isNotEmpty) {
+              refreshController.loadComplete();
+            }
+            if (totalPage.value == 0 || page.value == totalPage.value) {
+              // return IndicatorResult.noMore;
+              refreshController.loadNoData();
+            }
+            if (page.value < totalPage.value) {
+              // easyController.callLoad(
+              //   scrollController: scrollController,
+              //   force: true,
+              // );
+              page.value = page.value + 1;
+              final success =
+                  await ref.read(parcelRiderProvider.notifier).parcelPickupList(
+                        page: page.value,
+                        limit: pageSize,
+                        type: currentType.value,
                       );
-                    },
-                    itemCount: 10,
-                  ),
-                ],
-              )
-                  .p(16.w)
-                  .box
-                  .color(ColorPalate.bg100)
-                  .topRounded()
-                  .roundedLg
-                  .shadow
-                  .make(),
-            ],
+              if (success) {
+                // return IndicatorResult.success;
+                refreshController.loadComplete();
+              } else {
+                // return IndicatorResult.fail;
+                refreshController.loadFailed();
+              }
+            }
+          },
+          child: SingleChildScrollView(
+            controller: scrollController,
+            child: Column(
+              crossAxisAlignment: crossStart,
+              children: [
+                const WorkingSummery(),
+                const SearchDelivery(),
+                gap12,
+                Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: mainSpaceBetween,
+                      children: [
+                        AppStrings.todayDelivery.text.bold.lg
+                            .color(ColorPalate.black900)
+                            .make(),
+                        AppStrings.viewAll.text
+                            .color(ColorPalate.secondary200)
+                            .make()
+                            .pSymmetric(h: 4, v: 2)
+                            .onInkTap(() {
+                          final navigatorKey =
+                              bottomNavigatorKey.currentWidget as NavigationBar;
+
+                          navigatorKey.onDestinationSelected!(1);
+                        })
+                      ],
+                    ),
+                    gap24,
+                    KListViewSeparated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gap: 16,
+                      padding: padding0,
+                      itemBuilder: (context, index) {
+                        return const DeliveryListTile(
+                          customerName: "Evan Hossain",
+                          address:
+                              "169/B, North Konipara, Tejgoan, Dhaka, Bangladesh",
+                          distance: "3 kms",
+                        );
+                      },
+                      itemCount: 10,
+                    ),
+                  ],
+                )
+                    .p(16.w)
+                    .box
+                    .color(ColorPalate.bg100)
+                    .topRounded()
+                    .roundedLg
+                    .shadow
+                    .make(),
+              ],
+            ),
           ),
         ),
       ),

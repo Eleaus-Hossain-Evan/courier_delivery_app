@@ -67,6 +67,7 @@ dependencies:
   riverpod_annotation:
   shimmer: ^3.0.0
   pull_to_refresh: ^2.0.0
+  lottie: ^2.6.0
 
 dev_dependencies:
   flutter_test:
@@ -97,6 +98,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/icons/
+    - assets/json/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

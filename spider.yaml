@@ -31,10 +31,12 @@ package: utils/assets
 
 groups:
   - class_name: Images
-    types: [.png, .jpg, .jpeg, .webp, .webm, .bmp, .svg, jpeg]
+    types: [.png, .jpg, .jpeg, .webp, .webm, .bmp, .svg, jpeg, json]
     sub_groups:
       - paths:
           - assets/images
           # - assets/svg
       - path: assets/icons
         prefix: icon
+      - path: assets/json
+        prefix: json

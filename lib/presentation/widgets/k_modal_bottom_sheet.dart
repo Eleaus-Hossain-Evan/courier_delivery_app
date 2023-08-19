@@ -36,7 +36,7 @@ kShowFloatBottomSheet({
       ),
     );
 
-kShowbarModalBottomSheet({
+kShowBarModalBottomSheet({
   required BuildContext context,
   required Widget child,
 }) {

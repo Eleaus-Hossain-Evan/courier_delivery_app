@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
+
+import '../../utils/utils.dart';
 
 class KListViewSeparated extends StatelessWidget {
   const KListViewSeparated(
@@ -38,8 +41,9 @@ class KListViewSeparated extends StatelessWidget {
       shrinkWrap: shrinkWrap,
       physics: physics,
       itemBuilder: itemCount == 0
-          ? (context, index) =>
-              Center(child: alternateWidget ?? const Text('No data found'))
+          ? (context, index) => Center(
+              child: alternateWidget ??
+                  LottieBuilder.asset(Images.jsonNoDataAnimation))
           : itemBuilder,
       controller: controller,
       reverse: reverse,

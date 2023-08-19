@@ -4,7 +4,7 @@ import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../domain/parcel/model/top_level_common_parcel_model.dart';
+import '../../domain/parcel/model/top_level_pickup_parcel_model.dart';
 import 'parcel_pickup_state.dart';
 
 final parcelPickupProvider =
@@ -24,20 +24,24 @@ class ParcelPickupNotifier extends StateNotifier<ParcelPickupState> {
     ParcelPickupType type = ParcelPickupType.all,
     int page = 1,
     int limit = 10,
+    bool isComplete = false,
   }) async {
     var success = false;
     state = state.copyWith(loading: true);
 
-    final result =
-        await repo.getPickupParcelList(type: type, page: page, limit: limit);
+    final result = await repo.getPickupParcelList(
+        type: type, page: page, limit: limit, isComplete: false);
 
     result.fold((l) {
       showErrorToast(l.error.message);
 
       state = state.copyWith(loading: false);
     }, (r) {
-      final finalList = [...state.parcelPickupResponse.data, ...r.data]
-        ..removeDuplicates(by: (item) => item.id);
+      success = r.success;
+      final finalList = [
+        ...state.parcelPickupResponse.data,
+        ...r.data.map((e) => e.copyWith(isComplete: isComplete))
+      ]..removeDuplicates(by: (item) => item.id);
 
       // finalList.removeDuplicates(by: (item) => item.id);
       // Logger.i(r);
@@ -63,6 +67,7 @@ class ParcelPickupNotifier extends StateNotifier<ParcelPickupState> {
     ParcelPickupType type = ParcelPickupType.all,
     required String id,
     required int page,
+    bool shouldRemove = false,
   }) async {
     var success = false;
     // state = state.copyWith(loading: true);
@@ -100,31 +105,47 @@ class ParcelPickupNotifier extends StateNotifier<ParcelPickupState> {
           state.parcelPickupResponse.data.lock.indexWhere((e) => e.id == id);
       Logger.i(index);
 
-      final parcelList =
-          state.parcelPickupResponse.data.lock[index].copyWith(status: type);
-      Logger.i('parcelList: $parcelList');
-      final parcelListNew =
-          state.parcelPickupResponse.data.lock.replace(index, parcelList);
-      Logger.i('parcelListNew: $parcelListNew');
+      if (shouldRemove) {
+        final parcelList = state.parcelPickupResponse.data.lock.removeAt(index);
+        state = state.copyWith(
+            loading: false,
+            parcelPickupResponse:
+                state.parcelPickupResponse.copyWith(data: parcelList.unlock));
+      } else {
+        final parcelList =
+            state.parcelPickupResponse.data.lock[index].copyWith(status: type);
+        Logger.i('parcelList: $parcelList');
+        final parcelListNew =
+            state.parcelPickupResponse.data.lock.replace(index, parcelList);
+        Logger.i('parcelListNew: $parcelListNew');
 
-      // state = state.copyWith(
-      //     loading: false,
-      //     parcelPickupResponse:
-      //         state.parcelPickupResponse.copyWith(data: parcelListNew.unlock));
-      // Logger.i('state: $state');
+        state = state.copyWith(
+            loading: false,
+            parcelPickupResponse: state.parcelPickupResponse
+                .copyWith(data: parcelListNew.unlock));
 
-      state = state.copyWith(
-          loading: false,
-          parcelPickupResponse:
-              state.parcelPickupResponse.copyWith(data: parcelListNew.unlock));
+        // state = state.copyWith(
+        //     loading: false,
+        //     parcelPickupResponse:
+        //         state.parcelPickupResponse.copyWith(data: parcelListNew.unlock));
+        // Logger.i('state: $state');
+      }
     });
-
     return success;
   }
 
-  Future<bool> receivedParcel(String id, int page) =>
-      updateParcel(id: id, type: ParcelPickupType.received, page: page);
+  Future<bool> receivedParcel(String id, int page,
+          {bool shouldRemove = false}) =>
+      updateParcel(
+          id: id,
+          type: ParcelPickupType.received,
+          page: page,
+          shouldRemove: shouldRemove);
 
-  Future<bool> cancelParcel(String id, int page) =>
-      updateParcel(id: id, type: ParcelPickupType.cancel, page: page);
+  Future<bool> cancelParcel(String id, int page, {bool shouldRemove = false}) =>
+      updateParcel(
+          id: id,
+          type: ParcelPickupType.cancel,
+          page: page,
+          shouldRemove: shouldRemove);
 }

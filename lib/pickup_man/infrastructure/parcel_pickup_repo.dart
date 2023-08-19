@@ -1,14 +1,14 @@
-import 'package:courier_delivery_app/pickup_man/domain/parcel/parcel_list_response.dart';
+import 'package:courier_delivery_app/pickup_man/domain/parcel/parcel_pickup_list_response.dart';
 import 'package:courier_delivery_app/utils/utils.dart';
 import 'package:flutter_easylogger/flutter_logger.dart';
 
-import '../domain/parcel/model/top_level_common_parcel_model.dart';
-import '../domain/parcel/update_parcel_response.dart';
+import '../domain/parcel/model/top_level_pickup_parcel_model.dart';
+import '../domain/parcel/update_parcel_pickup_response.dart';
 
 class ParcelPickupRepo {
   final api = NetworkHandler.instance;
 
-  Future<Either<CleanFailure, ParcelListResponse>> getPickupParcelList({
+  Future<Either<CleanFailure, ParcelPickupListResponse>> getPickupParcelList({
     ParcelPickupType type = ParcelPickupType.all,
     int page = 1,
     int limit = 10,
@@ -16,7 +16,7 @@ class ParcelPickupRepo {
   }) async {
     final data = await api.post(
       body: {"status": type.name, "isComplete": isComplete},
-      fromData: (json) => ParcelListResponse.fromMap(json),
+      fromData: (json) => ParcelPickupListResponse.fromMap(json),
       endPoint: "${EndPointPickUp.PARCEL_PICKUPMAN}page=$page&limit=$limit",
       withToken: true,
     );
@@ -26,13 +26,13 @@ class ParcelPickupRepo {
     return data;
   }
 
-  Future<Either<CleanFailure, UpdateParcelResponse>> updatePickupParcel({
+  Future<Either<CleanFailure, UpdateParcelPickupResponse>> updatePickupParcel({
     ParcelPickupType type = ParcelPickupType.all,
     required String id,
   }) async {
     final data = await api.patch(
       body: {"status": type.name},
-      fromData: (json) => UpdateParcelResponse.fromMap(json),
+      fromData: (json) => UpdateParcelPickupResponse.fromMap(json),
       endPoint: "${EndPointPickUp.UPDATE_PARCEL_PICKUPMAN}$id",
       withToken: true,
     );

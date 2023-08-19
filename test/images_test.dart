@@ -14,5 +14,6 @@ void main() {
     expect(File(Images.logo).existsSync(), isTrue);
     expect(File(Images.iconFacebook).existsSync(), isTrue);
     expect(File(Images.iconGoogle).existsSync(), isTrue);
+    expect(File(Images.jsonNoDataAnimation).existsSync(), isTrue);
   });
 }

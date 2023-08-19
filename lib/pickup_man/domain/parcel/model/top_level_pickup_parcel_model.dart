@@ -7,36 +7,40 @@ import '../../../../domain/parcel/model/parcel_model.dart';
 
 enum ParcelPickupType { all, assign, received, cancel }
 
-class TopLevelCommonParcelModel extends Equatable {
+class TopLevelPickupParcelModel extends Equatable {
   final String id;
   final ParcelPickupType status;
   final List<StatusHistoryModel> statusHistory;
   final String createdAt;
   final String updatedAt;
+  final bool isComplete;
   final ParcelModel parcel;
-  const TopLevelCommonParcelModel({
+  const TopLevelPickupParcelModel({
     required this.id,
     required this.status,
     required this.statusHistory,
     required this.createdAt,
     required this.updatedAt,
+    required this.isComplete,
     required this.parcel,
   });
 
-  TopLevelCommonParcelModel copyWith({
+  TopLevelPickupParcelModel copyWith({
     String? id,
     ParcelPickupType? status,
     List<StatusHistoryModel>? statusHistory,
     String? createdAt,
     String? updatedAt,
+    bool? isComplete,
     ParcelModel? parcel,
   }) {
-    return TopLevelCommonParcelModel(
+    return TopLevelPickupParcelModel(
       id: id ?? this.id,
       status: status ?? this.status,
       statusHistory: statusHistory ?? this.statusHistory,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
+      isComplete: isComplete ?? this.isComplete,
       parcel: parcel ?? this.parcel,
     );
   }
@@ -48,12 +52,13 @@ class TopLevelCommonParcelModel extends Equatable {
       'statusHistory': statusHistory.map((x) => x.toMap()).toList(),
       'createdAt': createdAt,
       'updatedAt': updatedAt,
+      "isComplete": isComplete,
       'parcel': parcel.toMap(),
     };
   }
 
-  factory TopLevelCommonParcelModel.fromMap(Map<String, dynamic> map) {
-    return TopLevelCommonParcelModel(
+  factory TopLevelPickupParcelModel.fromMap(Map<String, dynamic> map) {
+    return TopLevelPickupParcelModel(
       id: map['_id'] ?? '',
       status: ParcelPickupType.values.byName(map['status']),
       statusHistory: List<StatusHistoryModel>.from(
@@ -61,18 +66,19 @@ class TopLevelCommonParcelModel extends Equatable {
               const []),
       createdAt: map['createdAt'] ?? '',
       updatedAt: map['updatedAt'] ?? '',
+      isComplete: map["isComplete"] ?? false,
       parcel: ParcelModel.fromMap(map['parcel']),
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory TopLevelCommonParcelModel.fromJson(String source) =>
-      TopLevelCommonParcelModel.fromMap(json.decode(source));
+  factory TopLevelPickupParcelModel.fromJson(String source) =>
+      TopLevelPickupParcelModel.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'Data(_id: $id, status: $status, statusHistory: $statusHistory, createdAt: $createdAt, updatedAt: $updatedAt, parcel: $parcel)';
+    return 'Data(_id: $id, status: $status, statusHistory: $statusHistory, createdAt: $createdAt, updatedAt: $updatedAt, isComplete $isComplete, parcel: $parcel)';
   }
 
   @override
@@ -83,6 +89,7 @@ class TopLevelCommonParcelModel extends Equatable {
       statusHistory,
       createdAt,
       updatedAt,
+      isComplete,
       parcel,
     ];
   }

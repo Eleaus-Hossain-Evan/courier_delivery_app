@@ -3,24 +3,24 @@ import 'dart:convert';
 import 'package:courier_delivery_app/pickup_man/domain/parcel/model/status_history_model.dart';
 import 'package:equatable/equatable.dart';
 
-import 'model/top_level_common_parcel_model.dart';
+import 'model/top_level_pickup_parcel_model.dart';
 
-class UpdateParcelResponse extends Equatable {
+class UpdateParcelPickupResponse extends Equatable {
   final UpdateParcelModel data;
   final String message;
   final bool success;
-  const UpdateParcelResponse({
+  const UpdateParcelPickupResponse({
     required this.data,
     required this.message,
     required this.success,
   });
 
-  UpdateParcelResponse copyWith({
+  UpdateParcelPickupResponse copyWith({
     UpdateParcelModel? data,
     String? message,
     bool? success,
   }) {
-    return UpdateParcelResponse(
+    return UpdateParcelPickupResponse(
       data: data ?? this.data,
       message: message ?? this.message,
       success: success ?? this.success,
@@ -35,8 +35,8 @@ class UpdateParcelResponse extends Equatable {
     };
   }
 
-  factory UpdateParcelResponse.fromMap(Map<String, dynamic> map) {
-    return UpdateParcelResponse(
+  factory UpdateParcelPickupResponse.fromMap(Map<String, dynamic> map) {
+    return UpdateParcelPickupResponse(
       data: UpdateParcelModel.fromMap(map['data']),
       message: map['message'] ?? '',
       success: map['success'] ?? false,
@@ -45,8 +45,8 @@ class UpdateParcelResponse extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  factory UpdateParcelResponse.fromJson(String source) =>
-      UpdateParcelResponse.fromMap(json.decode(source));
+  factory UpdateParcelPickupResponse.fromJson(String source) =>
+      UpdateParcelPickupResponse.fromMap(json.decode(source));
 
   @override
   String toString() =>

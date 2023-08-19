@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bot_toast/bot_toast.dart';
 import 'package:courier_delivery_app/pickup_man/application/parcel_pickup/parcel_pickup_provider.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +12,7 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../presentation/widgets/widgets.dart';
 import '../../../utils/utils.dart';
-import '../../domain/parcel/model/top_level_common_parcel_model.dart';
+import '../../domain/parcel/model/top_level_pickup_parcel_model.dart';
 import '../widgets/parcel_list_tile.dart';
 import 'widgets/home_app_bar.dart';
 import 'widgets/search_delivery.dart';
@@ -24,8 +26,8 @@ class HomeScreenPickup extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final scrollController = useScrollController();
-    final refreshController =
-        useMemoized(() => RefreshController(initialRefresh: false));
+    final refreshController = useMemoized(
+        () => RefreshController(initialLoadStatus: LoadStatus.canLoading));
     final state = ref.watch(parcelPickupProvider);
     final currentType = useState(ParcelPickupType.all);
 
@@ -97,7 +99,10 @@ class HomeScreenPickup extends HookConsumerWidget {
             });
           },
           onLoading: () async {
-            if (page.value == totalPage.value) {
+            if (state.parcelPickupResponse.data.isNotEmpty) {
+              refreshController.loadComplete();
+            }
+            if (totalPage.value == 0 || page.value == totalPage.value) {
               // return IndicatorResult.noMore;
               refreshController.loadNoData();
             }
@@ -167,8 +172,19 @@ class HomeScreenPickup extends HookConsumerWidget {
                                 limit: pageSize,
                                 type: currentType.value,
                               )
-                              .then((_) => refreshController.refreshCompleted(
-                                  resetFooterState: true));
+                              .then((success) {
+                            log('success: $success');
+                            // refreshController.resetNoData();
+                            refreshController.refreshCompleted(
+                                resetFooterState: true);
+                            // if (success) {
+                            //   // return IndicatorResult.success;
+                            //   refreshController.loadComplete();
+                            // } else {
+                            //   // return IndicatorResult.fail;
+                            //   refreshController.loadFailed();
+                            // }
+                          });
 
                           // easyController.finishRefresh(IndicatorResult.none);
 
@@ -188,34 +204,22 @@ class HomeScreenPickup extends HookConsumerWidget {
                   separator: const Divider(),
                   itemBuilder: (context, index) {
                     final parcel = state.parcelPickupResponse.data[index];
-                    // ref
-                    //     .read(parcelPickupProvider.notifier)
-                    //     .handleResponse(index, pageSize, page.value);
+
                     return ParcelListTile(
                       index: index,
                       onTapReceive: () async {
-                        // final newParcel =
-                        // //     parcel.copyWith(status: ParcelPickupType.cancel);
-                        // final list = state.parcelPickupResponse.data.lock
-                        //     .replaceFirstWhere(
-                        //         (item) => item.id == parcel.id,
-                        //         (item) => parcel.copyWith(
-                        //             status: ParcelPickupType.cancel))
-                        //     .unlock;
-                        // ref.read(parcelPickupProvider.notifier).setState(
-                        //         state.copyWith(
-                        //             parcelPickupResponse:
-                        //                 state.parcelPickupResponse.copyWith(
-                        //       data: list,
-                        //     )));
                         return await ref
                             .read(parcelPickupProvider.notifier)
-                            .receivedParcel(parcel.id, page.value);
+                            .receivedParcel(parcel.id, page.value,
+                                shouldRemove: currentType.value ==
+                                    ParcelPickupType.cancel);
                       },
                       onTapCancel: () async {
                         return await ref
                             .read(parcelPickupProvider.notifier)
-                            .cancelParcel(parcel.id, page.value);
+                            .cancelParcel(parcel.id, page.value,
+                                shouldRemove: currentType.value ==
+                                    ParcelPickupType.received);
                       },
                     );
                   },

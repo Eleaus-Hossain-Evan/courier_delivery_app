@@ -107,7 +107,7 @@ class MyTheme {
     visualDensity: VisualDensity.adaptivePlatformDensity,
     swapLegacyOnMaterial3: true,
     // To use the playground font, add GoogleFonts package and uncomment
-    fontFamily: GoogleFonts.openSans().fontFamily,
+    fontFamily: GoogleFonts.nunitoSans().fontFamily,
   );
   static final darkTheme = FlexThemeData.dark(
     colors: const FlexSchemeColor(

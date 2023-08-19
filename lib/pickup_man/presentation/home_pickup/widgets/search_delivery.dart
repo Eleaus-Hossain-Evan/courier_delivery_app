@@ -73,6 +73,12 @@ class SearchDelivery extends HookConsumerWidget {
           ],
         ),
       ],
-    ).p16().box.rounded.color(context.colors.primary.withOpacity(.1)).make();
+    )
+        .p16()
+        .box
+        .rounded
+        .color(context.colors.primary.withOpacity(.1))
+        .make()
+        .px16();
   }
 }

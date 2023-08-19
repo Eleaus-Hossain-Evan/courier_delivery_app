@@ -45,10 +45,14 @@ class AuthRepo {
     return data;
   }
 
-  Future<Either<CleanFailure, AuthResponse>> profileView() async {
+  Future<Either<CleanFailure, AuthResponse>> profileView(
+      {required String id, bool isPickup = true}) async {
     final data = await api.get(
       fromData: (json) => AuthResponse.fromMap(json),
-      endPoint: EndPointPickUp.PROFILE_VIEW,
+      endPoint: (isPickup
+              ? EndPointPickUp.PROFILE_VIEW
+              : EndPointRider.PROFILE_VIEW) +
+          id,
       withToken: true,
     );
 

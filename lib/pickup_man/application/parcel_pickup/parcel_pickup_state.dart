@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 
-import '../../domain/parcel/parcel_list_response.dart';
+import '../../domain/parcel/parcel_pickup_list_response.dart';
 
 class ParcelPickupState extends Equatable {
   final bool loading;
-  final ParcelListResponse parcelPickupResponse;
+  final ParcelPickupListResponse parcelPickupResponse;
 
   const ParcelPickupState({
     required this.loading,
@@ -13,12 +13,12 @@ class ParcelPickupState extends Equatable {
 
   factory ParcelPickupState.init() => ParcelPickupState(
         loading: false,
-        parcelPickupResponse: ParcelListResponse.init(),
+        parcelPickupResponse: ParcelPickupListResponse.init(),
       );
 
   ParcelPickupState copyWith({
     bool? loading,
-    ParcelListResponse? parcelPickupResponse,
+    ParcelPickupListResponse? parcelPickupResponse,
   }) {
     return ParcelPickupState(
       loading: loading ?? this.loading,

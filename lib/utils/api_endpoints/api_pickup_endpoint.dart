@@ -10,18 +10,13 @@ class EndPointPickUp {
   static const String API_V1 = "api/v1/";
 
   //#<<---------------- AUTH ------------------>>
+
   static const String LOGIN = "${API_V1}pickupman/login";
-  static const String PROFILE_VIEW =
-      "${API_V1}merchant/single-fetch-by-himself";
+  static const String PROFILE_VIEW = "${API_V1}pickupman/single-fetch/";
   static const String PASSWORD_UPDATE =
       "${API_V1}merchant/password-update-by-himself";
 
-  //#<<---------------- SHOP ------------------>>
-  static const String ADD_SHOP = "${API_V1}merchant/add-shop-by-himself";
-  static const String FETCH_ALL_SHOP =
-      "${API_V1}merchant/fetch-all-shop-by-himself";
-  static const String UPDATE_SHOP = "${API_V1}merchant/update-shop-by-himself/";
-  static const String DELETE_SHOP = "${API_V1}merchant/delete-shop-by-himself/";
+
 
   //#<<---------------- Courier Merchant ------------------>>
 
@@ -37,5 +32,6 @@ class EndPointPickUp {
 
   //#<<----------------Parcel------------------>>
   static const String PARCEL_PICKUPMAN = "${API_V1}parcel/pickupman-parcels?";
-  static const String UPDATE_PARCEL_PICKUPMAN = "${API_V1}parcel/update-parcels-status-by-pickupman/";
+  static const String UPDATE_PARCEL_PICKUPMAN =
+      "${API_V1}parcel/update-parcels-status-by-pickupman/";
 }

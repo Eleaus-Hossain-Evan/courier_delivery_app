@@ -31,7 +31,7 @@ class ProfileDetailScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(authProvider);
 
-    final isEditable = useState(!state.user.isDisabled);
+    final isEditable = useState(!(state.user.role == Role.pickupman));
 
     final isLoading = useState(false);
 
@@ -87,8 +87,8 @@ class ProfileDetailScreen extends HookConsumerWidget {
               onPressed: () {
                 isEditable.value
                     ? isUpdate.value = !isUpdate.value
-                    : showToast(
-                        "You can't edit details now,\nPlease, contact with admin.");
+                    : showErrorToast(
+                        "You can't edit details,\nPlease, contact with admin.");
               },
               icon: const Icon(FontAwesome.pen_to_square)
                   .iconColor(ColorPalate.white)

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:velocity_x/velocity_x.dart';
 // import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'dart:math' as math;
+import 'package:intl/intl.dart';
 
 import '../utils.dart';
 
@@ -11,3 +13,4 @@ part 'num_extension.dart';
 part 'text_style_extension.dart';
 part 'color_extension.dart';
 part 'velocity_extension.dart';
+part 'date_time_extension.dart';

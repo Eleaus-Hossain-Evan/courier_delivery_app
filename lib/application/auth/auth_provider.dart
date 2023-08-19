@@ -125,7 +125,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
   Future<bool> profileView() async {
     bool success = false;
     // state = state.copyWith(loading: true);
-    final result = await repo.profileView();
+    final result = await repo.profileView(id: state.user.id, isPickup: state.user.role == Role.pickupman);
 
     state = result.fold(
       (l) {

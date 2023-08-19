@@ -114,11 +114,13 @@ class MyApp extends HookConsumerWidget {
             locale: ref.watch(appLocalProvider),
 
             //:theme
-            themeMode: appTheme.theme.isEmpty
-                ? ThemeMode.system
-                : appTheme.theme == "dark"
-                    ? ThemeMode.dark
-                    : ThemeMode.light,
+            // themeMode: appTheme.theme.isEmpty
+            //     ? ThemeMode.system
+            //     : appTheme.theme == "dark"
+            //         ? ThemeMode.dark
+            //         : ThemeMode.light,
+
+            themeMode: ThemeMode.light,
 
             theme: MyTheme.lightTheme,
             darkTheme: MyTheme.darkTheme,

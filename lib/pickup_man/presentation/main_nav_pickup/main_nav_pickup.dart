@@ -8,7 +8,6 @@ import '../../../presentation/profile/profile_screen.dart';
 import '../../../utils/utils.dart';
 import '../history/history_screen.dart';
 import '../home_pickup/home_screen_pickup.dart';
-import '../pickup_list/delivery_screen.dart';
 
 final bottomNavigatorKeyPickup = GlobalKey();
 
@@ -22,7 +21,6 @@ class MainNavPickupMan extends HookConsumerWidget {
     final navIndex = useState(0);
     final navWidget = [
       const HomeScreenPickup(),
-      const PickUpListScreen(),
       const HistoryScreen(),
       const ProfileScreen(),
     ];
@@ -49,15 +47,6 @@ class MainNavPickupMan extends HookConsumerWidget {
                     : ColorPalate.black600,
               ),
               label: AppStrings.home,
-            ),
-            NavigationDestination(
-              icon: Icon(
-                FontAwesome.boxes_packing,
-                color: navIndex.value == 1
-                    ? context.colors.primary
-                    : ColorPalate.black600,
-              ),
-              label: AppStrings.pickup,
             ),
             NavigationDestination(
               icon: Icon(

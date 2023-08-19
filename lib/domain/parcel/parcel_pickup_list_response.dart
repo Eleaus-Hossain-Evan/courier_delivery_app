@@ -1,36 +1,35 @@
 import 'dart:convert';
 
 import 'package:courier_delivery_app/domain/meta_data_model.dart';
+import 'package:courier_delivery_app/domain/parcel/model/top_level_rider_parcel_model.dart';
 import 'package:equatable/equatable.dart';
 
-import 'model/top_level_common_parcel_model.dart';
-
-class ParcelListResponse extends Equatable {
+class ParcelRiderListResponse extends Equatable {
   final MetaDataModel metaData;
-  final List<TopLevelCommonParcelModel> data;
+  final List<TopLevelRiderParcelModel> data;
   final String message;
   final bool success;
 
-  const ParcelListResponse({
+  const ParcelRiderListResponse({
     required this.metaData,
     required this.data,
     required this.message,
     required this.success,
   });
 
-  factory ParcelListResponse.init() => ParcelListResponse(
+  factory ParcelRiderListResponse.init() => ParcelRiderListResponse(
       metaData: MetaDataModel.init(),
       data: const [],
       message: '',
       success: false);
 
-  ParcelListResponse copyWith({
+  ParcelRiderListResponse copyWith({
     MetaDataModel? metaData,
-    List<TopLevelCommonParcelModel>? data,
+    List<TopLevelRiderParcelModel>? data,
     String? message,
     bool? success,
   }) {
-    return ParcelListResponse(
+    return ParcelRiderListResponse(
       metaData: metaData ?? this.metaData,
       data: data ?? this.data,
       message: message ?? this.message,
@@ -47,11 +46,11 @@ class ParcelListResponse extends Equatable {
     };
   }
 
-  factory ParcelListResponse.fromMap(Map<String, dynamic> map) {
-    return ParcelListResponse(
+  factory ParcelRiderListResponse.fromMap(Map<String, dynamic> map) {
+    return ParcelRiderListResponse(
       metaData: MetaDataModel.fromMap(map['metaData']),
-      data: List<TopLevelCommonParcelModel>.from(
-          map['data']?.map((x) => TopLevelCommonParcelModel.fromMap(x)) ??
+      data: List<TopLevelRiderParcelModel>.from(
+          map['data']?.map((x) => TopLevelRiderParcelModel.fromMap(x)) ??
               const []),
       message: map['message'] ?? '',
       success: map['success'] ?? false,
@@ -60,8 +59,8 @@ class ParcelListResponse extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  factory ParcelListResponse.fromJson(String source) =>
-      ParcelListResponse.fromMap(json.decode(source));
+  factory ParcelRiderListResponse.fromJson(String source) =>
+      ParcelRiderListResponse.fromMap(json.decode(source));
 
   @override
   String toString() {
