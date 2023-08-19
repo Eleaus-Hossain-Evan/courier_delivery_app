@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:courier_delivery_app/pickup_man/application/parcel_pickup/parcel_pickup_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,11 +9,11 @@ import 'package:velocity_x/velocity_x.dart';
 
 import '../../../presentation/widgets/widgets.dart';
 import '../../../utils/utils.dart';
-import '../../domain/parcel/model/top_level_pickup_parcel_model.dart';
-import 'parcel_detail_widget.dart';
+import '../../application/parcel_rider/parcel_rider_provider.dart';
+import '../../domain/parcel/model/top_level_rider_parcel_model.dart';
 
-class ParcelListTile extends HookConsumerWidget {
-  const ParcelListTile({
+class ParcelRiderListTile extends HookConsumerWidget {
+  const ParcelRiderListTile({
     Key? key,
     required this.index,
     required this.onTapReceive,
@@ -28,8 +27,8 @@ class ParcelListTile extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final state = ref.watch(parcelPickupProvider);
-    final model = state.parcelPickupResponse.data[index];
+    final state = ref.watch(parcelRiderProvider);
+    final model = state.parcelRiderResponse.data[index];
 
     final isReceived = useState(false);
     final isCanceled = useState(false);
@@ -38,9 +37,9 @@ class ParcelListTile extends HookConsumerWidget {
     useEffect(() {
       Future.wait([
         Future.microtask(
-            () => isReceived.value = model.status == ParcelPickupType.received),
+            () => isReceived.value = model.status == ParcelRiderType.received),
         Future.microtask(
-            () => isCanceled.value = model.status == ParcelPickupType.cancel),
+            () => isCanceled.value = model.status == ParcelRiderType.cancel),
       ]);
       return null;
     }, []);
@@ -48,9 +47,9 @@ class ParcelListTile extends HookConsumerWidget {
     // Logger.i(model);
 
     Color getColor() {
-      return model.status == ParcelPickupType.received
+      return model.status == ParcelRiderType.received
           ? context.theme.primaryColor
-          : model.status == ParcelPickupType.cancel
+          : model.status == ParcelRiderType.cancel
               ? context.colors.error
               : context.colors.secondary;
     }
@@ -63,7 +62,7 @@ class ParcelListTile extends HookConsumerWidget {
       onTap: () {
         kShowBarModalBottomSheet(
           context: context,
-          child: ParcelDetailWidget(
+          child: ParcelRiderDetailWidget(
             model: model,
             onTapReceive: onTapReceive,
             onTapCancel: onTapCancel,
@@ -211,7 +210,7 @@ class ParcelListTile extends HookConsumerWidget {
                     switchOutCurve: Curves.easeOutCubic,
                     duration: 800.milliseconds,
                     child: isUndo.value ||
-                            model.status == ParcelPickupType.assign
+                            model.status == ParcelRiderType.assign
                         ? Row(
                             mainAxisSize: mainMin,
                             mainAxisAlignment: mainEnd,

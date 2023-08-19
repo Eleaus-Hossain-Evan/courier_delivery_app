@@ -11,8 +11,8 @@ import 'package:velocity_x/velocity_x.dart';
 import '../../../utils/utils.dart';
 import '../../domain/parcel/model/top_level_pickup_parcel_model.dart';
 
-class ParcelDetailWidget extends HookConsumerWidget {
-  const ParcelDetailWidget({
+class ParcelPickupDetailWidget extends HookConsumerWidget {
+  const ParcelPickupDetailWidget({
     super.key,
     required this.model,
     required this.onTapReceive,

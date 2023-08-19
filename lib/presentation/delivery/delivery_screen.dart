@@ -1,15 +1,12 @@
+import 'package:courier_delivery_app/domain/parcel/model/top_level_rider_parcel_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import 'package:courier_delivery_app/presentation/delivery/widgets/completed_delivery.dart';
-
 import '../../utils/utils.dart';
-import 'widgets/pending_delivery.dart';
-
-enum DeliveryTabs { pending, complete }
+import 'widgets/rider_categorized_delivery_list.dart';
 
 class DeliveryScreen extends HookConsumerWidget {
   const DeliveryScreen({super.key});
@@ -18,7 +15,7 @@ class DeliveryScreen extends HookConsumerWidget {
     final scrollController = useScrollController();
 
     final tabController =
-        useTabController(initialLength: DeliveryTabs.values.length);
+        useTabController(initialLength: ParcelRiderType.values.length);
     return CustomScrollView(
       controller: scrollController,
       slivers: [
@@ -30,11 +27,12 @@ class DeliveryScreen extends HookConsumerWidget {
           pinned: true,
         ),
         SliverPersistentHeader(
+          floating: true,
           delegate: TotalDeliverySection(),
         ),
         SliverPersistentHeader(
           delegate: DeliveryTabSection(tabController: tabController),
-          pinned: true,
+          floating: true,
         ),
         // SliverToBoxAdapter(
         //   child: Container(
@@ -100,10 +98,9 @@ class DeliveryScreen extends HookConsumerWidget {
         SliverFillRemaining(
           child: TabBarView(
             controller: tabController,
-            children: const [
-              PendingDelivery(),
-              CompletedDelivery(),
-            ],
+            children: ParcelRiderType.values
+                .map((e) => RiderCategorizedDeliveryList(type: e))
+                .toList(),
           ),
         )
       ],
@@ -156,6 +153,7 @@ class DeliveryTabSection extends SliverPersistentHeaderDelegate {
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return TabBar(
       controller: tabController,
+      isScrollable: true,
       labelColor: ColorPalate.bg100,
       labelStyle: TextStyle(
         fontSize: 16.sp,
@@ -180,12 +178,8 @@ class DeliveryTabSection extends SliverPersistentHeaderDelegate {
       indicatorSize: TabBarIndicatorSize.tab,
       indicatorColor: context.colors.primary,
       dividerColor: context.colors.primary,
-      tabs: DeliveryTabs.values
-          .map(
-            (e) => Tab(
-              text: e.name.toCapitalize(),
-            ),
-          )
+      tabs: ParcelRiderType.values
+          .map((e) => Tab(text: e.name.toCapitalize()))
           .toList(),
     ).box.color(context.colors.primary).height(60.h).make();
   }

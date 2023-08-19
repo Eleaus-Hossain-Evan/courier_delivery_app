@@ -28,3 +28,5 @@ export 'custom_scaffold.dart';
 export 'container_bg_white.dart';
 export 'delivery_list_tail.dart';
 export 'individual_section.dart';
+export 'parcel_rider_detail_widget.dart';
+export 'parcel_rider_list_tile.dart';

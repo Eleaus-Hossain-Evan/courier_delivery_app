@@ -6,14 +6,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import 'package:velocity_x/velocity_x.dart';
 
-import '../../pickup_man/application/parcel_pickup/parcel_pickup_provider.dart';
 import '../../utils/utils.dart';
-import '../main_nav/main_nav.dart';
-import '../widgets/widgets.dart';
 import 'widgets/home_app_bar.dart';
 import 'widgets/search_delivery.dart';
+import 'widgets/todays_parcel_section.dart';
 import 'widgets/working_summery.dart';
 
 const pageSize = 2;
@@ -27,7 +24,7 @@ class HomeScreenRider extends HookConsumerWidget {
 
     final refreshController = useMemoized(
         () => RefreshController(initialLoadStatus: LoadStatus.canLoading));
-    final state = ref.watch(parcelPickupProvider);
+    final state = ref.watch(parcelRiderProvider);
     final currentType = useState(ParcelRiderType.all);
 
     final page = useState(1);
@@ -85,7 +82,7 @@ class HomeScreenRider extends HookConsumerWidget {
             });
           },
           onLoading: () async {
-            if (state.parcelPickupResponse.data.isNotEmpty) {
+            if (state.parcelRiderResponse.data.isNotEmpty) {
               refreshController.loadComplete();
             }
             if (totalPage.value == 0 || page.value == totalPage.value) {
@@ -121,51 +118,11 @@ class HomeScreenRider extends HookConsumerWidget {
                 const WorkingSummery(),
                 const SearchDelivery(),
                 gap12,
-                Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: mainSpaceBetween,
-                      children: [
-                        AppStrings.todayDelivery.text.bold.lg
-                            .color(ColorPalate.black900)
-                            .make(),
-                        AppStrings.viewAll.text
-                            .color(ColorPalate.secondary200)
-                            .make()
-                            .pSymmetric(h: 4, v: 2)
-                            .onInkTap(() {
-                          final navigatorKey =
-                              bottomNavigatorKey.currentWidget as NavigationBar;
-
-                          navigatorKey.onDestinationSelected!(1);
-                        })
-                      ],
-                    ),
-                    gap24,
-                    KListViewSeparated(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      gap: 16,
-                      padding: padding0,
-                      itemBuilder: (context, index) {
-                        return const DeliveryListTile(
-                          customerName: "Evan Hossain",
-                          address:
-                              "169/B, North Konipara, Tejgoan, Dhaka, Bangladesh",
-                          distance: "3 kms",
-                        );
-                      },
-                      itemCount: 10,
-                    ),
-                  ],
-                )
-                    .p(16.w)
-                    .box
-                    .color(ColorPalate.bg100)
-                    .topRounded()
-                    .roundedLg
-                    .shadow
-                    .make(),
+                TodaysParcelSection(
+                  state: state,
+                  page: page,
+                  currentType: currentType,
+                ),
               ],
             ),
           ),

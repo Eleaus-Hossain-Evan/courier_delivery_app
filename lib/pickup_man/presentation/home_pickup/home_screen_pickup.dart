@@ -13,7 +13,7 @@ import 'package:shimmer/shimmer.dart';
 import '../../../presentation/widgets/widgets.dart';
 import '../../../utils/utils.dart';
 import '../../domain/parcel/model/top_level_pickup_parcel_model.dart';
-import '../widgets/parcel_list_tile.dart';
+import '../widgets/parcel_pickup_list_tile.dart';
 import 'widgets/home_app_bar.dart';
 import 'widgets/search_delivery.dart';
 import 'widgets/working_summery.dart';
@@ -205,7 +205,7 @@ class HomeScreenPickup extends HookConsumerWidget {
                   itemBuilder: (context, index) {
                     final parcel = state.parcelPickupResponse.data[index];
 
-                    return ParcelListTile(
+                    return ParcelPickupListTile(
                       index: index,
                       onTapReceive: () async {
                         return await ref

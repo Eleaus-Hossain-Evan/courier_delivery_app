@@ -48,4 +48,8 @@ class ParcelRiderNotifier extends StateNotifier<ParcelRiderState> {
 
     return success;
   }
+
+  receivedParcel(String id, int value, {required bool shouldRemove}) {}
+
+  cancelParcel(String id, int value, {required bool shouldRemove}) {}
 }

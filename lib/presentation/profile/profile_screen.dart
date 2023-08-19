@@ -253,10 +253,9 @@ class LogoutDialog extends HookConsumerWidget {
                       Navigator.pop(context);
                       onNoPressed.call();
                     },
-                    backgroundColor:
-                        Theme.of(context).colorScheme.secondaryContainer,
-                    // foregroundColor:
-                    //     Theme.of(context).colorScheme.onPrimaryContainer,
+                    backgroundColor: context.colors.secondary,
+                    foregroundColor:
+                        Theme.of(context).colorScheme.onPrimaryContainer,
                   ),
                 ),
                 SizedBox(

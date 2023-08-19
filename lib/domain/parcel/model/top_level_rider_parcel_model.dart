@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 
 import '../../../../domain/parcel/model/parcel_model.dart';
 
-enum ParcelRiderType { all, assign, dropoff, cancel }
+enum ParcelRiderType { all, assign, received, dropoff, cancel }
 
 class TopLevelRiderParcelModel extends Equatable {
   final String id;

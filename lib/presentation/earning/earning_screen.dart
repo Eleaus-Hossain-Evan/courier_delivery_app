@@ -35,7 +35,7 @@ class EarningScreen extends HookConsumerWidget {
             pinned: true,
           ),
           SliverPersistentHeader(
-            floating: true,
+            pinned: true,
             delegate: TotalEarningSection(),
           ),
           SliverPersistentHeader(

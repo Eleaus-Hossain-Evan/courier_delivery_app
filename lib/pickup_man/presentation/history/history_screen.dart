@@ -10,7 +10,7 @@ import 'package:velocity_x/velocity_x.dart';
 import '../../../presentation/widgets/widgets.dart';
 import '../../../utils/utils.dart';
 import '../../application/parcel_pickup/parcel_pickup_provider.dart';
-import '../widgets/parcel_list_tile.dart';
+import '../widgets/parcel_pickup_list_tile.dart';
 
 class HistoryScreen extends HookConsumerWidget {
   const HistoryScreen({super.key});
@@ -120,7 +120,7 @@ class HistoryScreen extends HookConsumerWidget {
               padding: padding0,
               separator: const Divider(),
               itemBuilder: (context, index) {
-                return ParcelListTile(
+                return ParcelPickupListTile(
                   index: index,
                   onTapReceive: () => null,
                   onTapCancel: () => null,
