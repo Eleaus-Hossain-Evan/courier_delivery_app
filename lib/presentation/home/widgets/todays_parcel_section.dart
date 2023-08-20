@@ -54,20 +54,19 @@ class TodaysParcelSection extends HookConsumerWidget {
             final parcel = state.parcelRiderResponse.data[index];
             return ParcelRiderListTile(
               index: index,
-              onTapReceive: () async {
+              onTapComplete: () async {
                 return await ref
                     .read(parcelRiderProvider.notifier)
-                    .receivedParcel(
-                        parcel.id, page.value,
+                    .receivedParcel(parcel.id, page.value,
                         shouldRemove:
-                            currentType.value == ParcelRiderType.cancel);
+                            currentType.value == ParcelRiderType.complete);
               },
-              onTapCancel: () async {
+              onTapReject: () async {
                 return await ref
                     .read(parcelRiderProvider.notifier)
                     .cancelParcel(parcel.id, page.value,
                         shouldRemove:
-                            currentType.value == ParcelRiderType.received);
+                            currentType.value == ParcelRiderType.reject);
               },
             );
           },

@@ -153,33 +153,36 @@ class DeliveryTabSection extends SliverPersistentHeaderDelegate {
       BuildContext context, double shrinkOffset, bool overlapsContent) {
     return TabBar(
       controller: tabController,
-      isScrollable: true,
-      labelColor: ColorPalate.bg100,
+      padding: padding0,
       labelStyle: TextStyle(
-        fontSize: 16.sp,
-        fontWeight: FontWeight.bold,
+        fontWeight: FontWeight.w700,
+        fontSize: 12.sp,
+        letterSpacing: 1,
       ),
-      unselectedLabelColor: ColorPalate.bg200,
       unselectedLabelStyle: TextStyle(
-        fontSize: 16.sp,
-        fontWeight: FontWeight.w500,
+        fontWeight: FontWeight.w600,
+        fontSize: 12.sp,
+        letterSpacing: .9,
       ),
-      indicatorPadding: paddingBottom4,
+      unselectedLabelColor: ColorPalate.white,
+      // isScrollable: true,
       indicator: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            width: 3.5.h,
-            color: Colors.white,
-          ),
+        borderRadius: BorderRadius.circular(
+          25.0,
         ),
-        // borderRadius: BorderRadius.circular(2.r),
+        color: ColorPalate.white,
       ),
-      indicatorWeight: 3,
       indicatorSize: TabBarIndicatorSize.tab,
-      indicatorColor: context.colors.primary,
-      dividerColor: context.colors.primary,
+      indicatorPadding: EdgeInsets.symmetric(vertical: 4.w),
       tabs: ParcelRiderType.values
-          .map((e) => Tab(text: e.name.toCapitalize()))
+          .map((e) => Tab(
+                text: e.name.toCapitalize(),
+                iconMargin: const EdgeInsets.only(
+                  bottom: 10.0,
+                  left: 10,
+                  right: 10,
+                ),
+              ))
           .toList(),
     ).box.color(context.colors.primary).height(60.h).make();
   }

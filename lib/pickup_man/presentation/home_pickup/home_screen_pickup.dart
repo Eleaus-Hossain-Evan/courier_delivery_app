@@ -224,7 +224,15 @@ class HomeScreenPickup extends HookConsumerWidget {
                     );
                   },
                   itemCount: state.parcelPickupResponse.data.length,
-                ).box.white.roundedSM.shadowSm.make().px16(),
+                )
+                    .box
+                    .color(state.parcelPickupResponse.data.isEmpty
+                        ? ColorPalate.bg200
+                        : ColorPalate.white)
+                    .roundedSM
+                    .shadowSm
+                    .make()
+                    .px16(),
               ],
             ),
           ),

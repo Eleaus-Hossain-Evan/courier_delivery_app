@@ -42,6 +42,7 @@ class HomeScreenRider extends HookConsumerWidget {
     });
 
     useEffect(() {
+      Future.microtask(() => ref.invalidate(parcelRiderProvider));
       Future.microtask(
           () => ref.read(parcelRiderProvider.notifier).parcelPickupList(
                 page: page.value,

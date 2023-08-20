@@ -320,8 +320,11 @@ class ParcelRegularInfoSection extends StatelessWidget {
               children: [
                 const Icon(BoxIcons.bx_water).iconSize(64.sp),
                 gap4,
-                model.parcel.regularParcelInfo.materialType.capitalized.text
-                    .bold.xl
+                model.parcel.regularParcelInfo.materialType
+                    .toCapitalize()
+                    .text
+                    .bold
+                    .xl
                     .make(),
               ],
             ).box.roundedSM.colorPrimary(context).make(),

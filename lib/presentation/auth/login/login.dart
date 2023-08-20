@@ -179,18 +179,25 @@ class LoginScreen extends HookConsumerWidget {
                   ],
                 ),
               ),
-              gap24,
-              Align(
-                alignment: Alignment.center,
-                child: Text(AppStrings.dontHaveAccount,
-                    style: CustomTextStyle.textStyle16w500Black900),
-              ),
-              gap16,
-              KElevatedButton(
-                onPressed: () {
-                  context.replace(SignUpScreen.route);
-                },
-                text: AppStrings.createAccount,
+              Visibility(
+                visible: ref.watch(roleProvider) == Role.rider,
+                child: Column(
+                  children: [
+                    gap24,
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text(AppStrings.dontHaveAccount,
+                          style: CustomTextStyle.textStyle16w500Black900),
+                    ),
+                    gap16,
+                    KElevatedButton(
+                      onPressed: () {
+                        context.replace(SignUpScreen.route);
+                      },
+                      text: AppStrings.createAccount,
+                    ),
+                  ],
+                ),
               ),
             ],
           ),

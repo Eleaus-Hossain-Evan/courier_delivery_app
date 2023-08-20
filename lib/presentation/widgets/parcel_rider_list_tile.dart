@@ -16,14 +16,14 @@ class ParcelRiderListTile extends HookConsumerWidget {
   const ParcelRiderListTile({
     Key? key,
     required this.index,
-    required this.onTapReceive,
-    required this.onTapCancel,
+    required this.onTapComplete,
+    required this.onTapReject,
   }) : super(key: key);
 
   final int index;
 
-  final FutureOr<bool>? Function() onTapReceive;
-  final FutureOr<bool>? Function() onTapCancel;
+  final FutureOr<bool>? Function() onTapComplete;
+  final FutureOr<bool>? Function() onTapReject;
 
   @override
   Widget build(BuildContext context, ref) {
@@ -37,9 +37,9 @@ class ParcelRiderListTile extends HookConsumerWidget {
     useEffect(() {
       Future.wait([
         Future.microtask(
-            () => isReceived.value = model.status == ParcelRiderType.received),
+            () => isReceived.value = model.status == ParcelRiderType.complete),
         Future.microtask(
-            () => isCanceled.value = model.status == ParcelRiderType.cancel),
+            () => isCanceled.value = model.status == ParcelRiderType.reject),
       ]);
       return null;
     }, []);
@@ -47,9 +47,9 @@ class ParcelRiderListTile extends HookConsumerWidget {
     // Logger.i(model);
 
     Color getColor() {
-      return model.status == ParcelRiderType.received
+      return model.status == ParcelRiderType.complete
           ? context.theme.primaryColor
-          : model.status == ParcelRiderType.cancel
+          : model.status == ParcelRiderType.reject
               ? context.colors.error
               : context.colors.secondary;
     }
@@ -64,206 +64,145 @@ class ParcelRiderListTile extends HookConsumerWidget {
           context: context,
           child: ParcelRiderDetailWidget(
             model: model,
-            onTapReceive: onTapReceive,
-            onTapCancel: onTapCancel,
+            onTapComplete: onTapComplete,
+            onTapReject: onTapReject,
           ),
         );
       },
       child: Column(
         crossAxisAlignment: crossStart,
         children: [
-          Row(
-            children: [
-              const Icon(Bootstrap.info_circle)
-                  .iconSize(16.sp)
-                  .iconColor(context.theme.primaryColorDark),
-              gap8,
-              model.parcel.serialId.text
-                  .caption(context)
-                  .letterSpacing(.8)
-                  .semiBold
-                  .color(ColorPalate.black600)
-                  .make()
-                  .expand(),
-              model.status.name.capitalized.text.xs
-                  .color(getColor())
-                  .bold
-                  .letterSpacing(.8)
-                  .makeCentered()
-                  .pSymmetric(h: 12.w, v: 2.h)
-                  .box
-                  .rounded
-                  .white
-                  .border(color: getColor().withOpacity(.4))
-                  .make(),
-            ],
-          ).p8().box.colorPrimary(context, opacity: .2).roundedSM.make(),
-          gap8,
+          // Row(
+          //   children: [
+          //     const Icon(Bootstrap.info_circle)
+          //         .iconSize(16.sp)
+          //         .iconColor(context.theme.primaryColorDark),
+          //     gap8,
+          //     model.parcel.serialId.text
+          //         .caption(context)
+          //         .letterSpacing(.8)
+          //         .semiBold
+          //         .color(ColorPalate.black600)
+          //         .make()
+          //         .expand(),
+          //     model.status.name.capitalized.text.xs
+          //         .color(getColor())
+          //         .bold
+          //         .letterSpacing(.8)
+          //         .makeCentered()
+          //         .pSymmetric(h: 12.w, v: 2.h)
+          //         .box
+          //         .rounded
+          //         .white
+          //         .border(color: getColor().withOpacity(.4))
+          //         .make(),
+          //   ],
+          // ).p8().box.colorPrimary(context, opacity: .2).roundedSM.make(),
+          // gap8,
           Row(
             mainAxisAlignment: mainSpaceBetween,
             children: [
-              model.parcel.merchantInfo.name.text.xl.bold.make(),
-              "${AppStrings.tkSymbol} ${model.parcel.regularParcelInfo.productPrice}"
+              model.parcel.customerInfo.name.text.xl.bold.make(),
+              "${AppStrings.tkSymbol} ${model.parcel.regularPayment.cashCollection}"
                   .text
-                  .medium
+                  .bold
+                  .colorPrimary(context)
+                  .make()
+                  .pSymmetric(h: 12.w, v: 2.h)
+                  .box
+                  .colorPrimary(context, opacity: .05)
+                  .roundedSM
+                  .border(color: context.colors.primary.withOpacity(.2))
                   .make(),
             ],
           ),
+          gap8,
+          Text.rich(
+            "Serial ID:  "
+                .textSpan
+                .withChildren([
+                  model.parcel.serialId.textSpan
+                      .color(Colors.blueGrey)
+                      .semiBold
+                      .caption(context)
+                      .letterSpacing(1)
+                      .make()
+                ])
+                .letterSpacing(.8)
+                .make(),
+          ),
           gap4,
-          Row(
-            mainAxisAlignment: mainSpaceBetween,
+          Column(
+            crossAxisAlignment: crossStart,
+            mainAxisSize: mainMin,
             children: [
-              Column(
-                crossAxisAlignment: crossStart,
-                children: [
-                  Text.rich(
-                    TextSpan(
-                      children: [
-                        const TextSpan(text: 'Phone:'),
-                        WidgetSpan(child: SizedBox(width: 6.w)),
-                        TextSpan(text: model.parcel.merchantInfo.phone),
-                      ],
-                    ),
-                  ),
-                  gap4,
-                  // Text.rich(
-                  //   TextSpan(
-                  //     children: [
-                  //       const TextSpan(text: 'Address:'),
-                  //       WidgetSpan(child: SizedBox(width: 6.w)),
-                  //       TextSpan(text: model.parcel.merchantInfo.address),
-                  //     ],
-                  //   ),
-                  // ),
-                  Visibility(
-                    visible: model.parcel.regularParcelInfo.materialType ==
-                        "fragile",
-                    replacement: Row(
-                      children: [
-                        const Icon(BoxIcons.bx_water).iconSize(18.sp),
-                        gap4,
-                        model.parcel.regularParcelInfo.materialType.text.light
-                            .make(),
-                        gap4,
-                        "|".text.make(),
-                        gap4,
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              const TextSpan(text: 'Weight:'),
-                              WidgetSpan(child: SizedBox(width: 6.w)),
-                              TextSpan(
-                                  text: model.parcel.regularParcelInfo.weight),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      children: [
-                        const Icon(BoxIcons.bx_box).iconSize(18.sp),
-                        gap4,
-                        model.parcel.regularParcelInfo.materialType.text.light
-                            .make(),
-                        gap4,
-                        "|".text.make(),
-                        gap4,
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              const TextSpan(text: 'Weight:'),
-                              WidgetSpan(child: SizedBox(width: 6.w)),
-                              TextSpan(
-                                  text: model.parcel.regularParcelInfo.weight),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ).expand(),
-
-              // slider widgets
-
-              SizedBox(
-                width: .25.sw,
-                height: 34.w,
+              Text.rich(
+                TextSpan(
+                  children: [
+                    const TextSpan(text: 'Phone:'),
+                    WidgetSpan(child: SizedBox(width: 6.w)),
+                    TextSpan(text: model.parcel.customerInfo.phone),
+                  ],
+                ),
+              ),
+              gap4,
+              Text.rich(
+                TextSpan(
+                  children: [
+                    const TextSpan(text: 'Address:'),
+                    WidgetSpan(child: SizedBox(width: 6.w)),
+                    TextSpan(text: model.parcel.customerInfo.address),
+                  ],
+                ),
+              ),
+              gap4,
+              Visibility(
+                visible: model
+                    .parcel.regularParcelInfo.materialType.isNotEmptyAndNotNull,
                 child: Visibility(
-                  visible: !model.isComplete,
-                  replacement: "Confirmed"
-                      .text
-                      .xl
-                      .colorPrimary(context)
-                      .makeCentered()
-                      .box
-                      .colorPrimary(context, opacity: .05)
-                      .border(color: context.colors.primary.withOpacity(.2))
-                      .make(),
-                  child: AnimatedSwitcher(
-                    // crossFadeState: isUndo.value
-                    //     ? CrossFadeState.showSecond
-                    //     : CrossFadeState.showFirst,
-                    // secondCurve: Curves.easeOutCubic,
-                    // alignment: Alignment.centerRight,
-                    switchInCurve: Curves.easeOutCubic,
-                    switchOutCurve: Curves.easeOutCubic,
-                    duration: 800.milliseconds,
-                    child: isUndo.value ||
-                            model.status == ParcelRiderType.assign
-                        ? Row(
-                            mainAxisSize: mainMin,
-                            mainAxisAlignment: mainEnd,
-                            crossAxisAlignment: crossEnd,
-                            children: [
-                              ElevatedButton(
-                                onPressed: () async {
-                                  await onTapCancel.call();
-                                  undoToggle.call();
-                                  // model.copyWith(status: ParcelPickupType.cancel);
-                                  // final list = state.parcelPickupResponse.data.lock
-                                  //     .replaceFirstWhere(
-                                  //         (item) => item.id == model.id,
-                                  //         (item) => model.copyWith(
-                                  //             status: ParcelPickupType.cancel))
-                                  //     .unlock;
-                                  // ref
-                                  //     .read(parcelPickupProvider.notifier)
-                                  //     .setState(state.copyWith(
-                                  //         parcelPickupResponse:
-                                  //             state.parcelPickupResponse.copyWith(
-                                  //       data: list,
-                                  //     )));
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  padding: padding0,
-                                  foregroundColor: context.colors.primary,
-                                ),
-                                child: const Icon(EvaIcons.close),
-                              ).box.square(34.w).make(),
-                              gap18,
-                              FilledButton(
-                                onPressed: () async {
-                                  await onTapReceive.call();
-                                  undoToggle.call();
-                                },
-                                style: FilledButton.styleFrom(
-                                  padding: padding0,
-                                  foregroundColor: Colors.white,
-                                ),
-                                child: const Icon(BoxIcons.bx_check),
-                              ).box.square(34.w).make(),
-                            ],
-                          )
-                        : OutlinedButton(
-                            onPressed: undoToggle,
-                            style: IconButton.styleFrom(
-                              padding: padding0,
-                              foregroundColor: context.colors.secondary,
-                              side: BorderSide(color: context.colors.secondary),
-                            ),
-                            child: const Icon(BoxIcons.bx_undo),
-                          ).px8(),
+                  visible:
+                      model.parcel.regularParcelInfo.materialType == "fragile",
+                  replacement: Row(
+                    children: [
+                      const Icon(BoxIcons.bx_water).iconSize(18.sp),
+                      gap4,
+                      model.parcel.regularParcelInfo.materialType.text.light
+                          .make(),
+                      gap4,
+                      "|".text.make(),
+                      gap4,
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            const TextSpan(text: 'Weight:'),
+                            WidgetSpan(child: SizedBox(width: 6.w)),
+                            TextSpan(
+                                text: model.parcel.regularParcelInfo.weight),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(BoxIcons.bx_box).iconSize(18.sp),
+                      gap4,
+                      model.parcel.regularParcelInfo.materialType.text.light
+                          .make(),
+                      gap4,
+                      "|".text.make(),
+                      gap4,
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            const TextSpan(text: 'Weight:'),
+                            WidgetSpan(child: SizedBox(width: 6.w)),
+                            TextSpan(
+                                text: model.parcel.regularParcelInfo.weight),
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -273,7 +212,7 @@ class ParcelRiderListTile extends HookConsumerWidget {
       ).p16(),
     )
         .box
-        .color(ColorPalate.secondary.lighten().withOpacity(.01))
+        .color(ColorPalate.secondary.lighten().withOpacity(.001))
         // .border(
         //   color: ColorPalate.secondary.lighten().withOpacity(.2),
         //   width: 1.2.w,

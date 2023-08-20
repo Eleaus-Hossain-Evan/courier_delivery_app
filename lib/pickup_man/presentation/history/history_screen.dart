@@ -35,6 +35,7 @@ class HistoryScreen extends HookConsumerWidget {
     });
 
     useEffect(() {
+      Future.microtask(() => ref.invalidate(parcelPickupProvider));
       Future.microtask(
           () => ref.read(parcelPickupProvider.notifier).parcelPickupList(
                 page: page.value,

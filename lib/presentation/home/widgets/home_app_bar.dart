@@ -1,10 +1,10 @@
+import 'package:courier_delivery_app/application/auth/auth_provider.dart';
 import 'package:courier_delivery_app/presentation/notification/notification_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../../application/home/home_provider.dart';
 import '../../../utils/utils.dart';
 import '../../widgets/widgets.dart';
 
@@ -15,14 +15,14 @@ class HomeAppBar extends HookConsumerWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final state = ref.watch(homeProvider);
+    final state = ref.watch(authProvider);
 
     return KAppBar(
       title: Column(
         crossAxisAlignment: crossStart,
         children: [
           Text(
-            "Evan",
+            state.user.name,
             style: CustomTextStyle.textStyle14w600B600.copyWith(
               color: ColorPalate.secondary200,
             ),
@@ -46,9 +46,9 @@ class HomeAppBar extends HookConsumerWidget implements PreferredSizeWidget {
           onPressed: () {
             GoRouter.of(context).push(NotificationScreen.route);
           },
-          icon: Badge(
-            isLabelVisible: state.notification,
-            child: const Icon(Icons.notifications_outlined),
+          icon: const Badge(
+            isLabelVisible: true,
+            child: Icon(Icons.notifications_outlined),
           ),
         ),
         gap12,

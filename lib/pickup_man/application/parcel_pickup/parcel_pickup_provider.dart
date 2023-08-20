@@ -30,7 +30,7 @@ class ParcelPickupNotifier extends StateNotifier<ParcelPickupState> {
     state = state.copyWith(loading: true);
 
     final result = await repo.getPickupParcelList(
-        type: type, page: page, limit: limit, isComplete: false);
+        type: type, page: page, limit: limit, isComplete: isComplete);
 
     result.fold((l) {
       showErrorToast(l.error.message);

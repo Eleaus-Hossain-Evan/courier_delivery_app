@@ -40,6 +40,7 @@ class RiderCategorizedDeliveryList extends HookConsumerWidget {
     });
 
     useEffect(() {
+      Future.microtask(() => ref.invalidate(parcelRiderProvider));
       Future.microtask(
           () => ref.read(parcelRiderProvider.notifier).parcelPickupList(
                 page: page.value,
@@ -111,18 +112,17 @@ class RiderCategorizedDeliveryList extends HookConsumerWidget {
           final parcel = state.parcelRiderResponse.data[index];
           return ParcelRiderListTile(
             index: index,
-            onTapReceive: () async {
+            onTapComplete: () async {
               return await ref
                   .read(parcelRiderProvider.notifier)
-                  .receivedParcel(
-                      parcel.id, page.value,
+                  .receivedParcel(parcel.id, page.value,
                       shouldRemove:
-                          currentType.value == ParcelRiderType.cancel);
+                          currentType.value == ParcelRiderType.complete);
             },
-            onTapCancel: () async {
+            onTapReject: () async {
               return await ref.read(parcelRiderProvider.notifier).cancelParcel(
                   parcel.id, page.value,
-                  shouldRemove: currentType.value == ParcelRiderType.received);
+                  shouldRemove: currentType.value == ParcelRiderType.reject);
             },
           );
         },
