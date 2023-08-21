@@ -15,8 +15,6 @@ import '../../../utils/utils.dart';
 import '../../domain/parcel/model/top_level_pickup_parcel_model.dart';
 import '../widgets/parcel_pickup_list_tile.dart';
 import 'widgets/home_app_bar.dart';
-import 'widgets/search_delivery.dart';
-import 'widgets/working_summery.dart';
 
 const pageSize = 2;
 
@@ -133,8 +131,8 @@ class HomeScreenPickup extends HookConsumerWidget {
             child: Column(
               crossAxisAlignment: crossStart,
               children: [
-                const WorkingSummery(),
-                const SearchDelivery(),
+                const HomeWorkingSummery(),
+                const HomeSearchDelivery(),
                 gap12,
                 Row(
                   mainAxisAlignment: mainSpaceBetween,

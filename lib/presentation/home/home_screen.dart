@@ -9,9 +9,9 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../utils/utils.dart';
 import 'widgets/home_app_bar.dart';
-import 'widgets/search_delivery.dart';
+import '../widgets/home_search_delivery.dart';
 import 'widgets/todays_parcel_section.dart';
-import 'widgets/working_summery.dart';
+import '../widgets/home_working_summery.dart';
 
 const pageSize = 2;
 
@@ -116,8 +116,8 @@ class HomeScreenRider extends HookConsumerWidget {
             child: Column(
               crossAxisAlignment: crossStart,
               children: [
-                const WorkingSummery(),
-                const SearchDelivery(),
+                const HomeWorkingSummery(),
+                const HomeSearchDelivery(),
                 gap12,
                 TodaysParcelSection(
                   state: state,

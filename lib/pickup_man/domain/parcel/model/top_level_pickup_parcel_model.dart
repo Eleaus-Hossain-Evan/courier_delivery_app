@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'status_history_model.dart';
 import 'package:equatable/equatable.dart';
 
 import '../../../../domain/parcel/model/parcel_model.dart';
@@ -10,7 +9,6 @@ enum ParcelPickupType { all, assign, received, cancel }
 class TopLevelPickupParcelModel extends Equatable {
   final String id;
   final ParcelPickupType status;
-  final List<StatusHistoryModel> statusHistory;
   final String createdAt;
   final String updatedAt;
   final bool isComplete;
@@ -18,7 +16,6 @@ class TopLevelPickupParcelModel extends Equatable {
   const TopLevelPickupParcelModel({
     required this.id,
     required this.status,
-    required this.statusHistory,
     required this.createdAt,
     required this.updatedAt,
     required this.isComplete,
@@ -28,7 +25,6 @@ class TopLevelPickupParcelModel extends Equatable {
   TopLevelPickupParcelModel copyWith({
     String? id,
     ParcelPickupType? status,
-    List<StatusHistoryModel>? statusHistory,
     String? createdAt,
     String? updatedAt,
     bool? isComplete,
@@ -37,7 +33,6 @@ class TopLevelPickupParcelModel extends Equatable {
     return TopLevelPickupParcelModel(
       id: id ?? this.id,
       status: status ?? this.status,
-      statusHistory: statusHistory ?? this.statusHistory,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       isComplete: isComplete ?? this.isComplete,
@@ -49,7 +44,6 @@ class TopLevelPickupParcelModel extends Equatable {
     return {
       '_id': id,
       'status': status.name,
-      'statusHistory': statusHistory.map((x) => x.toMap()).toList(),
       'createdAt': createdAt,
       'updatedAt': updatedAt,
       "isComplete": isComplete,
@@ -61,9 +55,6 @@ class TopLevelPickupParcelModel extends Equatable {
     return TopLevelPickupParcelModel(
       id: map['_id'] ?? '',
       status: ParcelPickupType.values.byName(map['status']),
-      statusHistory: List<StatusHistoryModel>.from(
-          map['statusHistory']?.map((x) => StatusHistoryModel.fromMap(x)) ??
-              const []),
       createdAt: map['createdAt'] ?? '',
       updatedAt: map['updatedAt'] ?? '',
       isComplete: map["isComplete"] ?? false,
@@ -78,7 +69,7 @@ class TopLevelPickupParcelModel extends Equatable {
 
   @override
   String toString() {
-    return 'Data(_id: $id, status: $status, statusHistory: $statusHistory, createdAt: $createdAt, updatedAt: $updatedAt, isComplete $isComplete, parcel: $parcel)';
+    return 'Data(_id: $id, status: $status, createdAt: $createdAt, updatedAt: $updatedAt, isComplete $isComplete, parcel: $parcel)';
   }
 
   @override
@@ -86,7 +77,6 @@ class TopLevelPickupParcelModel extends Equatable {
     return [
       id,
       status,
-      statusHistory,
       createdAt,
       updatedAt,
       isComplete,

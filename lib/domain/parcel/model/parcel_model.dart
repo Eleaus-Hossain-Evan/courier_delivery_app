@@ -8,11 +8,11 @@ import 'regular_charge_model.dart';
 import 'regular_parcel_info_model.dart';
 
 class ParcelModel extends Equatable {
-  final MerchantInfoModel merchantInfo;//
-  final RegularParcelInfoModel regularParcelInfo;//
-  final RegularParcelInfoModel exchangeParcelInfo;//
-  final RegularPaymentModel regularPayment;//
-  final RegularPaymentModel exchangePayment;//
+  final MerchantInfoModel merchantInfo; //
+  final RegularParcelInfoModel regularParcelInfo; //
+  final RegularParcelInfoModel exchangeParcelInfo; //
+  final RegularPaymentModel regularPayment; //
+  final RegularPaymentModel exchangePayment; //
   final String createdBy;
   final String merchantId;
   final String parcelType;
@@ -22,7 +22,7 @@ class ParcelModel extends Equatable {
   final String exchangeStatus;
   final int merchantUpdate;
   final String id;
-  final CustomerInfoModel customerInfo;//
+  final CustomerInfoModel customerInfo; //
   final String sourceHubId;
   final String currentHubId;
   final String destinationHubId;
@@ -165,6 +165,9 @@ class ParcelModel extends Equatable {
       exchangePayment: map['exchangePayment'] != null
           ? RegularPaymentModel.fromMap(map['exchangePayment'])
           : RegularPaymentModel.init(),
+      customerInfo: map['customerInfo'] != null
+          ? CustomerInfoModel.fromMap(map['customerInfo'])
+          : CustomerInfoModel.init(),
       createdBy: map['createdBy'] ?? '',
       merchantId: map['merchantId'] ?? '',
       parcelType: map['parcelType'] ?? '',
@@ -174,9 +177,6 @@ class ParcelModel extends Equatable {
       exchangeStatus: map['exchangeStatus'] ?? '',
       merchantUpdate: map['merchantUpdate']?.toInt() ?? 0,
       id: map['_id'] ?? '',
-      customerInfo: map['customerInfo'] != null
-          ? CustomerInfoModel.fromMap(map['customerInfo'])
-          : CustomerInfoModel.init(),
       sourceHubId: map['sourceHubId'] ?? '',
       currentHubId: map['currentHubId'] ?? '',
       destinationHubId: map['destinationHubId'] ?? '',

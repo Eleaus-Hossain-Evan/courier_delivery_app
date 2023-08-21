@@ -16,11 +16,10 @@ class EndPointPickUp {
   static const String PASSWORD_UPDATE =
       "${API_V1}merchant/password-update-by-himself";
 
-
-
   //#<<---------------- Courier Merchant ------------------>>
 
   static const String HOME = "${API_V1}home-page/view";
+  static const String DASHBOARD = "${API_V1}pickupman/dashboard";
 
   //#<<----------------Profile------------------>>
   static const String ALL_DISTRICT = "${API_V1}location/all-districts";

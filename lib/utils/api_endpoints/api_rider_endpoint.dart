@@ -26,6 +26,7 @@ class EndPointRider {
   //#<<---------------- Courier Merchant ------------------>>
 
   static const String HOME = "${API_V1}home-page/view";
+  static const String DASHBOARD = "${API_V1}rider/dashboard";
 
   //#<<----------------Profile------------------>>
   static const String ALL_DISTRICT = "${API_V1}location/all-districts";

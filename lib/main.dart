@@ -19,6 +19,7 @@ import '../../utils/utils.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  // FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   final container = ProviderContainer(
     observers: [ProviderLog()],
@@ -84,6 +85,8 @@ class MyApp extends HookConsumerWidget {
         Future.microtask(
           () => ref.read(roleProvider.notifier).state = user.role,
         ),
+        // Future.delayed(
+        //     const Duration(seconds: 2), () => FlutterNativeSplash.remove()),
         // Future.microtask(
         //     () => ref.read(loggedInProvider.notifier).onAppStart()),
         // Future.microtask(

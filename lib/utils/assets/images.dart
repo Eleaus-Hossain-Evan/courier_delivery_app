@@ -10,7 +10,9 @@ class Images {
   static const String deliveryBoxLoading =
       'assets/images/delivery-box-loading.png';
   static const String deliveryBoxes3d = 'assets/images/delivery-boxes-3d.png';
+  static const String logoOriginal = 'assets/images/logo-original.png';
   static const String logo = 'assets/images/logo.png';
+  static const String iconUser = 'assets/icons/User.png';
   static const String iconFacebook = 'assets/icons/facebook.png';
   static const String iconGoogle = 'assets/icons/google.png';
   static const String jsonNoDataAnimation =

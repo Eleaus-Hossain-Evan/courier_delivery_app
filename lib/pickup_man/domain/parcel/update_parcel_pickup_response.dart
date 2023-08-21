@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:courier_delivery_app/pickup_man/domain/parcel/model/status_history_model.dart';
 import 'package:equatable/equatable.dart';
 
 import 'model/top_level_pickup_parcel_model.dart';
@@ -63,7 +62,6 @@ class UpdateParcelModel extends Equatable {
   final String hubId;
   final String pickupmanId;
   final String parcelId;
-  final List<StatusHistoryModel> statusHistory;
   final String createdAt;
   final String updatedAt;
 
@@ -74,7 +72,6 @@ class UpdateParcelModel extends Equatable {
     required this.hubId,
     required this.pickupmanId,
     required this.parcelId,
-    required this.statusHistory,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -86,7 +83,6 @@ class UpdateParcelModel extends Equatable {
     String? hubId,
     String? pickupmanId,
     String? parcelId,
-    List<StatusHistoryModel>? statusHistory,
     String? createdAt,
     String? updatedAt,
   }) {
@@ -97,7 +93,6 @@ class UpdateParcelModel extends Equatable {
       hubId: hubId ?? this.hubId,
       pickupmanId: pickupmanId ?? this.pickupmanId,
       parcelId: parcelId ?? this.parcelId,
-      statusHistory: statusHistory ?? this.statusHistory,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
     );
@@ -111,7 +106,6 @@ class UpdateParcelModel extends Equatable {
       'hubId': hubId,
       'pickupmanId': pickupmanId,
       'parcelId': parcelId,
-      'statusHistory': statusHistory.map((x) => x.toMap()).toList(),
       'createdAt': createdAt,
       'updatedAt': updatedAt,
     };
@@ -125,9 +119,6 @@ class UpdateParcelModel extends Equatable {
       hubId: map['hubId'] ?? '',
       pickupmanId: map['pickupmanId'] ?? '',
       parcelId: map['parcelId'] ?? '',
-      statusHistory: List<StatusHistoryModel>.from(
-          map['statusHistory']?.map((x) => StatusHistoryModel.fromMap(x)) ??
-              const []),
       createdAt: map['createdAt'] ?? '',
       updatedAt: map['updatedAt'] ?? '',
     );
@@ -140,7 +131,7 @@ class UpdateParcelModel extends Equatable {
 
   @override
   String toString() {
-    return 'UpdateParcelModel(isComplete: $isComplete, status: $status, _id: $id, hubId: $hubId, pickupmanId: $pickupmanId, parcelId: $parcelId, statusHistory: $statusHistory, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'UpdateParcelModel(isComplete: $isComplete, status: $status, _id: $id, hubId: $hubId, pickupmanId: $pickupmanId, parcelId: $parcelId, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -152,7 +143,6 @@ class UpdateParcelModel extends Equatable {
       hubId,
       pickupmanId,
       parcelId,
-      statusHistory,
       createdAt,
       updatedAt,
     ];

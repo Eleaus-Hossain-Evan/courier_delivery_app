@@ -4,11 +4,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../../../utils/utils.dart';
-import '../../widgets/widgets.dart';
+import '../../utils/utils.dart';
+import 'widgets.dart';
 
-class SearchDelivery extends HookConsumerWidget {
-  const SearchDelivery({super.key});
+class HomeSearchDelivery extends HookConsumerWidget {
+  const HomeSearchDelivery({super.key});
 
   @override
   Widget build(BuildContext context, ref) {

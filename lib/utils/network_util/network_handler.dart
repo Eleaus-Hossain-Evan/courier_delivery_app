@@ -483,8 +483,8 @@ class NetworkHandler {
         Logger.i("parsed data: $_typedResponse");
         return right(_typedResponse);
       } catch (e) {
-        Logger.w("header: ${response.request?.headers}");
-        // Logger.w("request: ${response.request}");
+        // Logger.w("header: ${response.request?.headers}");
+        Logger.w("request: ${response.request}");
 
         Logger.w("body: ${response.body}");
         Logger.w("status code: ${response.statusCode}");

@@ -30,7 +30,6 @@ class TopLevelRiderParcelModel extends Equatable {
   final int cashCollected;
   final ParcelRiderStatus parcelStatus;
   final ParcelRiderType status;
-  final List<StatusHistoryModel> statusHistory;
   final String createdAt;
   final String updatedAt;
   final ParcelModel parcel;
@@ -40,7 +39,6 @@ class TopLevelRiderParcelModel extends Equatable {
     required this.cashCollected,
     required this.parcelStatus,
     required this.status,
-    required this.statusHistory,
     required this.createdAt,
     required this.updatedAt,
     required this.parcel,
@@ -63,7 +61,6 @@ class TopLevelRiderParcelModel extends Equatable {
       cashCollected: cashCollected ?? this.cashCollected,
       parcelStatus: parcelStatus ?? this.parcelStatus,
       status: status ?? this.status,
-      statusHistory: statusHistory ?? this.statusHistory,
       createdAt: createdAt ?? this.createdAt,
       updatedAt: updatedAt ?? this.updatedAt,
       parcel: parcel ?? this.parcel,
@@ -77,7 +74,6 @@ class TopLevelRiderParcelModel extends Equatable {
       'cashCollected': cashCollected,
       'parcelStatus': parcelStatus.value,
       'status': status.name,
-      'statusHistory': statusHistory.map((x) => x.toMap()).toList(),
       'createdAt': createdAt,
       'updatedAt': updatedAt,
       'parcel': parcel.toMap(),
@@ -92,9 +88,6 @@ class TopLevelRiderParcelModel extends Equatable {
       parcelStatus: ParcelRiderStatus.values
           .firstWhere((e) => e.value == map['parcelStatus']),
       status: ParcelRiderType.values.byName(map['status']),
-      statusHistory: List<StatusHistoryModel>.from(
-          map['statusHistory']?.map((x) => StatusHistoryModel.fromMap(x)) ??
-              const []),
       createdAt: map['createdAt'] ?? '',
       updatedAt: map['updatedAt'] ?? '',
       parcel: ParcelModel.fromMap(map['parcel']),
@@ -108,7 +101,7 @@ class TopLevelRiderParcelModel extends Equatable {
 
   @override
   String toString() {
-    return 'TopLevelRiderParcelModel(_id: $id, isComplete: $isComplete, cashCollected: $cashCollected, parcelStatus: $parcelStatus, status: $status, statusHistory: $statusHistory, createdAt: $createdAt, updatedAt: $updatedAt, parcel: $parcel)';
+    return 'TopLevelRiderParcelModel(_id: $id, isComplete: $isComplete, cashCollected: $cashCollected, parcelStatus: $parcelStatus, status: $status, createdAt: $createdAt, updatedAt: $updatedAt, parcel: $parcel)';
   }
 
   @override
@@ -119,7 +112,6 @@ class TopLevelRiderParcelModel extends Equatable {
       cashCollected,
       parcelStatus,
       status,
-      statusHistory,
       createdAt,
       updatedAt,
       parcel,

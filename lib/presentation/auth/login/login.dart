@@ -34,6 +34,11 @@ class LoginScreen extends HookConsumerWidget {
       }
     });
 
+    useEffect(() {
+      Future.microtask(() => BotToast.cleanAll());
+      return null;
+    }, []);
+
     return Scaffold(
       body: Form(
         key: formKey,
