@@ -25,6 +25,9 @@ class ParcelActionSection extends HookConsumerWidget {
     final isCanceled = useState(false);
     final isUndo = useState(isReceived.value || isCanceled.value);
 
+    final noteController = useTextEditingController();
+    final noteFocus = useFocusNode();
+
     final deliveryStatusList = useState([
       ParcelRiderType.values[2],
       ParcelRiderType.values[3],
@@ -100,6 +103,12 @@ class ParcelActionSection extends HookConsumerWidget {
                           : (v) => deliveryParcelStatus.value = v,
                     ),
                     gap8,
+                    KTextFormField(
+                      controller: noteController,
+                      focusNode: noteFocus,
+                      hintText: 'Give a Note',
+                    ),
+                    gap8,
                     KOutlinedButton(
                       text: "Done",
                       loading: loading,
@@ -117,6 +126,7 @@ class ParcelActionSection extends HookConsumerWidget {
                                         .toInt(),
                                     status: deliveryStatus.value!,
                                     parcelStatus: deliveryParcelStatus.value!,
+                                    note: noteController.text,
                                   )
                                   .then((value) {
                                 loading.value = false;
@@ -133,7 +143,13 @@ class ParcelActionSection extends HookConsumerWidget {
                   foregroundColor: context.theme.scaffoldBackgroundColor,
                   text: 'Undo',
                 ).px8(),
-        ).p16().box.roundedSM.colorScaffoldBackground(context).make(),
+        )
+            .p16()
+            .box
+            .roundedSM
+            .colorScaffoldBackground(context)
+            .make()
+            .pOnly(bottom: MediaQuery.of(context).viewInsets.bottom),
       ),
     );
   }

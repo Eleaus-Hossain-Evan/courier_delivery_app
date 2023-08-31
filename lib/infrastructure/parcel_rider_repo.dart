@@ -25,16 +25,19 @@ class ParcelRiderRepo {
     return data;
   }
 
-  Future<Either<CleanFailure, UpdateParcelRiderResponse>> riderParcelUpdate(
-      {required String parcelId,
-      required ParcelRiderType status,
-      required ParcelRiderStatus parcelStatus,
-      required int cashCollected}) async {
+  Future<Either<CleanFailure, UpdateParcelRiderResponse>> riderParcelUpdate({
+    required String parcelId,
+    required ParcelRiderType status,
+    required ParcelRiderStatus parcelStatus,
+    required int cashCollected,
+    required String note,
+  }) async {
     final data = await api.patch(
       body: {
         "status": status.name,
         "parcelStatus": parcelStatus.value,
-        "cashCollected": cashCollected
+        "cashCollected": cashCollected,
+        "note": note
       },
       fromData: (json) => UpdateParcelRiderResponse.fromMap(json),
       endPoint: "${EndPointRider.UPDATE_PARCEL}$parcelId",

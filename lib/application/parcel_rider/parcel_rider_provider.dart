@@ -55,6 +55,7 @@ class ParcelRiderNotifier extends StateNotifier<ParcelRiderState> {
     required ParcelRiderType status,
     required ParcelRiderStatus parcelStatus,
     required int cashCollected,
+    required String note,
     bool shouldRemove = false,
   }) async {
     bool success = false;
@@ -64,6 +65,7 @@ class ParcelRiderNotifier extends StateNotifier<ParcelRiderState> {
       status: status,
       parcelStatus: parcelStatus,
       cashCollected: cashCollected,
+      note: note,
     );
 
     result.fold((l) {

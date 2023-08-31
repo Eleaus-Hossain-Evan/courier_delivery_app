@@ -159,51 +159,30 @@ class ParcelRiderListTile extends HookConsumerWidget {
               Visibility(
                 visible: model
                     .parcel.regularParcelInfo.materialType.isNotEmptyAndNotNull,
-                child: Visibility(
-                  visible:
-                      model.parcel.regularParcelInfo.materialType == "fragile",
-                  replacement: Row(
-                    children: [
-                      const Icon(BoxIcons.bx_water).iconSize(18.sp),
-                      gap4,
-                      model.parcel.regularParcelInfo.materialType.text.light
-                          .make(),
-                      gap4,
-                      "|".text.make(),
-                      gap4,
-                      Text.rich(
-                        TextSpan(
-                          children: [
-                            const TextSpan(text: 'Weight:'),
-                            WidgetSpan(child: SizedBox(width: 6.w)),
-                            TextSpan(
-                                text: model.parcel.regularParcelInfo.weight),
-                          ],
-                        ),
+                child: Row(
+                  children: [
+                    model.parcel.regularParcelInfo.materialType == "fragile"
+                        ? const Icon(BoxIcons.bx_box).iconSize(18.sp)
+                        : model.parcel.regularParcelInfo.materialType ==
+                                "regular"
+                            ? const Icon(Bootstrap.box_seam).iconSize(18.sp)
+                            : const Icon(BoxIcons.bx_water).iconSize(18.sp),
+                    gap4,
+                    model.parcel.regularParcelInfo.materialType.text.light
+                        .make(),
+                    gap4,
+                    "|".text.make(),
+                    gap4,
+                    Text.rich(
+                      TextSpan(
+                        children: [
+                          const TextSpan(text: 'Weight:'),
+                          WidgetSpan(child: SizedBox(width: 6.w)),
+                          TextSpan(text: model.parcel.regularParcelInfo.weight),
+                        ],
                       ),
-                    ],
-                  ),
-                  child: Row(
-                    children: [
-                      const Icon(BoxIcons.bx_box).iconSize(18.sp),
-                      gap4,
-                      model.parcel.regularParcelInfo.materialType.text.light
-                          .make(),
-                      gap4,
-                      "|".text.make(),
-                      gap4,
-                      Text.rich(
-                        TextSpan(
-                          children: [
-                            const TextSpan(text: 'Weight:'),
-                            WidgetSpan(child: SizedBox(width: 6.w)),
-                            TextSpan(
-                                text: model.parcel.regularParcelInfo.weight),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ],

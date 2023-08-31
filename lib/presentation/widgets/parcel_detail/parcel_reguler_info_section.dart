@@ -54,28 +54,20 @@ class ParcelRegularInfoSection extends StatelessWidget {
               Visibility(
                 visible: model
                     .parcel.regularParcelInfo.materialType.isNotEmptyAndNotNull,
-                child: Visibility(
-                  visible:
-                      model.parcel.regularParcelInfo.materialType == "fragile",
-                  replacement: Column(
-                    children: [
-                      const Icon(BoxIcons.bx_water).iconSize(30.sp),
-                      gap4,
-                      model.parcel.regularParcelInfo.materialType.capitalized
-                          .text.bold.xl
-                          .make(),
-                    ],
-                  ).box.roundedSM.colorPrimary(context).make(),
-                  child: Column(
-                    children: [
-                      const Icon(BoxIcons.bx_box).iconSize(30.sp),
-                      gap4,
-                      model.parcel.regularParcelInfo.materialType.capitalized
-                          .text.bold.xl
-                          .make(),
-                    ],
-                  ).p12().box.roundedSM.colorScaffoldBackground(context).make(),
-                ),
+                child: Column(
+                  children: [
+                    model.parcel.regularParcelInfo.materialType == "fragile"
+                        ? const Icon(BoxIcons.bx_box).iconSize(18.sp)
+                        : model.parcel.regularParcelInfo.materialType ==
+                                "regular"
+                            ? const Icon(Bootstrap.box_seam).iconSize(18.sp)
+                            : const Icon(BoxIcons.bx_water).iconSize(18.sp),
+                    gap4,
+                    model.parcel.regularParcelInfo.materialType.capitalized.text
+                        .bold.xl
+                        .make(),
+                  ],
+                ).p12().box.roundedSM.colorScaffoldBackground(context).make(),
               ),
               gap16,
               Column(
