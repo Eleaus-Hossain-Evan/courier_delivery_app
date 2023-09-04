@@ -3,9 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../../../application/parcel_rider/parcel_rider_provider.dart';
 import '../../../application/parcel_rider/parcel_rider_state.dart';
-import '../../../domain/parcel/model/top_level_rider_parcel_model.dart';
 import '../../../utils/utils.dart';
 import '../../main_nav/main_nav.dart';
 import '../../widgets/widgets.dart';
@@ -79,22 +77,27 @@ class TodaysParcelSection extends HookConsumerWidget {
             padding: padding0,
             separator: const KDivider(color: ColorPalate.bg300),
             itemBuilder: (context, index) {
-              final parcel = state.parcelRiderResponse.data[index];
+              // final parcel = state.parcelRiderResponse.data[index];
               return ParcelRiderListTile(
                 index: index,
-                onTapComplete: () async {
-                  return await ref
-                      .read(parcelRiderProvider.notifier)
-                      .receivedParcel(parcel.id, page.value,
-                          shouldRemove:
-                              currentType.value == ParcelRiderType.complete);
+                pageType: ParcelRiderType.all,
+                onTapComplete: () {
+                  return null;
+
+                  // return await ref
+                  //     .read(parcelRiderProvider.notifier)
+                  //     .receivedParcel(parcel.id, page.value,
+                  //         shouldRemove:
+                  //             currentType.value == ParcelRiderType.complete);
                 },
-                onTapReject: () async {
-                  return await ref
-                      .read(parcelRiderProvider.notifier)
-                      .cancelParcel(parcel.id, page.value,
-                          shouldRemove:
-                              currentType.value == ParcelRiderType.reject);
+                onTapReject: () {
+                  return null;
+
+                  // return await ref
+                  //     .read(parcelRiderProvider.notifier)
+                  //     .cancelParcel(parcel.id, page.value,
+                  //         shouldRemove:
+                  //             currentType.value == ParcelRiderType.reject);
                 },
               );
             },

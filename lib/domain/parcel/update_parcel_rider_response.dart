@@ -1,13 +1,14 @@
 import 'dart:convert';
 
-import 'package:courier_delivery_app/domain/parcel/model/status_history_model.dart';
 import 'package:equatable/equatable.dart';
+
+import 'package:courier_delivery_app/domain/parcel/model/status_history_model.dart';
 
 class UpdateParcelRiderResponse extends Equatable {
   final UpdateParcelRiderModel data;
   final String message;
   final bool success;
-  UpdateParcelRiderResponse({
+  const UpdateParcelRiderResponse({
     required this.data,
     required this.message,
     required this.success,
@@ -43,10 +44,12 @@ class UpdateParcelRiderResponse extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  factory UpdateParcelRiderResponse.fromJson(String source) => UpdateParcelRiderResponse.fromMap(json.decode(source));
+  factory UpdateParcelRiderResponse.fromJson(String source) =>
+      UpdateParcelRiderResponse.fromMap(json.decode(source));
 
   @override
-  String toString() => 'UpdateParcelRiderResponse(data: $data, message: $message, success: $success)';
+  String toString() =>
+      'UpdateParcelRiderResponse(data: $data, message: $message, success: $success)';
 
   @override
   List<Object> get props => [data, message, success];
@@ -55,6 +58,7 @@ class UpdateParcelRiderResponse extends Equatable {
 class UpdateParcelRiderModel extends Equatable {
   final bool isComplete;
   final int cashCollected;
+  final String note;
   final String parcelStatus;
   final String status;
   final String id;
@@ -64,9 +68,11 @@ class UpdateParcelRiderModel extends Equatable {
   final List<StatusHistoryModel> statusHistory;
   final String createdAt;
   final String updatedAt;
-  UpdateParcelRiderModel({
+
+  const UpdateParcelRiderModel({
     required this.isComplete,
     required this.cashCollected,
+    required this.note,
     required this.parcelStatus,
     required this.status,
     required this.id,
@@ -81,6 +87,7 @@ class UpdateParcelRiderModel extends Equatable {
   UpdateParcelRiderModel copyWith({
     bool? isComplete,
     int? cashCollected,
+    String? note,
     String? parcelStatus,
     String? status,
     String? id,
@@ -94,6 +101,7 @@ class UpdateParcelRiderModel extends Equatable {
     return UpdateParcelRiderModel(
       isComplete: isComplete ?? this.isComplete,
       cashCollected: cashCollected ?? this.cashCollected,
+      note: note ?? this.note,
       parcelStatus: parcelStatus ?? this.parcelStatus,
       status: status ?? this.status,
       id: id ?? this.id,
@@ -110,9 +118,10 @@ class UpdateParcelRiderModel extends Equatable {
     return {
       'isComplete': isComplete,
       'cashCollected': cashCollected,
+      'note': note,
       'parcelStatus': parcelStatus,
       'status': status,
-      '_id': id,
+      'id': id,
       'hubId': hubId,
       'riderId': riderId,
       'parcelId': parcelId,
@@ -126,13 +135,16 @@ class UpdateParcelRiderModel extends Equatable {
     return UpdateParcelRiderModel(
       isComplete: map['isComplete'] ?? false,
       cashCollected: map['cashCollected']?.toInt() ?? 0,
+      note: map['note'] ?? '',
       parcelStatus: map['parcelStatus'] ?? '',
       status: map['status'] ?? '',
-      id: map['_id'] ?? '',
+      id: map['id'] ?? '',
       hubId: map['hubId'] ?? '',
       riderId: map['riderId'] ?? '',
       parcelId: map['parcelId'] ?? '',
-      statusHistory: List<StatusHistoryModel>.from(map['statusHistory']?.map((x) => StatusHistoryModel.fromMap(x)) ?? const []),
+      statusHistory: List<StatusHistoryModel>.from(
+          map['statusHistory']?.map((x) => StatusHistoryModel.fromMap(x)) ??
+              const []),
       createdAt: map['createdAt'] ?? '',
       updatedAt: map['updatedAt'] ?? '',
     );
@@ -140,11 +152,12 @@ class UpdateParcelRiderModel extends Equatable {
 
   String toJson() => json.encode(toMap());
 
-  factory UpdateParcelRiderModel.fromJson(String source) => UpdateParcelRiderModel.fromMap(json.decode(source));
+  factory UpdateParcelRiderModel.fromJson(String source) =>
+      UpdateParcelRiderModel.fromMap(json.decode(source));
 
   @override
   String toString() {
-    return 'UpdateParcelRiderModel(isComplete: $isComplete, cashCollected: $cashCollected, parcelStatus: $parcelStatus, status: $status, _id: $id, hubId: $hubId, riderId: $riderId, parcelId: $parcelId, statusHistory: $statusHistory, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'UpdateParcelRiderModel(isComplete: $isComplete, cashCollected: $cashCollected, note: $note, parcelStatus: $parcelStatus, status: $status, id: $id, hubId: $hubId, riderId: $riderId, parcelId: $parcelId, statusHistory: $statusHistory, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -152,6 +165,7 @@ class UpdateParcelRiderModel extends Equatable {
     return [
       isComplete,
       cashCollected,
+      note,
       parcelStatus,
       status,
       id,
@@ -164,4 +178,3 @@ class UpdateParcelRiderModel extends Equatable {
     ];
   }
 }
-

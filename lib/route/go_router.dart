@@ -1,9 +1,9 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:courier_delivery_app/application/auth/auth_provider.dart';
-import 'package:courier_delivery_app/pickup_man/presentation/main_nav_pickup/main_nav_pickup.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+
+import 'package:courier_delivery_app/pickup_man/presentation/main_nav_pickup/main_nav_pickup.dart';
 
 import '../application/auth/loggedin_provider.dart';
 import '../presentation/auth/login/login.dart';
@@ -17,6 +17,7 @@ import '../presentation/profile/pages/change_password_screen.dart';
 import '../presentation/profile/pages/edit_profile/profile_detail_screen.dart';
 import '../presentation/profile/pages/html_text.dart';
 import '../presentation/splash/splash_screen.dart';
+import '../utils/utils.dart';
 import 'pickup_route.dart';
 import 'rider_route.dart';
 

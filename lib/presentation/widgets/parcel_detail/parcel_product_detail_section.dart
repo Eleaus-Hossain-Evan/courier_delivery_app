@@ -8,56 +8,109 @@ import '../../../utils/utils.dart';
 
 class ParcelProductDetailSection extends StatelessWidget {
   const ParcelProductDetailSection({
-    super.key,
+    Key? key,
     required this.model,
-  });
+    required this.isUndo,
+  }) : super(key: key);
 
   final TopLevelRiderParcelModel model;
+  final bool isUndo;
 
   @override
   Widget build(BuildContext context) {
-    return Visibility(
-      visible: model.parcel.regularParcelInfo.details.isNotEmptyAndNotNull,
-      replacement: Text.rich(
-        'Parcel Detail:  '
-            .textSpan
-            .withChildren([
-              'No Detail added...'.textSpan.semiBold.make(),
-            ])
-            .bodyText2(context)
-            .letterSpacing(.8)
-            .make(),
-      ),
-      child: Column(
-        crossAxisAlignment: crossStart,
-        children: [
-          Row(
-            mainAxisAlignment: mainStart,
+    return Column(
+      crossAxisAlignment: crossStart,
+      children: [
+        Visibility(
+          visible: model.parcel.regularParcelInfo.details.isNotEmptyAndNotNull,
+          replacement: Text.rich(
+            'Parcel Detail:  '
+                .textSpan
+                .withChildren([
+                  'No Detail added...'.textSpan.semiBold.make(),
+                ])
+                .bodyText2(context)
+                .letterSpacing(.8)
+                .make(),
+          ),
+          child: Column(
+            crossAxisAlignment: crossStart,
             children: [
-              Icon(
-                BoxIcons.bx_detail,
-                size: 8.sp,
-              ).circle(
-                radius: 16,
-                backgroundColor: context.colors.background,
-                border: Border.all(color: ColorPalate.black700),
+              Row(
+                mainAxisAlignment: mainStart,
+                children: [
+                  Icon(
+                    BoxIcons.bx_detail,
+                    size: 8.sp,
+                  ).circle(
+                    radius: 16,
+                    backgroundColor: context.colors.background,
+                    border: Border.all(color: ColorPalate.black700),
+                  ),
+                  gap4,
+                  'Parcel Details'
+                      .text
+                      .bodyText2(context)
+                      .base
+                      .bold
+                      .letterSpacing(.8)
+                      .makeCentered(),
+                ],
               ),
-              gap4,
-              'Parcel Details'
-                  .text
-                  .bodyText2(context)
-                  .base
-                  .bold
+              model.parcel.regularParcelInfo.details.text.lg
                   .letterSpacing(.8)
-                  .makeCentered(),
+                  .make()
+                  .pSymmetric(h: 16.w, v: 8.w),
             ],
           ),
-          model.parcel.regularParcelInfo.details.text.lg
-              .letterSpacing(.8)
-              .make()
-              .pSymmetric(h: 16.w, v: 8.w),
-        ],
-      ),
+        ),
+        Visibility(
+          visible: !isUndo,
+          child: Visibility(
+            visible: model.note.isNotEmptyAndNotNull,
+            replacement: Text.rich(
+              'Note:  '
+                  .textSpan
+                  .withChildren([
+                    'No Note yet...'.textSpan.caption(context).make(),
+                  ])
+                  .bodyText2(context)
+                  .letterSpacing(.8)
+                  .make(),
+            ),
+            child: Column(
+              crossAxisAlignment: crossStart,
+              children: [
+                Row(
+                  mainAxisAlignment: mainStart,
+                  children: [
+                    Icon(
+                      BoxIcons.bx_note,
+                      size: 8.sp,
+                    ).circle(
+                      radius: 16,
+                      backgroundColor: context.colors.background,
+                      border: Border.all(color: ColorPalate.black700),
+                    ),
+                    gap4,
+                    'Note'
+                        .text
+                        .bodyText2(context)
+                        .base
+                        .bold
+                        .letterSpacing(.8)
+                        .makeCentered(),
+                  ],
+                ),
+                model.note.text.lg
+                    .letterSpacing(.8)
+                    .make()
+                    .pSymmetric(h: 16.w, v: 8.w),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

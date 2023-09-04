@@ -1,6 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:courier_delivery_app/application/parcel_rider/parcel_rider_provider.dart';
-import 'package:courier_delivery_app/domain/parcel/model/top_level_rider_parcel_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

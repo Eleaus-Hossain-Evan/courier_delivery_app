@@ -16,13 +16,6 @@ class EndPointRider {
   static const String PASSWORD_UPDATE =
       "${API_V1}merchant/password-update-by-himself";
 
-  //#<<---------------- SHOP ------------------>>
-  static const String ADD_SHOP = "${API_V1}merchant/add-shop-by-himself";
-  static const String FETCH_ALL_SHOP =
-      "${API_V1}merchant/fetch-all-shop-by-himself";
-  static const String UPDATE_SHOP = "${API_V1}merchant/update-shop-by-himself/";
-  static const String DELETE_SHOP = "${API_V1}merchant/delete-shop-by-himself/";
-
   //#<<---------------- Courier Merchant ------------------>>
 
   static const String HOME = "${API_V1}home-page/view";
@@ -32,9 +25,8 @@ class EndPointRider {
   static const String ALL_DISTRICT = "${API_V1}location/all-districts";
   static const String ALL_AREA_BY_DISTRICT =
       "${API_V1}location/district-areas/";
-  static const String IMAGE_UPLOAD =
-      "${API_V1}merchant/image-update-by-himself";
-  static const String PROFILE_UPDATE = "${API_V1}merchant/update-by-himself";
+  static const String IMAGE_UPLOAD = "${API_V1}rider/image-update-by-himself";
+  static const String PROFILE_UPDATE = "${API_V1}rider/update-by-himself";
 
   //#<<----------------Parcel------------------>>
   static const String PARCEL_PICKUPMAN = "${API_V1}parcel/rider-parcels?";

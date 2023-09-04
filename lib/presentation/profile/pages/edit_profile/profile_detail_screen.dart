@@ -31,7 +31,7 @@ class ProfileDetailScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final state = ref.watch(authProvider);
 
-    final isEditable = useState(!(state.user.role == Role.pickupman));
+    final isEditable = useState(state.user.role == Role.rider);
 
     final isLoading = useState(false);
 
@@ -126,15 +126,13 @@ class ProfileDetailScreen extends HookConsumerWidget {
                         color: context.colors.secondaryContainer,
                       ),
                       editIcon: isEditable.value ? isUpdate.value : true,
-                      onTapUploadImage: isEditable.value
-                          ? null
-                          : (file) async {
-                              Logger.w(file);
-                              final success = await ref
-                                  .read(authProvider.notifier)
-                                  .uploadImage(file);
-                              if (success) imageFile.value = null;
-                            },
+                      onTapUploadImage: (file) async {
+                        Logger.w(file);
+                        final success = await ref
+                            .read(authProvider.notifier)
+                            .uploadImage(file);
+                        if (success) imageFile.value = null;
+                      },
                     ),
                     gap24,
                     KTextFormField2(

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:courier_delivery_app/utils/api_endpoints/api_rider_endpoint.dart';
 
+import '../application/auth/auth_provider.dart';
 import '../domain/auth/login_body.dart';
 import '../domain/auth/auth_response.dart';
 import '../domain/auth/model/user_model.dart';
@@ -63,7 +64,7 @@ class AuthRepo {
       UserModel body) async {
     final data = await api.patch(
       fromData: (json) => AuthResponse.fromMap(json),
-      endPoint: EndPointPickUp.PROFILE_UPDATE,
+      endPoint: EndPointRider.PROFILE_UPDATE,
       body: body.toMap(),
       withToken: true,
     );
@@ -71,7 +72,8 @@ class AuthRepo {
     return data;
   }
 
-  Future<Either<CleanFailure, AuthResponse>> imageUpload(File image) async {
+  Future<Either<CleanFailure, AuthResponse>> imageUpload(
+      File image, Role role) async {
     // var request = MultipartRequest(
     //     'PATCH', Uri.parse(APIRoute.BASE_URL + APIRoute.IMAGE_UPLOAD));
 
@@ -97,7 +99,9 @@ class AuthRepo {
 
     final data = await api.patch(
       fromData: (json) => AuthResponse.fromMap(json),
-      endPoint: EndPointPickUp.IMAGE_UPLOAD,
+      endPoint: role.name == Role.rider.name
+          ? EndPointRider.IMAGE_UPLOAD
+          : EndPointPickUp.IMAGE_UPLOAD,
       body: {"image": imageString},
       withToken: true,
     );

@@ -14,9 +14,13 @@ class ParcelActionSection extends HookConsumerWidget {
   const ParcelActionSection({
     super.key,
     required this.model,
+    required this.onUndoTap,
+    required this.pageType,
   });
 
   final TopLevelRiderParcelModel model;
+  final Function(bool) onUndoTap;
+  final ParcelRiderType pageType;
 
   @override
   Widget build(BuildContext context, ref) {
@@ -25,20 +29,21 @@ class ParcelActionSection extends HookConsumerWidget {
     final isCanceled = useState(false);
     final isUndo = useState(isReceived.value || isCanceled.value);
 
-    final noteController = useTextEditingController();
+    final noteController = useTextEditingController(text: model.note);
     final noteFocus = useFocusNode();
 
     final deliveryStatusList = useState([
       ParcelRiderType.values[2],
       ParcelRiderType.values[3],
     ]);
-    final deliveryStatus = useState<ParcelRiderType?>(null);
+    final deliveryStatus = useState<ParcelRiderType?>(model.status);
 
     final deliveryParcelStatusList = useState([
       ParcelRiderStatus.values[1],
       ParcelRiderStatus.values[3],
     ]);
-    final deliveryParcelStatus = useState<ParcelRiderStatus?>(null);
+    final deliveryParcelStatus =
+        useState<ParcelRiderStatus?>(model.parcelStatus);
 
     useEffect(() {
       Future.wait([
@@ -52,6 +57,7 @@ class ParcelActionSection extends HookConsumerWidget {
 
     void undoToggle() {
       isUndo.value = !isUndo.value;
+      onUndoTap(isUndo.value);
     }
 
     return SizedBox(
@@ -107,6 +113,7 @@ class ParcelActionSection extends HookConsumerWidget {
                       controller: noteController,
                       focusNode: noteFocus,
                       hintText: 'Give a Note',
+                      labelText: "Note",
                     ),
                     gap8,
                     KOutlinedButton(
@@ -117,6 +124,7 @@ class ParcelActionSection extends HookConsumerWidget {
                           ? null
                           : () async {
                               loading.value = true;
+                              FocusScope.of(context).unfocus();
                               await ref
                                   .read(parcelRiderProvider.notifier)
                                   .riderParcelUpdate(
@@ -127,6 +135,8 @@ class ParcelActionSection extends HookConsumerWidget {
                                     status: deliveryStatus.value!,
                                     parcelStatus: deliveryParcelStatus.value!,
                                     note: noteController.text,
+                                    shouldRemove:
+                                        pageType != ParcelRiderType.all,
                                   )
                                   .then((value) {
                                 loading.value = false;

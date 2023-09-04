@@ -26,8 +26,7 @@ class EndPointPickUp {
   static const String ALL_AREA_BY_DISTRICT =
       "${API_V1}location/district-areas/";
   static const String IMAGE_UPLOAD =
-      "${API_V1}merchant/image-update-by-himself";
-  static const String PROFILE_UPDATE = "${API_V1}merchant/update-by-himself";
+      "${API_V1}pickupman/image-update-by-himself";
 
   //#<<----------------Parcel------------------>>
   static const String PARCEL_PICKUPMAN = "${API_V1}parcel/pickupman-parcels?";

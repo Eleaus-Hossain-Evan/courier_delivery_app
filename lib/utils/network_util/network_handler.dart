@@ -483,12 +483,15 @@ class NetworkHandler {
         Logger.i("parsed data: $_typedResponse");
         return right(_typedResponse);
       } catch (e) {
-        // Logger.w("header: ${response.request?.headers}");
-        Logger.w("request: ${response.request}");
+        Logger.e(
+            "${response.request?.method}\n${response.request?.url}\nheader: ${response.request?.headers}\nbody: ${response.body}\nstatus code: ${response.statusCode}\nerror: $e");
 
-        Logger.w("body: ${response.body}");
-        Logger.w("status code: ${response.statusCode}");
-        Logger.w("error: $e");
+        // Logger.w("header: ${response.request?.headers}");
+        // // Logger.w("request: ${response.request}");
+
+        // Logger.w("body: ${response.body}");
+        // Logger.w("status code: ${response.statusCode}");
+        // Logger.w("error: $e");
         return left(
           CleanFailure.withData(
             tag: endPoint,
@@ -502,11 +505,14 @@ class NetworkHandler {
         );
       }
     } else {
-      Logger.e("header: ${response.request?.headers}");
+      Logger.e(
+          "request: ${response.request}\nheader: ${response.request?.headers}\nbody: ${response.body}\nstatus code: ${response.statusCode}");
       // Logger.w("request: ${response.request}");
 
-      Logger.e("body: ${response.body}");
-      Logger.e("status code: ${response.statusCode}");
+      // Logger.e("body: ${response.body}");
+      // Logger.e("status code: ${response.statusCode}");
+
+      // Logger.e('METHOD : DELETE\nURL : $url\nHeader : $_header\nBODY : $body');
 
       return left(
         CleanFailure.withData(

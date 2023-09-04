@@ -10,7 +10,6 @@ import 'package:velocity_x/velocity_x.dart';
 import '../../../presentation/widgets/widgets.dart';
 import '../../../utils/utils.dart';
 import '../../application/parcel_rider/parcel_rider_provider.dart';
-import '../../domain/parcel/model/top_level_rider_parcel_model.dart';
 
 class ParcelRiderListTile extends HookConsumerWidget {
   const ParcelRiderListTile({
@@ -18,12 +17,14 @@ class ParcelRiderListTile extends HookConsumerWidget {
     required this.index,
     required this.onTapComplete,
     required this.onTapReject,
+    required this.pageType,
   }) : super(key: key);
 
   final int index;
 
   final FutureOr<bool>? Function() onTapComplete;
   final FutureOr<bool>? Function() onTapReject;
+  final ParcelRiderType pageType;
 
   @override
   Widget build(BuildContext context, ref) {
@@ -32,7 +33,15 @@ class ParcelRiderListTile extends HookConsumerWidget {
 
     final isReceived = useState(false);
     final isCanceled = useState(false);
-    final isUndo = useState(isReceived.value || isCanceled.value);
+    // final isUndo = useState(isReceived.value || isCanceled.value);
+
+    Color getColor() {
+      return model.status == ParcelRiderType.complete
+          ? context.theme.primaryColor
+          : model.status == ParcelRiderType.reject
+              ? context.colors.error
+              : ColorPalate.secondary200;
+    }
 
     useEffect(() {
       Future.wait([
@@ -46,24 +55,13 @@ class ParcelRiderListTile extends HookConsumerWidget {
 
     // Logger.i(model);
 
-    Color getColor() {
-      return model.status == ParcelRiderType.complete
-          ? context.theme.primaryColor
-          : model.status == ParcelRiderType.reject
-              ? context.colors.error
-              : context.colors.secondary;
-    }
-
-    void undoToggle() {
-      isUndo.value = !isUndo.value;
-    }
-
     return KInkWell(
       onTap: () {
         kShowBarModalBottomSheet(
           context: context,
           child: ParcelRiderDetailWidget(
             model: model,
+            pageType: pageType,
             onTapComplete: onTapComplete,
             onTapReject: onTapReject,
           ),
@@ -72,33 +70,7 @@ class ParcelRiderListTile extends HookConsumerWidget {
       child: Column(
         crossAxisAlignment: crossStart,
         children: [
-          // Row(
-          //   children: [
-          //     const Icon(Bootstrap.info_circle)
-          //         .iconSize(16.sp)
-          //         .iconColor(context.theme.primaryColorDark),
-          //     gap8,
-          //     model.parcel.serialId.text
-          //         .caption(context)
-          //         .letterSpacing(.8)
-          //         .semiBold
-          //         .color(ColorPalate.black600)
-          //         .make()
-          //         .expand(),
-          //     model.status.name.capitalized.text.xs
-          //         .color(getColor())
-          //         .bold
-          //         .letterSpacing(.8)
-          //         .makeCentered()
-          //         .pSymmetric(h: 12.w, v: 2.h)
-          //         .box
-          //         .rounded
-          //         .white
-          //         .border(color: getColor().withOpacity(.4))
-          //         .make(),
-          //   ],
-          // ).p8().box.colorPrimary(context, opacity: .2).roundedSM.make(),
-          // gap8,
+          //  --- Customer Name ---
           Row(
             mainAxisAlignment: mainSpaceBetween,
             children: [
@@ -117,6 +89,8 @@ class ParcelRiderListTile extends HookConsumerWidget {
             ],
           ),
           gap8,
+
+          //  --- Serial ID ---
           Text.rich(
             "Serial ID:  "
                 .textSpan
@@ -132,6 +106,8 @@ class ParcelRiderListTile extends HookConsumerWidget {
                 .make(),
           ),
           gap4,
+
+          //  --- Phone & Address ---
           Column(
             crossAxisAlignment: crossStart,
             mainAxisSize: mainMin,
@@ -156,34 +132,58 @@ class ParcelRiderListTile extends HookConsumerWidget {
                 ),
               ),
               gap4,
-              Visibility(
-                visible: model
-                    .parcel.regularParcelInfo.materialType.isNotEmptyAndNotNull,
-                child: Row(
-                  children: [
-                    model.parcel.regularParcelInfo.materialType == "fragile"
-                        ? const Icon(BoxIcons.bx_box).iconSize(18.sp)
-                        : model.parcel.regularParcelInfo.materialType ==
-                                "regular"
-                            ? const Icon(Bootstrap.box_seam).iconSize(18.sp)
-                            : const Icon(BoxIcons.bx_water).iconSize(18.sp),
-                    gap4,
-                    model.parcel.regularParcelInfo.materialType.text.light
-                        .make(),
-                    gap4,
-                    "|".text.make(),
-                    gap4,
-                    Text.rich(
-                      TextSpan(
-                        children: [
-                          const TextSpan(text: 'Weight:'),
-                          WidgetSpan(child: SizedBox(width: 6.w)),
-                          TextSpan(text: model.parcel.regularParcelInfo.weight),
-                        ],
-                      ),
+
+              //   --- Material type && Weight ---
+              Row(
+                children: [
+                  Visibility(
+                    visible: model.parcel.regularParcelInfo.materialType.value
+                        .isNotEmptyAndNotNull,
+                    child: Row(
+                      children: [
+                        model.parcel.regularParcelInfo.materialType ==
+                                ParcelMaterialType.fragile
+                            ? const Icon(BoxIcons.bx_box).iconSize(18.sp)
+                            : model.parcel.regularParcelInfo.materialType ==
+                                    ParcelMaterialType.liquid
+                                ? const Icon(Bootstrap.box_seam).iconSize(18.sp)
+                                : const Icon(BoxIcons.bx_water).iconSize(18.sp),
+                        gap4,
+                        model.parcel.regularParcelInfo.materialType.value.text
+                            .light
+                            .make(),
+                        gap4,
+                        "|".text.make(),
+                        gap4,
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                        const TextSpan(text: 'Weight:'),
+                        WidgetSpan(child: SizedBox(width: 6.w)),
+                        TextSpan(text: model.parcel.regularParcelInfo.weight),
+                      ],
+                    ),
+                  ),
+                  const Spacer(),
+                  VxCapsule(
+                    height: 25.h,
+                    width: 74.w,
+                    border: Border.all(color: getColor().withOpacity(.4)),
+                    backgroundColor: ColorPalate.bg100,
+                    child: model.status.name
+                        .toWordTitleCase()
+                        .text
+                        .xs
+                        .semiBold
+                        .color(getColor())
+                        .letterSpacing(1.2)
+                        .makeCentered()
+                        .px12(),
+                  ),
+                ],
               ),
             ],
           ),
@@ -192,10 +192,6 @@ class ParcelRiderListTile extends HookConsumerWidget {
     )
         .box
         .color(ColorPalate.secondary.lighten().withOpacity(.001))
-        // .border(
-        //   color: ColorPalate.secondary.lighten().withOpacity(.2),
-        //   width: 1.2.w,
-        // )
         .roundedSM
         .make();
   }

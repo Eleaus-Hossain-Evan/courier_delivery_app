@@ -2,11 +2,13 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
+import '../../../utils/utils.dart';
+
 class RegularParcelInfoModel extends Equatable {
   final String invoiceId;
   final String weight;
   final int productPrice;
-  final String materialType;
+  final ParcelMaterialType materialType;
   final String category;
   final String details;
 
@@ -23,7 +25,7 @@ class RegularParcelInfoModel extends Equatable {
       invoiceId: '',
       weight: '',
       productPrice: 0,
-      materialType: '',
+      materialType: ParcelMaterialType.none,
       category: '',
       details: '');
 
@@ -31,7 +33,7 @@ class RegularParcelInfoModel extends Equatable {
     String? invoiceId,
     String? weight,
     int? productPrice,
-    String? materialType,
+    ParcelMaterialType? materialType,
     String? category,
     String? details,
   }) {
@@ -50,7 +52,7 @@ class RegularParcelInfoModel extends Equatable {
       'invoiceId': invoiceId,
       'weight': weight,
       'productPrice': productPrice,
-      'materialType': materialType,
+      'materialType': materialType.value,
       'category': category,
       'details': details,
     };
@@ -61,7 +63,8 @@ class RegularParcelInfoModel extends Equatable {
       invoiceId: map['invoiceId'] ?? '',
       weight: map['weight'] ?? '',
       productPrice: map['productPrice']?.toInt() ?? 0,
-      materialType: map['materialType'] ?? '',
+      materialType: ParcelMaterialType.values
+          .firstWhere((e) => e.value == map['materialType']),
       category: map['category'] ?? '',
       details: map['details'] ?? '',
     );

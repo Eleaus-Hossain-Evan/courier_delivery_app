@@ -53,24 +53,26 @@ class ImagePickWidget extends HookConsumerWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           KInkWell(
-            onTap: () {
-              kShowBottomSheet(
-                context: context,
-                child: ImagePickOptionWidget(
-                  onCameraTap: () {
-                    chooseImage("camera");
+            onTap: !editIcon
+                ? null
+                : () {
+                    kShowBottomSheet(
+                      context: context,
+                      child: ImagePickOptionWidget(
+                        onCameraTap: () {
+                          chooseImage("camera");
 
-                    Navigator.pop(context);
-                  },
-                  onGalleryTap: () {
-                    chooseImage("gallery");
+                          Navigator.pop(context);
+                        },
+                        onGalleryTap: () {
+                          chooseImage("gallery");
 
-                    Navigator.pop(context);
-                    Logger.v("gallery");
+                          Navigator.pop(context);
+                          Logger.v("gallery");
+                        },
+                      ),
+                    );
                   },
-                ),
-              );
-            },
             child: Stack(
               children: [
                 builder != null
@@ -126,7 +128,7 @@ class ImagePickWidget extends HookConsumerWidget {
             ),
           ),
           onTapUploadImage != null
-              ? imageFile.value != null
+              ? (imageFile.value != null && imageFile.value!.path.isNotEmpty)
                   ? KFilledButton(
                       text: "Upload Image",
                       onPressed: () => onTapUploadImage!(imageFile.value!),

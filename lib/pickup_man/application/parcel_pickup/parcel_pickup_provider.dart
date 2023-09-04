@@ -4,7 +4,7 @@ import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../domain/parcel/model/top_level_pickup_parcel_model.dart';
+import '../../../utils/utils.dart';
 import 'parcel_pickup_state.dart';
 
 final parcelPickupProvider =
@@ -21,7 +21,7 @@ class ParcelPickupNotifier extends StateNotifier<ParcelPickupState> {
   void setState(ParcelPickupState state) => state = this.state;
 
   Future<bool> parcelPickupList({
-    ParcelPickupType type = ParcelPickupType.all,
+    ParcelPickupStatus type = ParcelPickupStatus.all,
     int page = 1,
     int limit = 10,
     bool isComplete = false,
@@ -64,9 +64,9 @@ class ParcelPickupNotifier extends StateNotifier<ParcelPickupState> {
   }
 
   Future<bool> updateParcel({
-    ParcelPickupType type = ParcelPickupType.all,
+    ParcelPickupStatus status = ParcelPickupStatus.all,
     required String id,
-    required int page,
+    required String note,
     bool shouldRemove = false,
   }) async {
     var success = false;
@@ -89,7 +89,8 @@ class ParcelPickupNotifier extends StateNotifier<ParcelPickupState> {
     //         state.parcelPickupResponse.copyWith(data: parcelListNew.unlock));
     // Logger.i('state: $state');
 
-    final result = await repo.updatePickupParcel(type: type, id: id);
+    final result =
+        await repo.updatePickupParcel(status: status, id: id, note: note);
 
     result.fold((l) {
       showErrorToast(l.error.message);
@@ -112,8 +113,8 @@ class ParcelPickupNotifier extends StateNotifier<ParcelPickupState> {
             parcelPickupResponse:
                 state.parcelPickupResponse.copyWith(data: parcelList.unlock));
       } else {
-        final parcelList =
-            state.parcelPickupResponse.data.lock[index].copyWith(status: type);
+        final parcelList = state.parcelPickupResponse.data.lock[index]
+            .copyWith(status: status);
         Logger.i('parcelList: $parcelList');
         final parcelListNew =
             state.parcelPickupResponse.data.lock.replace(index, parcelList);
@@ -134,18 +135,19 @@ class ParcelPickupNotifier extends StateNotifier<ParcelPickupState> {
     return success;
   }
 
-  Future<bool> receivedParcel(String id, int page,
-          {bool shouldRemove = false}) =>
+  Future<bool> receivedParcel(String id,
+          {required String note, bool shouldRemove = false}) =>
       updateParcel(
           id: id,
-          type: ParcelPickupType.received,
-          page: page,
+          note: note,
+          status: ParcelPickupStatus.received,
           shouldRemove: shouldRemove);
 
-  Future<bool> cancelParcel(String id, int page, {bool shouldRemove = false}) =>
+  Future<bool> cancelParcel(String id,
+          {required String note, bool shouldRemove = false}) =>
       updateParcel(
           id: id,
-          type: ParcelPickupType.cancel,
-          page: page,
+          note: note,
+          status: ParcelPickupStatus.cancel,
           shouldRemove: shouldRemove);
 }

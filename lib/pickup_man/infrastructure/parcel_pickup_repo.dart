@@ -9,7 +9,7 @@ class ParcelPickupRepo {
   final api = NetworkHandler.instance;
 
   Future<Either<CleanFailure, ParcelPickupListResponse>> getPickupParcelList({
-    ParcelPickupType type = ParcelPickupType.all,
+    ParcelPickupStatus type = ParcelPickupStatus.all,
     int page = 1,
     int limit = 10,
     bool isComplete = false,
@@ -27,11 +27,12 @@ class ParcelPickupRepo {
   }
 
   Future<Either<CleanFailure, UpdateParcelPickupResponse>> updatePickupParcel({
-    ParcelPickupType type = ParcelPickupType.all,
+    ParcelPickupStatus status = ParcelPickupStatus.all,
     required String id,
+    required String note,
   }) async {
     final data = await api.patch(
-      body: {"status": type.name},
+      body: {"status": status.name, "note": note},
       fromData: (json) => UpdateParcelPickupResponse.fromMap(json),
       endPoint: "${EndPointPickUp.UPDATE_PARCEL_PICKUPMAN}$id",
       withToken: true,

@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 
 import 'package:courier_delivery_app/domain/auth/model/salary_model.dart';
 
-import '../../../application/auth/auth_provider.dart';
+import '../../../utils/utils.dart';
 import 'bank_account_model.dart';
 import 'hub_model.dart';
 import 'other_account_model.dart';

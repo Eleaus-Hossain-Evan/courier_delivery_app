@@ -35,14 +35,16 @@ class HistoryScreen extends HookConsumerWidget {
     });
 
     useEffect(() {
-      Future.microtask(() => ref.invalidate(parcelPickupProvider));
-      Future.microtask(
-          () => ref.read(parcelPickupProvider.notifier).parcelPickupList(
-                page: page.value,
-                limit: 10,
-                type: ParcelPickupType.all,
-                isComplete: true,
-              ));
+      Future.wait([
+        Future.microtask(() => ref.invalidate(parcelPickupProvider)),
+        Future.microtask(
+            () => ref.read(parcelPickupProvider.notifier).parcelPickupList(
+                  page: page.value,
+                  limit: 10,
+                  type: ParcelPickupStatus.all,
+                  isComplete: true,
+                )),
+      ]);
 
       return () {
         BotToast.closeAllLoading();
@@ -56,20 +58,17 @@ class HistoryScreen extends HookConsumerWidget {
         controller: refreshController,
         enablePullDown: true,
         enablePullUp: true,
-        // header: const MaterialHeader(),
         onRefresh: () async {
           page.value = 1;
-          // state.copyWith(parcelPickupResponse: ParcelListResponse.init());
           return ref
               .read(parcelPickupProvider.notifier)
               .parcelPickupList(
                 page: page.value,
                 limit: 10,
-                type: ParcelPickupType.all,
-                isComplete: false,
+                type: ParcelPickupStatus.all,
+                isComplete: true,
               )
-              .then((value) {
-            // return value ? IndicatorResult.success : IndicatorResult.fail;
+              .then((_) {
             refreshController.refreshCompleted(resetFooterState: true);
           });
         },
@@ -79,25 +78,19 @@ class HistoryScreen extends HookConsumerWidget {
             refreshController.loadNoData();
           }
           if (page.value < totalPage.value) {
-            // easyController.callLoad(
-            //   scrollController: scrollController,
-            //   force: true,
-            // );
             page.value = page.value + 1;
-            final success =
-                await ref.read(parcelPickupProvider.notifier).parcelPickupList(
-                      page: page.value,
-                      limit: 10,
-                      type: ParcelPickupType.all,
-                      isComplete: false,
-                    );
-            if (success) {
-              // return IndicatorResult.success;
-              refreshController.loadComplete();
-            } else {
-              // return IndicatorResult.fail;
-              refreshController.loadFailed();
-            }
+
+            await ref
+                .read(parcelPickupProvider.notifier)
+                .parcelPickupList(
+                  page: page.value,
+                  limit: 10,
+                  type: ParcelPickupStatus.all,
+                  isComplete: true,
+                )
+                .then((value) => value
+                    ? refreshController.loadComplete()
+                    : refreshController.loadFailed());
           }
         },
         child: CustomScrollView(
@@ -114,28 +107,47 @@ class HistoryScreen extends HookConsumerWidget {
                   totalDelivery: state.parcelPickupResponse.data.length),
             ),
             SliverGap(16.h),
-            KListViewSeparated(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              gap: 0,
-              padding: padding0,
-              separator: const Divider(),
-              itemBuilder: (context, index) {
-                return ParcelPickupListTile(
-                  index: index,
-                  onTapReceive: () => null,
-                  onTapCancel: () => null,
-                );
-              },
-              itemCount: state.parcelPickupResponse.data.length,
-            )
-                .box
-                .white
-                .roundedSM
-                .shadowSm
-                .makeCentered()
-                .px16()
-                .sliverToBoxAdapter(),
+            SliverToBoxAdapter(
+              child: Container(
+                margin: paddingH16.copyWith(top: 16.h),
+                decoration: state.parcelPickupResponse.data.isEmpty
+                    ? null
+                    : BoxDecoration(
+                        color: ColorPalate.white,
+                        borderRadius: BorderRadius.circular(7.5.r),
+                        boxShadow: const [
+                          BoxShadow(
+                              offset: Offset(0.0, 3.0),
+                              blurRadius: 1.0,
+                              spreadRadius: -2.0,
+                              color: ColorPalate.kKeyUmbraOpacity),
+                          BoxShadow(
+                              offset: Offset(0.0, 2.0),
+                              blurRadius: 2.0,
+                              color: ColorPalate.kKeyPenumbraOpacity),
+                          BoxShadow(
+                              offset: Offset(0.0, 1.0),
+                              blurRadius: 5.0,
+                              color: ColorPalate.kAmbientShadowOpacity),
+                        ],
+                      ),
+                child: KListViewSeparated(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  gap: 0,
+                  padding: padding0,
+                  separator: const Divider(),
+                  itemBuilder: (context, index) {
+                    return ParcelPickupListTile(
+                      index: index,
+                      onTapReceive: (note) => null,
+                      onTapCancel: (note) => null,
+                    );
+                  },
+                  itemCount: state.parcelPickupResponse.data.length,
+                ),
+              ),
+            ),
           ],
         ),
       ),

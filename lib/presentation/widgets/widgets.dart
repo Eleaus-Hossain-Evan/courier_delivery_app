@@ -32,3 +32,4 @@ export 'parcel_detail/parcel_rider_detail_widget.dart';
 export 'parcel_rider_list_tile.dart';
 export 'home_working_summery.dart';
 export 'home_search_delivery.dart';
+export 'parcel_detail/parcel_type_icon.dart';

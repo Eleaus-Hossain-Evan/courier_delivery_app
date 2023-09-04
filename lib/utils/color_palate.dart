@@ -50,4 +50,8 @@ class ColorPalate {
 
   static const Color fbColor = Color(0xff0147A5);
   static const Color googleColor = Color(0xffF74134);
+
+  static const Color kKeyUmbraOpacity = Color(0x33000000); // alpha = 0.2
+  static const Color kKeyPenumbraOpacity = Color(0x24000000); // alpha = 0.14
+  static const Color kAmbientShadowOpacity = Color(0x1F000000); // alpha = 0.12
 }

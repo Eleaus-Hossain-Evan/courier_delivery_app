@@ -1,4 +1,5 @@
-import 'package:courier_delivery_app/domain/parcel/model/top_level_rider_parcel_model.dart';
+import 'dart:async';
+
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -6,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:courier_delivery_app/application/parcel_rider/parcel_rider_state.dart';
 import 'package:courier_delivery_app/infrastructure/parcel_rider_repo.dart';
 
+import '../../utils/utils.dart';
 import '../global.dart';
 
 final parcelRiderProvider =
@@ -36,10 +38,8 @@ class ParcelRiderNotifier extends StateNotifier<ParcelRiderState> {
       state = state.copyWith(loading: false);
     }, (r) {
       success = r.success;
-      final finalList = [
-        ...state.parcelRiderResponse.data,
-        ...r.data.map((e) => e.copyWith(isComplete: isComplete))
-      ]..removeDuplicates(by: (item) => item.id);
+      final finalList = [...state.parcelRiderResponse.data, ...r.data]
+        ..removeDuplicates(by: (item) => item.id);
 
       // finalList.removeDuplicates(by: (item) => item.id);
       // Logger.i(r);
@@ -110,8 +110,4 @@ class ParcelRiderNotifier extends StateNotifier<ParcelRiderState> {
     });
     return success;
   }
-
-  receivedParcel(String id, int value, {required bool shouldRemove}) {}
-
-  cancelParcel(String id, int value, {required bool shouldRemove}) {}
 }

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
-import 'model/top_level_pickup_parcel_model.dart';
+import '../../../utils/utils.dart';
 
 class UpdateParcelPickupResponse extends Equatable {
   final UpdateParcelModel data;
@@ -57,7 +57,7 @@ class UpdateParcelPickupResponse extends Equatable {
 
 class UpdateParcelModel extends Equatable {
   final bool isComplete;
-  final ParcelPickupType status;
+  final ParcelPickupStatus status;
   final String id;
   final String hubId;
   final String pickupmanId;
@@ -78,7 +78,7 @@ class UpdateParcelModel extends Equatable {
 
   UpdateParcelModel copyWith({
     bool? isComplete,
-    ParcelPickupType? status,
+    ParcelPickupStatus? status,
     String? id,
     String? hubId,
     String? pickupmanId,
@@ -114,7 +114,7 @@ class UpdateParcelModel extends Equatable {
   factory UpdateParcelModel.fromMap(Map<String, dynamic> map) {
     return UpdateParcelModel(
       isComplete: map['isComplete'] ?? false,
-      status: ParcelPickupType.values.byName(map['status']),
+      status: ParcelPickupStatus.values.byName(map['status']),
       id: map['_id'] ?? '',
       hubId: map['hubId'] ?? '',
       pickupmanId: map['pickupmanId'] ?? '',

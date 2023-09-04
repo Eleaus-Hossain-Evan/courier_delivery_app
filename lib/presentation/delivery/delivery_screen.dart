@@ -1,4 +1,3 @@
-import 'package:courier_delivery_app/domain/parcel/model/top_level_rider_parcel_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -34,67 +33,6 @@ class DeliveryScreen extends HookConsumerWidget {
           delegate: DeliveryTabSection(tabController: tabController),
           floating: true,
         ),
-        // SliverToBoxAdapter(
-        //   child: Container(
-        //     height: 60.h,
-        //     color: context.colors.primary,
-        //     child: Row(
-        //       mainAxisAlignment: mainSpaceBetween,
-        //       children: [
-        //         AppStrings.totalPendingOrders.text.semiBold.white.make(),
-        //         "3".text.white.bold.make(),
-        //       ],
-        //     )
-        //         .pSymmetric(h: 18, v: 10)
-        //         .box
-        //         .width(.85.sw)
-        //         .color(context.colors.primaryContainer.lighten())
-        //         .roundedLg
-        //         .makeCentered(),
-        //   ),
-        // ),
-        // SliverToBoxAdapter(
-        //   child: Container(
-        //     height: 60.h,
-        //     width: 1.sw,
-        //     color: context.colors.primary,
-        //     // padding: paddingBottom4,
-        //     child: TabBar(
-        //       controller: tabController,
-        //       labelColor: ColorPalate.bg100,
-        //       labelStyle: TextStyle(
-        //         fontSize: 16.sp,
-        //         fontWeight: FontWeight.bold,
-        //       ),
-        //       unselectedLabelColor: ColorPalate.bg200,
-        //       unselectedLabelStyle: TextStyle(
-        //         fontSize: 16.sp,
-        //         fontWeight: FontWeight.w500,
-        //       ),
-        //       indicatorPadding: paddingBottom4,
-        //       indicator: BoxDecoration(
-        //         border: Border(
-        //           bottom: BorderSide(
-        //             width: 3.5.h,
-        //             color: Colors.white,
-        //           ),
-        //         ),
-        //         // borderRadius: BorderRadius.circular(2.r),
-        //       ),
-        //       indicatorWeight: 3,
-        //       indicatorSize: TabBarIndicatorSize.tab,
-        //       indicatorColor: context.colors.primary,
-        //       dividerColor: context.colors.primary,
-        //       tabs: DeliveryTabs.values
-        //           .map(
-        //             (e) => Tab(
-        //               text: e.name.toCapitalize(),
-        //             ),
-        //           )
-        //           .toList(),
-        //     ),
-        //   ),
-        // ),
         SliverFillRemaining(
           child: TabBarView(
             controller: tabController,

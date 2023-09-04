@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:courier_delivery_app/pickup_man/application/parcel_pickup/parcel_pickup_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,10 +7,12 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import 'package:courier_delivery_app/pickup_man/application/parcel_pickup/parcel_pickup_provider.dart';
+
 import '../../../presentation/widgets/widgets.dart';
 import '../../../utils/utils.dart';
 import '../../domain/parcel/model/top_level_pickup_parcel_model.dart';
-import 'parcel_pickup_detail_widget.dart';
+import 'parcel_pickup_detail/parcel_pickup_detail_widget.dart';
 
 class ParcelPickupListTile extends HookConsumerWidget {
   const ParcelPickupListTile({
@@ -23,8 +24,8 @@ class ParcelPickupListTile extends HookConsumerWidget {
 
   final int index;
 
-  final FutureOr<bool>? Function() onTapReceive;
-  final FutureOr<bool>? Function() onTapCancel;
+  final FutureOr<bool>? Function(String) onTapReceive;
+  final FutureOr<bool>? Function(String) onTapCancel;
 
   @override
   Widget build(BuildContext context, ref) {
@@ -37,10 +38,10 @@ class ParcelPickupListTile extends HookConsumerWidget {
 
     useEffect(() {
       Future.wait([
+        Future.microtask(() =>
+            isReceived.value = model.status == ParcelPickupStatus.received),
         Future.microtask(
-            () => isReceived.value = model.status == ParcelPickupType.received),
-        Future.microtask(
-            () => isCanceled.value = model.status == ParcelPickupType.cancel),
+            () => isCanceled.value = model.status == ParcelPickupStatus.cancel),
       ]);
       return null;
     }, []);
@@ -48,9 +49,9 @@ class ParcelPickupListTile extends HookConsumerWidget {
     // Logger.i(model);
 
     Color getColor() {
-      return model.status == ParcelPickupType.received
+      return model.status == ParcelPickupStatus.received
           ? context.theme.primaryColor
-          : model.status == ParcelPickupType.cancel
+          : model.status == ParcelPickupStatus.cancel
               ? context.colors.error
               : context.colors.secondary;
     }
@@ -127,60 +128,30 @@ class ParcelPickupListTile extends HookConsumerWidget {
                     ),
                   ),
                   gap4,
-                  // Text.rich(
-                  //   TextSpan(
-                  //     children: [
-                  //       const TextSpan(text: 'Address:'),
-                  //       WidgetSpan(child: SizedBox(width: 6.w)),
-                  //       TextSpan(text: model.parcel.merchantInfo.address),
-                  //     ],
-                  //   ),
-                  // ),
-                  Visibility(
-                    visible: model.parcel.regularParcelInfo.materialType ==
-                        "fragile",
-                    replacement: Row(
-                      children: [
-                        const Icon(BoxIcons.bx_water).iconSize(18.sp),
-                        gap4,
-                        model.parcel.regularParcelInfo.materialType.text.light
-                            .make(),
-                        gap4,
-                        "|".text.make(),
-                        gap4,
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              const TextSpan(text: 'Weight:'),
-                              WidgetSpan(child: SizedBox(width: 6.w)),
-                              TextSpan(
-                                  text: model.parcel.regularParcelInfo.weight),
-                            ],
-                          ),
+                  Row(
+                    children: [
+                      ParcelTypeIcon(
+                        model.parcel.regularParcelInfo.materialType,
+                        size: 18,
+                      ),
+                      gap4,
+                      model.parcel.regularParcelInfo.materialType.value.text
+                          .light
+                          .make(),
+                      gap4,
+                      "|".text.make(),
+                      gap4,
+                      Text.rich(
+                        TextSpan(
+                          children: [
+                            const TextSpan(text: 'Weight:'),
+                            WidgetSpan(child: SizedBox(width: 6.w)),
+                            TextSpan(
+                                text: model.parcel.regularParcelInfo.weight),
+                          ],
                         ),
-                      ],
-                    ),
-                    child: Row(
-                      children: [
-                        const Icon(BoxIcons.bx_box).iconSize(18.sp),
-                        gap4,
-                        model.parcel.regularParcelInfo.materialType.text.light
-                            .make(),
-                        gap4,
-                        "|".text.make(),
-                        gap4,
-                        Text.rich(
-                          TextSpan(
-                            children: [
-                              const TextSpan(text: 'Weight:'),
-                              WidgetSpan(child: SizedBox(width: 6.w)),
-                              TextSpan(
-                                  text: model.parcel.regularParcelInfo.weight),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ],
               ).expand(),
@@ -211,7 +182,7 @@ class ParcelPickupListTile extends HookConsumerWidget {
                     switchOutCurve: Curves.easeOutCubic,
                     duration: 800.milliseconds,
                     child: isUndo.value ||
-                            model.status == ParcelPickupType.assign
+                            model.status == ParcelPickupStatus.assign
                         ? Row(
                             mainAxisSize: mainMin,
                             mainAxisAlignment: mainEnd,
@@ -219,7 +190,7 @@ class ParcelPickupListTile extends HookConsumerWidget {
                             children: [
                               ElevatedButton(
                                 onPressed: () async {
-                                  await onTapCancel.call();
+                                  await onTapCancel.call('');
                                   undoToggle.call();
                                   // model.copyWith(status: ParcelPickupType.cancel);
                                   // final list = state.parcelPickupResponse.data.lock
@@ -245,7 +216,7 @@ class ParcelPickupListTile extends HookConsumerWidget {
                               gap18,
                               FilledButton(
                                 onPressed: () async {
-                                  await onTapReceive.call();
+                                  await onTapReceive.call('');
                                   undoToggle.call();
                                 },
                                 style: FilledButton.styleFrom(

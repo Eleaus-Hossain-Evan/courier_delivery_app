@@ -39,9 +39,10 @@ kShowFloatBottomSheet({
 kShowBarModalBottomSheet({
   required BuildContext context,
   required Widget child,
+  bool expand = false,
 }) {
   return showBarModalBottomSheet(
-    // expand: false,
+    expand: expand,
     context: context,
     barrierColor: Colors.black38,
     builder: (context) => child,

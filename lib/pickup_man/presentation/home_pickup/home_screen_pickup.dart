@@ -27,7 +27,7 @@ class HomeScreenPickup extends HookConsumerWidget {
     final refreshController = useMemoized(
         () => RefreshController(initialLoadStatus: LoadStatus.canLoading));
     final state = ref.watch(parcelPickupProvider);
-    final currentType = useState(ParcelPickupType.all);
+    final currentType = useState(ParcelPickupStatus.all);
 
     final page = useState(1);
     final totalPage = useState(0);
@@ -154,7 +154,7 @@ class HomeScreenPickup extends HookConsumerWidget {
                       width: .4.sw,
                       child: KDropDownSearchWidget(
                         hintText: 'Status',
-                        items: ParcelPickupType.values,
+                        items: ParcelPickupStatus.values,
                         selectedItem: currentType.value,
                         compareFn: (p0, p1) => p0.name == p1.name,
                         itemAsString: (p0) => p0.name.capitalized,
@@ -194,43 +194,61 @@ class HomeScreenPickup extends HookConsumerWidget {
                   ],
                 ).px16(),
                 gap24,
-                KListViewSeparated(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  gap: 0,
-                  padding: padding0,
-                  separator: const Divider(),
-                  itemBuilder: (context, index) {
-                    final parcel = state.parcelPickupResponse.data[index];
+                Container(
+                  margin: paddingH16.copyWith(top: 16.h),
+                  decoration: state.parcelPickupResponse.data.isEmpty
+                      ? null
+                      : BoxDecoration(
+                          color: ColorPalate.white,
+                          borderRadius: BorderRadius.circular(7.5.r),
+                          boxShadow: const [
+                            BoxShadow(
+                                offset: Offset(0.0, 3.0),
+                                blurRadius: 1.0,
+                                spreadRadius: -2.0,
+                                color: ColorPalate.kKeyUmbraOpacity),
+                            BoxShadow(
+                                offset: Offset(0.0, 2.0),
+                                blurRadius: 2.0,
+                                color: ColorPalate.kKeyPenumbraOpacity),
+                            BoxShadow(
+                                offset: Offset(0.0, 1.0),
+                                blurRadius: 5.0,
+                                color: ColorPalate.kAmbientShadowOpacity),
+                          ],
+                        ),
+                  child: KListViewSeparated(
+                    physics: const NeverScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    gap: 0,
+                    padding: padding0,
+                    separator: const Divider(),
+                    itemBuilder: (context, index) {
+                      final parcel = state.parcelPickupResponse.data[index];
 
-                    return ParcelPickupListTile(
-                      index: index,
-                      onTapReceive: () async {
-                        return await ref
-                            .read(parcelPickupProvider.notifier)
-                            .receivedParcel(parcel.id, page.value,
-                                shouldRemove: currentType.value ==
-                                    ParcelPickupType.cancel);
-                      },
-                      onTapCancel: () async {
-                        return await ref
-                            .read(parcelPickupProvider.notifier)
-                            .cancelParcel(parcel.id, page.value,
-                                shouldRemove: currentType.value ==
-                                    ParcelPickupType.received);
-                      },
-                    );
-                  },
-                  itemCount: state.parcelPickupResponse.data.length,
-                )
-                    .box
-                    .color(state.parcelPickupResponse.data.isEmpty
-                        ? ColorPalate.bg200
-                        : ColorPalate.white)
-                    .roundedSM
-                    .shadowSm
-                    .make()
-                    .px16(),
+                      return ParcelPickupListTile(
+                        index: index,
+                        onTapReceive: (note) async {
+                          return await ref
+                              .read(parcelPickupProvider.notifier)
+                              .receivedParcel(parcel.id,
+                                  note: note,
+                                  shouldRemove: currentType.value ==
+                                      ParcelPickupStatus.cancel);
+                        },
+                        onTapCancel: (note) async {
+                          return await ref
+                              .read(parcelPickupProvider.notifier)
+                              .cancelParcel(parcel.id,
+                                  note: note,
+                                  shouldRemove: currentType.value ==
+                                      ParcelPickupStatus.received);
+                        },
+                      );
+                    },
+                    itemCount: state.parcelPickupResponse.data.length,
+                  ),
+                ),
               ],
             ),
           ),

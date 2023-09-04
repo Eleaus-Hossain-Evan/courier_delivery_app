@@ -28,134 +28,98 @@ double defaultHorizontalPadding = gap16.mainAxisExtent;
 double defaultOutsideMarin = 8.00.w;
 
 EdgeInsets padding0 = EdgeInsets.zero;
-EdgeInsetsDirectional padding2 = EdgeInsetsDirectional.all(2.w);
-EdgeInsetsDirectional padding4 = EdgeInsetsDirectional.all(4.w);
-EdgeInsetsDirectional padding6 = EdgeInsetsDirectional.all(6.w);
-EdgeInsetsDirectional padding8 = EdgeInsetsDirectional.all(8.w);
-EdgeInsetsDirectional padding10 = EdgeInsetsDirectional.all(10.w);
-EdgeInsetsDirectional padding12 = EdgeInsetsDirectional.all(12.w);
-EdgeInsetsDirectional padding14 = EdgeInsetsDirectional.all(14.w);
-EdgeInsetsDirectional padding16 = EdgeInsetsDirectional.all(16.w);
-EdgeInsetsDirectional padding18 = EdgeInsetsDirectional.all(18.w);
-EdgeInsetsDirectional padding20 = EdgeInsetsDirectional.all(20.w);
-EdgeInsetsDirectional padding22 = EdgeInsetsDirectional.all(22.w);
-EdgeInsetsDirectional padding24 = EdgeInsetsDirectional.all(24.w);
+EdgeInsets padding2 = EdgeInsets.all(2.w);
+EdgeInsets padding4 = EdgeInsets.all(4.w);
+EdgeInsets padding6 = EdgeInsets.all(6.w);
+EdgeInsets padding8 = EdgeInsets.all(8.w);
+EdgeInsets padding10 = EdgeInsets.all(10.w);
+EdgeInsets padding12 = EdgeInsets.all(12.w);
+EdgeInsets padding14 = EdgeInsets.all(14.w);
+EdgeInsets padding16 = EdgeInsets.all(16.w);
+EdgeInsets padding18 = EdgeInsets.all(18.w);
+EdgeInsets padding20 = EdgeInsets.all(20.w);
+EdgeInsets padding22 = EdgeInsets.all(22.w);
+EdgeInsets padding24 = EdgeInsets.all(24.w);
 
-EdgeInsetsDirectional paddingV2 =
-    EdgeInsetsDirectional.fromSTEB(0, 2.h, 0, 2.h);
-EdgeInsetsDirectional paddingV4 =
-    EdgeInsetsDirectional.fromSTEB(0, 4.h, 0, 4.h);
-EdgeInsetsDirectional paddingV6 =
-    EdgeInsetsDirectional.fromSTEB(0, 6.h, 0, 6.h);
-EdgeInsetsDirectional paddingV8 =
-    EdgeInsetsDirectional.fromSTEB(0, 8.h, 0, 8.h);
-EdgeInsetsDirectional paddingV10 =
-    EdgeInsetsDirectional.fromSTEB(0, 10.h, 0, 10.h);
-EdgeInsetsDirectional paddingV12 =
-    EdgeInsetsDirectional.fromSTEB(0, 12.h, 0, 12.h);
-EdgeInsetsDirectional paddingV14 =
-    EdgeInsetsDirectional.fromSTEB(0, 14.h, 0, 14.h);
-EdgeInsetsDirectional paddingV16 =
-    EdgeInsetsDirectional.fromSTEB(0, 16.h, 0, 16.h);
-EdgeInsetsDirectional paddingV18 =
-    EdgeInsetsDirectional.fromSTEB(0, 18.h, 0, 18.h);
-EdgeInsetsDirectional paddingV20 =
-    EdgeInsetsDirectional.fromSTEB(0, 20.h, 0, 20.h);
-EdgeInsetsDirectional paddingV22 =
-    EdgeInsetsDirectional.fromSTEB(0, 22.h, 0, 22.h);
-EdgeInsetsDirectional paddingV24 =
-    EdgeInsetsDirectional.fromSTEB(0, 24.h, 0, 24.h);
+EdgeInsets paddingV2 = EdgeInsets.fromLTRB(0, 2.h, 0, 2.h);
+EdgeInsets paddingV4 = EdgeInsets.fromLTRB(0, 4.h, 0, 4.h);
+EdgeInsets paddingV6 = EdgeInsets.fromLTRB(0, 6.h, 0, 6.h);
+EdgeInsets paddingV8 = EdgeInsets.fromLTRB(0, 8.h, 0, 8.h);
+EdgeInsets paddingV10 = EdgeInsets.fromLTRB(0, 10.h, 0, 10.h);
+EdgeInsets paddingV12 = EdgeInsets.fromLTRB(0, 12.h, 0, 12.h);
+EdgeInsets paddingV14 = EdgeInsets.fromLTRB(0, 14.h, 0, 14.h);
+EdgeInsets paddingV16 = EdgeInsets.fromLTRB(0, 16.h, 0, 16.h);
+EdgeInsets paddingV18 = EdgeInsets.fromLTRB(0, 18.h, 0, 18.h);
+EdgeInsets paddingV20 = EdgeInsets.fromLTRB(0, 20.h, 0, 20.h);
+EdgeInsets paddingV22 = EdgeInsets.fromLTRB(0, 22.h, 0, 22.h);
+EdgeInsets paddingV24 = EdgeInsets.fromLTRB(0, 24.h, 0, 24.h);
 
-EdgeInsetsDirectional paddingH2 =
-    EdgeInsetsDirectional.fromSTEB(2.w, 0, 2.w, 0);
-EdgeInsetsDirectional paddingH4 =
-    EdgeInsetsDirectional.fromSTEB(4.w, 0, 4.w, 0);
-EdgeInsetsDirectional paddingH6 =
-    EdgeInsetsDirectional.fromSTEB(6.w, 0, 6.w, 0);
-EdgeInsetsDirectional paddingH8 =
-    EdgeInsetsDirectional.fromSTEB(8.w, 0, 8.w, 0);
-EdgeInsetsDirectional paddingH10 =
-    EdgeInsetsDirectional.fromSTEB(10.w, 0, 10.w, 0);
-EdgeInsetsDirectional paddingH12 =
-    EdgeInsetsDirectional.fromSTEB(12.w, 0, 12.w, 0);
-EdgeInsetsDirectional paddingH14 =
-    EdgeInsetsDirectional.fromSTEB(14.w, 0, 14.w, 0);
-EdgeInsetsDirectional paddingH16 =
-    EdgeInsetsDirectional.fromSTEB(16.w, 0, 16.w, 0);
-EdgeInsetsDirectional paddingH18 =
-    EdgeInsetsDirectional.fromSTEB(18.w, 0, 18.w, 0);
-EdgeInsetsDirectional paddingH20 =
-    EdgeInsetsDirectional.fromSTEB(20.w, 0, 20.w, 0);
-EdgeInsetsDirectional paddingH22 =
-    EdgeInsetsDirectional.fromSTEB(22.w, 0, 22.w, 0);
-EdgeInsetsDirectional paddingH24 =
-    EdgeInsetsDirectional.fromSTEB(24.w, 0, 24.w, 0);
-EdgeInsetsDirectional paddingH30 =
-    EdgeInsetsDirectional.fromSTEB(30.w, 0, 30.w, 0);
-EdgeInsetsDirectional paddingH34 =
-    EdgeInsetsDirectional.fromSTEB(34.w, 0, 34.w, 0);
-EdgeInsetsDirectional paddingH38 =
-    EdgeInsetsDirectional.fromSTEB(38.w, 0, 38.w, 0);
-EdgeInsetsDirectional paddingH48 =
-    EdgeInsetsDirectional.fromSTEB(48.w, 0, 48.w, 0);
+EdgeInsets paddingH2 = EdgeInsets.fromLTRB(2.w, 0, 2.w, 0);
+EdgeInsets paddingH4 = EdgeInsets.fromLTRB(4.w, 0, 4.w, 0);
+EdgeInsets paddingH6 = EdgeInsets.fromLTRB(6.w, 0, 6.w, 0);
+EdgeInsets paddingH8 = EdgeInsets.fromLTRB(8.w, 0, 8.w, 0);
+EdgeInsets paddingH10 = EdgeInsets.fromLTRB(10.w, 0, 10.w, 0);
+EdgeInsets paddingH12 = EdgeInsets.fromLTRB(12.w, 0, 12.w, 0);
+EdgeInsets paddingH14 = EdgeInsets.fromLTRB(14.w, 0, 14.w, 0);
+EdgeInsets paddingH16 = EdgeInsets.fromLTRB(16.w, 0, 16.w, 0);
+EdgeInsets paddingH18 = EdgeInsets.fromLTRB(18.w, 0, 18.w, 0);
+EdgeInsets paddingH20 = EdgeInsets.fromLTRB(20.w, 0, 20.w, 0);
+EdgeInsets paddingH22 = EdgeInsets.fromLTRB(22.w, 0, 22.w, 0);
+EdgeInsets paddingH24 = EdgeInsets.fromLTRB(24.w, 0, 24.w, 0);
+EdgeInsets paddingH30 = EdgeInsets.fromLTRB(30.w, 0, 30.w, 0);
+EdgeInsets paddingH34 = EdgeInsets.fromLTRB(34.w, 0, 34.w, 0);
+EdgeInsets paddingH38 = EdgeInsets.fromLTRB(38.w, 0, 38.w, 0);
+EdgeInsets paddingH48 = EdgeInsets.fromLTRB(48.w, 0, 48.w, 0);
 
-EdgeInsetsDirectional paddingTop4 = EdgeInsetsDirectional.only(top: 4.h);
-EdgeInsetsDirectional paddingTop6 = EdgeInsetsDirectional.only(top: 6.h);
-EdgeInsetsDirectional paddingTop8 = EdgeInsetsDirectional.only(top: 8.h);
-EdgeInsetsDirectional paddingTop10 = EdgeInsetsDirectional.only(top: 10.h);
-EdgeInsetsDirectional paddingTop12 = EdgeInsetsDirectional.only(top: 12.h);
-EdgeInsetsDirectional paddingTop14 = EdgeInsetsDirectional.only(top: 14.h);
-EdgeInsetsDirectional paddingTop16 = EdgeInsetsDirectional.only(top: 16.h);
-EdgeInsetsDirectional paddingTop18 = EdgeInsetsDirectional.only(top: 18.h);
-EdgeInsetsDirectional paddingTop20 = EdgeInsetsDirectional.only(top: 20.h);
-EdgeInsetsDirectional paddingTop22 = EdgeInsetsDirectional.only(top: 22.h);
-EdgeInsetsDirectional paddingTop24 = EdgeInsetsDirectional.only(top: 24.h);
-EdgeInsetsDirectional paddingTop30 = EdgeInsetsDirectional.only(top: 30.h);
+EdgeInsets paddingTop4 = EdgeInsets.only(top: 4.h);
+EdgeInsets paddingTop6 = EdgeInsets.only(top: 6.h);
+EdgeInsets paddingTop8 = EdgeInsets.only(top: 8.h);
+EdgeInsets paddingTop10 = EdgeInsets.only(top: 10.h);
+EdgeInsets paddingTop12 = EdgeInsets.only(top: 12.h);
+EdgeInsets paddingTop14 = EdgeInsets.only(top: 14.h);
+EdgeInsets paddingTop16 = EdgeInsets.only(top: 16.h);
+EdgeInsets paddingTop18 = EdgeInsets.only(top: 18.h);
+EdgeInsets paddingTop20 = EdgeInsets.only(top: 20.h);
+EdgeInsets paddingTop22 = EdgeInsets.only(top: 22.h);
+EdgeInsets paddingTop24 = EdgeInsets.only(top: 24.h);
+EdgeInsets paddingTop30 = EdgeInsets.only(top: 30.h);
 
-EdgeInsetsDirectional paddingBottom4 = EdgeInsetsDirectional.only(bottom: 4.h);
-EdgeInsetsDirectional paddingBottom6 = EdgeInsetsDirectional.only(bottom: 6.h);
-EdgeInsetsDirectional paddingBottom8 = EdgeInsetsDirectional.only(bottom: 8.h);
-EdgeInsetsDirectional paddingBottom10 =
-    EdgeInsetsDirectional.only(bottom: 10.h);
-EdgeInsetsDirectional paddingBottom12 =
-    EdgeInsetsDirectional.only(bottom: 12.h);
-EdgeInsetsDirectional paddingBottom14 =
-    EdgeInsetsDirectional.only(bottom: 14.h);
-EdgeInsetsDirectional paddingBottom16 =
-    EdgeInsetsDirectional.only(bottom: 16.h);
-EdgeInsetsDirectional paddingBottom18 =
-    EdgeInsetsDirectional.only(bottom: 18.h);
-EdgeInsetsDirectional paddingBottom20 =
-    EdgeInsetsDirectional.only(bottom: 20.h);
-EdgeInsetsDirectional paddingBottom22 =
-    EdgeInsetsDirectional.only(bottom: 22.h);
-EdgeInsetsDirectional paddingBottom24 =
-    EdgeInsetsDirectional.only(bottom: 24.h);
+EdgeInsets paddingBottom4 = EdgeInsets.only(bottom: 4.h);
+EdgeInsets paddingBottom6 = EdgeInsets.only(bottom: 6.h);
+EdgeInsets paddingBottom8 = EdgeInsets.only(bottom: 8.h);
+EdgeInsets paddingBottom10 = EdgeInsets.only(bottom: 10.h);
+EdgeInsets paddingBottom12 = EdgeInsets.only(bottom: 12.h);
+EdgeInsets paddingBottom14 = EdgeInsets.only(bottom: 14.h);
+EdgeInsets paddingBottom16 = EdgeInsets.only(bottom: 16.h);
+EdgeInsets paddingBottom18 = EdgeInsets.only(bottom: 18.h);
+EdgeInsets paddingBottom20 = EdgeInsets.only(bottom: 20.h);
+EdgeInsets paddingBottom22 = EdgeInsets.only(bottom: 22.h);
+EdgeInsets paddingBottom24 = EdgeInsets.only(bottom: 24.h);
 
-EdgeInsetsDirectional paddingLeft4 = EdgeInsetsDirectional.only(start: 4.w);
-EdgeInsetsDirectional paddingLeft6 = EdgeInsetsDirectional.only(start: 6.w);
-EdgeInsetsDirectional paddingLeft8 = EdgeInsetsDirectional.only(start: 8.w);
-EdgeInsetsDirectional paddingLeft10 = EdgeInsetsDirectional.only(start: 10.w);
-EdgeInsetsDirectional paddingLeft12 = EdgeInsetsDirectional.only(start: 12.w);
-EdgeInsetsDirectional paddingLeft14 = EdgeInsetsDirectional.only(start: 14.w);
-EdgeInsetsDirectional paddingLeft16 = EdgeInsetsDirectional.only(start: 16.w);
-EdgeInsetsDirectional paddingLeft18 = EdgeInsetsDirectional.only(start: 18.w);
-EdgeInsetsDirectional paddingLeft20 = EdgeInsetsDirectional.only(start: 20.w);
-EdgeInsetsDirectional paddingLeft22 = EdgeInsetsDirectional.only(start: 22.w);
-EdgeInsetsDirectional paddingLeft24 = EdgeInsetsDirectional.only(start: 24.w);
+EdgeInsets paddingLeft4 = EdgeInsets.only(left: 4.w);
+EdgeInsets paddingLeft6 = EdgeInsets.only(left: 6.w);
+EdgeInsets paddingLeft8 = EdgeInsets.only(left: 8.w);
+EdgeInsets paddingLeft10 = EdgeInsets.only(left: 10.w);
+EdgeInsets paddingLeft12 = EdgeInsets.only(left: 12.w);
+EdgeInsets paddingLeft14 = EdgeInsets.only(left: 14.w);
+EdgeInsets paddingLeft16 = EdgeInsets.only(left: 16.w);
+EdgeInsets paddingLeft18 = EdgeInsets.only(left: 18.w);
+EdgeInsets paddingLeft20 = EdgeInsets.only(left: 20.w);
+EdgeInsets paddingLeft22 = EdgeInsets.only(left: 22.w);
+EdgeInsets paddingLeft24 = EdgeInsets.only(left: 24.w);
 
-EdgeInsetsDirectional paddingRight4 = EdgeInsetsDirectional.only(end: 4.w);
-EdgeInsetsDirectional paddingRight6 = EdgeInsetsDirectional.only(end: 6.w);
-EdgeInsetsDirectional paddingRight8 = EdgeInsetsDirectional.only(end: 8.w);
-EdgeInsetsDirectional paddingRight10 = EdgeInsetsDirectional.only(end: 10.w);
-EdgeInsetsDirectional paddingRight12 = EdgeInsetsDirectional.only(end: 12.w);
-EdgeInsetsDirectional paddingRight14 = EdgeInsetsDirectional.only(end: 14.w);
-EdgeInsetsDirectional paddingRight16 = EdgeInsetsDirectional.only(end: 16.w);
-EdgeInsetsDirectional paddingRight18 = EdgeInsetsDirectional.only(end: 18.w);
-EdgeInsetsDirectional paddingRight20 = EdgeInsetsDirectional.only(end: 20.w);
-EdgeInsetsDirectional paddingRight22 = EdgeInsetsDirectional.only(end: 22.w);
-EdgeInsetsDirectional paddingRight24 = EdgeInsetsDirectional.only(end: 24.w);
-EdgeInsetsDirectional paddingRight30 = EdgeInsetsDirectional.only(end: 30.w);
+EdgeInsets paddingRight4 = EdgeInsets.only(right: 4.w);
+EdgeInsets paddingRight6 = EdgeInsets.only(right: 6.w);
+EdgeInsets paddingRight8 = EdgeInsets.only(right: 8.w);
+EdgeInsets paddingRight10 = EdgeInsets.only(right: 10.w);
+EdgeInsets paddingRight12 = EdgeInsets.only(right: 12.w);
+EdgeInsets paddingRight14 = EdgeInsets.only(right: 14.w);
+EdgeInsets paddingRight16 = EdgeInsets.only(right: 16.w);
+EdgeInsets paddingRight18 = EdgeInsets.only(right: 18.w);
+EdgeInsets paddingRight20 = EdgeInsets.only(right: 20.w);
+EdgeInsets paddingRight22 = EdgeInsets.only(right: 22.w);
+EdgeInsets paddingRight24 = EdgeInsets.only(right: 24.w);
+EdgeInsets paddingRight30 = EdgeInsets.only(right: 30.w);
 
 BorderRadius radius0 = BorderRadius.circular(0.r);
 BorderRadius radius4 = BorderRadius.circular(4.r);

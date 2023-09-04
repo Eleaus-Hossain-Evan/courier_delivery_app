@@ -67,7 +67,7 @@ class MyApp extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final router = ref.watch(routerProvider);
-    final appTheme = ref.watch(themeProvider);
+    // final appTheme = ref.watch(themeProvider);
     final user = ref.watch(loggedInProvider.notifier).user.copyWith(
         // name: "name",
         // email: "evan@email.com",

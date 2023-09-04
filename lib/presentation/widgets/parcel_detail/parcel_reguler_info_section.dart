@@ -52,19 +52,20 @@ class ParcelRegularInfoSection extends StatelessWidget {
             crossAxisAlignment: crossStart,
             children: [
               Visibility(
-                visible: model
-                    .parcel.regularParcelInfo.materialType.isNotEmptyAndNotNull,
+                visible: model.parcel.regularParcelInfo.materialType.value
+                    .isNotEmptyAndNotNull,
                 child: Column(
                   children: [
-                    model.parcel.regularParcelInfo.materialType == "fragile"
+                    model.parcel.regularParcelInfo.materialType ==
+                            ParcelMaterialType.regular
                         ? const Icon(BoxIcons.bx_box).iconSize(18.sp)
                         : model.parcel.regularParcelInfo.materialType ==
-                                "regular"
+                                ParcelMaterialType.fragile
                             ? const Icon(Bootstrap.box_seam).iconSize(18.sp)
                             : const Icon(BoxIcons.bx_water).iconSize(18.sp),
                     gap4,
-                    model.parcel.regularParcelInfo.materialType.capitalized.text
-                        .bold.xl
+                    model.parcel.regularParcelInfo.materialType.value
+                        .capitalized.text.bold.xl
                         .make(),
                   ],
                 ).p12().box.roundedSM.colorScaffoldBackground(context).make(),
@@ -92,7 +93,7 @@ class ParcelRegularInfoSection extends StatelessWidget {
                         .make(),
                   ),
                   Text.rich(
-                    'Parcel Weight:  '
+                    'Weight:  '
                         .textSpan
                         .withChildren([
                           model
@@ -104,7 +105,7 @@ class ParcelRegularInfoSection extends StatelessWidget {
                         .make(),
                   ),
                   Text.rich(
-                    'Parcel Quantity:  '
+                    'Quantity:  '
                         .textSpan
                         .withChildren([
                           model.parcel.regularParcelInfo.category.textSpan

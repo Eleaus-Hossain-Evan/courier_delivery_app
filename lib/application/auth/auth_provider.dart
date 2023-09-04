@@ -18,7 +18,6 @@ final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   return AuthNotifier(AuthRepo(), ref);
 }, name: 'authProvider');
 
-enum Role { rider, pickupman }
 
 final roleProvider = StateProvider<Role>((ref) {
   return Role.rider;
@@ -175,7 +174,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
   Future<bool> uploadImage(File file) async {
     bool success = false;
     state = state.copyWith(loading: true);
-    final result = await repo.imageUpload(file);
+    final result = await repo.imageUpload(file, state.user.role);
 
     state = result.fold(
       (l) {
