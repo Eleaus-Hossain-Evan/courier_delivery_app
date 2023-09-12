@@ -8,10 +8,6 @@ import '../../../utils/utils.dart';
 import '../../main_nav/main_nav.dart';
 import '../../widgets/widgets.dart';
 
-const Color _kKeyUmbraOpacity = Color(0x33000000); // alpha = 0.2
-const Color _kKeyPenumbraOpacity = Color(0x24000000); // alpha = 0.14
-const Color _kAmbientShadowOpacity = Color(0x1F000000); // alpha = 0.12
-
 class TodaysParcelSection extends HookConsumerWidget {
   const TodaysParcelSection({
     super.key,
@@ -59,15 +55,15 @@ class TodaysParcelSection extends HookConsumerWidget {
                         offset: Offset(0.0, 3.0),
                         blurRadius: 1.0,
                         spreadRadius: -2.0,
-                        color: _kKeyUmbraOpacity),
+                        color: ColorPalate.kKeyUmbraOpacity),
                     BoxShadow(
                         offset: Offset(0.0, 2.0),
                         blurRadius: 2.0,
-                        color: _kKeyPenumbraOpacity),
+                        color: ColorPalate.kKeyPenumbraOpacity),
                     BoxShadow(
                         offset: Offset(0.0, 1.0),
                         blurRadius: 5.0,
-                        color: _kAmbientShadowOpacity),
+                        color: ColorPalate.kAmbientShadowOpacity),
                   ],
                 ),
           child: KListViewSeparated(
