@@ -13,7 +13,10 @@ class Dashboard extends _$Dashboard {
   Future<DashboardModel> _fetch(bool isPickup) async {
     final result = await repo.getDashboard(isPickup: isPickup);
 
-    return result.fold((l) => showErrorToast(l.error.message), (r) => r.data);
+    return result.fold((l) {
+      showErrorToast(l.error.message);
+      return DashboardModel.init();
+    }, (r) => r.data);
   }
 
   @override

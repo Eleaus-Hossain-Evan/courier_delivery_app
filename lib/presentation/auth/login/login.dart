@@ -7,6 +7,7 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../application/auth/auth_provider.dart';
+import '../../../application/auth/loggedin_provider.dart';
 import '../../../domain/auth/login_body.dart';
 import '../../../utils/utils.dart';
 import '../../widgets/widgets.dart';
@@ -21,7 +22,7 @@ class LoginScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final role = ref.watch(roleProvider);
     final formKey = useMemoized(GlobalKey.new);
-    final phoneController = useTextEditingController(text: '01956945293');
+    final phoneController = useTextEditingController(text: '01956945292');
     final passwordController = useTextEditingController(text: '123456');
     final phoneFocus = useFocusScopeNode();
     final passwordFocus = useFocusScopeNode();
@@ -39,6 +40,7 @@ class LoginScreen extends HookConsumerWidget {
       return null;
     }, []);
 
+    final local = ref.watch(boxStreamProvider);
     return Scaffold(
       body: Form(
         key: formKey,
@@ -48,6 +50,7 @@ class LoginScreen extends HookConsumerWidget {
             crossAxisAlignment: crossStart,
             children: [
               Gap(104.h),
+              // "${local.value?.value}".toString().text.make(),
               Text(
                 AppStrings.login.toTitleCase(),
                 style: CustomTextStyle.textStyle30w700,

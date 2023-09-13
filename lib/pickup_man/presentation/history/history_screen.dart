@@ -1,5 +1,4 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:courier_delivery_app/pickup_man/domain/parcel/model/top_level_pickup_parcel_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,9 +19,9 @@ class HistoryScreen extends HookConsumerWidget {
 
     final page = useState(1);
     final totalPage = useState(0);
+    final count = useState(0);
 
-    final refreshController =
-        useMemoized(() => RefreshController(initialRefresh: false));
+    final refreshController = useMemoized(() => RefreshController());
 
     ref.listen(parcelPickupProvider, (previous, next) {
       if (previous!.loading == false && next.loading) {
@@ -32,6 +31,7 @@ class HistoryScreen extends HookConsumerWidget {
         BotToast.closeAllLoading();
       }
       totalPage.value = next.parcelPickupResponse.metaData.totalPage;
+      count.value = next.parcelPickupResponse.data.length;
     });
 
     useEffect(() {
@@ -48,6 +48,7 @@ class HistoryScreen extends HookConsumerWidget {
 
       return () {
         BotToast.closeAllLoading();
+        Future.microtask(() => ref.invalidate(parcelPickupProvider));
       };
     }, []);
 
@@ -104,7 +105,8 @@ class HistoryScreen extends HookConsumerWidget {
             ),
             SliverPersistentHeader(
               delegate: TotalDeliverySection(
-                  totalDelivery: state.parcelPickupResponse.data.length),
+                totalDelivery: count.value,
+              ),
             ),
             SliverGap(16.h),
             SliverToBoxAdapter(
@@ -131,20 +133,26 @@ class HistoryScreen extends HookConsumerWidget {
                               color: ColorPalate.kAmbientShadowOpacity),
                         ],
                       ),
-                child: KListViewSeparated(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  gap: 0,
-                  padding: padding0,
-                  separator: const Divider(),
-                  itemBuilder: (context, index) {
-                    return ParcelPickupListTile(
-                      index: index,
-                      onTapReceive: (note) => null,
-                      onTapCancel: (note) => null,
-                    );
-                  },
-                  itemCount: state.parcelPickupResponse.data.length,
+                child: Column(
+                  children: [
+                    count.toString().text.make(),
+                    KListViewSeparated(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      gap: 0,
+                      padding: padding0,
+                      separator: const Divider(),
+                      itemBuilder: (context, index) {
+                        return ParcelPickupListTile(
+                          // index: index,
+                          model: state.parcelPickupResponse.data[index],
+                          onTapReceive: (note) => null,
+                          onTapCancel: (note) => null,
+                        );
+                      },
+                      itemCount: state.parcelPickupResponse.data.length,
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -188,5 +196,5 @@ class TotalDeliverySection extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
-      false;
+      true;
 }

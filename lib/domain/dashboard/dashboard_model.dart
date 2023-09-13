@@ -6,11 +6,15 @@ class DashboardModel extends Equatable {
   final int tAssign;
   final int tComplete;
   final int tReject;
+
   const DashboardModel({
     required this.tAssign,
     required this.tComplete,
     required this.tReject,
   });
+
+  factory DashboardModel.init() =>
+      const DashboardModel(tAssign: 0, tComplete: 0, tReject: 0);
 
   DashboardModel copyWith({
     int? tAssign,
@@ -35,8 +39,14 @@ class DashboardModel extends Equatable {
   factory DashboardModel.fromMap(Map<String, dynamic> map) {
     return DashboardModel(
       tAssign: map['tAssign']?.toInt() ?? 0,
-      tComplete: map['tComplete']?.toInt() ?? 0,
-      tReject: map['tReject']?.toInt() ?? 0,
+      tComplete: (map['tComplete'] != null
+              ? map['tComplete']?.toInt()
+              : map['tReceive']?.toInt()) ??
+          0,
+      tReject: (map['tReject'] != null
+              ? map['tReject']?.toInt()
+              : map['tCancel']?.toInt()) ??
+          0,
     );
   }
 

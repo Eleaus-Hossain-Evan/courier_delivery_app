@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easylogger/flutter_logger.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../../domain/auth/model/user_model.dart';
@@ -55,11 +57,6 @@ class LoggedInNotifier extends ChangeNotifier {
   }
 }
 
-final isAuthenticateProvider = StreamProvider<bool>((ref) {
-  final watchingValue = StreamController<bool>();
-  ref.watch(hiveProvider).getEvent(AppStrings.token).listen((event) {
-    watchingValue.sink.add(event.value);
-  });
-
-  return watchingValue.stream;
+final boxStreamProvider = StreamProvider<BoxEvent>((ref) async* {
+  yield* Hive.box(AppStrings.cacheBox).watch(key: AppStrings.token);
 });

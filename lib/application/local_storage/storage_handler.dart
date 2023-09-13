@@ -4,7 +4,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../utils/strings.dart';
 
-final hiveProvider = Provider<StorageHandler>((_) => StorageHandler.instance);
+final hiveProvider = Provider<StorageHandler>((ref) {
+  return StorageHandler.instance;
+});
 
 class StorageHandler {
   StorageHandler._();

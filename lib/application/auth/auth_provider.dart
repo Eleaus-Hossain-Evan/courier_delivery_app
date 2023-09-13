@@ -18,7 +18,6 @@ final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   return AuthNotifier(AuthRepo(), ref);
 }, name: 'authProvider');
 
-
 final roleProvider = StateProvider<Role>((ref) {
   return Role.rider;
 });
@@ -89,14 +88,13 @@ class AuthNotifier extends StateNotifier<AuthState> {
   }
 
   void logout() {
+    showToast('${state.user.name} logging out');
     state = state.copyWith(user: UserModel.init());
 
     ref.read(loggedInProvider.notifier).deleteAuthCache();
     NetworkHandler.instance.setToken("");
 
     // _ref.read(loggedInProvider.notifier).isLoggedIn();
-
-    showToast('${state.user.name} logging out');
   }
 
   Future<bool> passwordUpdate(PasswordUpdateBody body) async {
@@ -124,7 +122,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
   Future<bool> profileView() async {
     bool success = false;
     // state = state.copyWith(loading: true);
-    final result = await repo.profileView(id: state.user.id, isPickup: state.user.role == Role.pickupman);
+    final result = await repo.profileView(
+        id: state.user.id, isPickup: state.user.role == Role.pickupman);
 
     state = result.fold(
       (l) {

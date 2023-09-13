@@ -8,6 +8,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../application/auth/auth_provider.dart';
+import '../../application/auth/loggedin_provider.dart';
 import '../../utils/utils.dart';
 import '../auth/login/login.dart';
 import '../widgets/widgets.dart';
@@ -31,6 +32,8 @@ class ProfileScreen extends HookConsumerWidget {
     final refreshController =
         useMemoized(() => RefreshController(initialRefresh: false));
 
+    final local = ref.watch(boxStreamProvider);
+
     return Scaffold(
       appBar: const KAppBar(titleText: AppStrings.profile),
       body: SmartRefresher(
@@ -43,7 +46,7 @@ class ProfileScreen extends HookConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // isEditable.value.toString().text.make(),
+              // "${local.value?.value}".text.make(),
               //? Top Section
               gap18,
               ProfilePicWidget(

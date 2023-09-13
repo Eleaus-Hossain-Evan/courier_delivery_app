@@ -17,12 +17,12 @@ import 'parcel_pickup_detail/parcel_pickup_detail_widget.dart';
 class ParcelPickupListTile extends HookConsumerWidget {
   const ParcelPickupListTile({
     Key? key,
-    required this.index,
+    required this.model,
     required this.onTapReceive,
     required this.onTapCancel,
   }) : super(key: key);
 
-  final int index;
+  final TopLevelPickupParcelModel model;
 
   final FutureOr<bool>? Function(String) onTapReceive;
   final FutureOr<bool>? Function(String) onTapCancel;
@@ -30,7 +30,7 @@ class ParcelPickupListTile extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, ref) {
     final state = ref.watch(parcelPickupProvider);
-    final model = state.parcelPickupResponse.data[index];
+    // final model = state.parcelPickupResponse.data[index];
 
     final isReceived = useState(false);
     final isCanceled = useState(false);
