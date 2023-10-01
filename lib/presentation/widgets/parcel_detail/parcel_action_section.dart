@@ -112,8 +112,8 @@ class ParcelActionSection extends HookConsumerWidget {
                     KTextFormField(
                       controller: noteController,
                       focusNode: noteFocus,
-                      hintText: 'Give a Note',
                       labelText: "Note",
+                      borderColor: ColorPalate.bg300,
                     ),
                     gap8,
                     KOutlinedButton(
@@ -140,7 +140,9 @@ class ParcelActionSection extends HookConsumerWidget {
                                   )
                                   .then((value) {
                                 loading.value = false;
-                                Navigator.pop(context);
+                                if (value) {
+                                  Navigator.pop(context);
+                                }
                               });
                             },
                       isSecondary: false,

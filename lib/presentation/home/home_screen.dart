@@ -12,7 +12,7 @@ import '../widgets/home_search_delivery.dart';
 import 'widgets/todays_parcel_section.dart';
 import '../widgets/home_working_summery.dart';
 
-const pageSize = 2;
+const pageSize = 10;
 
 class HomeScreenRider extends HookConsumerWidget {
   static String route = "/home-rider";

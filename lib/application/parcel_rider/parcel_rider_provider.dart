@@ -73,14 +73,14 @@ class ParcelRiderNotifier extends StateNotifier<ParcelRiderState> {
 
       state = state.copyWith(loading: false);
     }, (r) async {
-      Logger.i(r);
+      // Logger.i(r);
 
       // final parcelList = state.parcelPickupResponse.data.lock
       //   ..firstWhere((e) => e.id == r.data.id).copyWith(status: r.data.status);
 
       final index = state.parcelRiderResponse.data.lock
           .indexWhere((e) => e.id == parcelId);
-      Logger.i(index);
+      // Logger.i(index);
 
       if (shouldRemove) {
         final parcelList = state.parcelRiderResponse.data.lock.removeAt(index);
@@ -91,10 +91,10 @@ class ParcelRiderNotifier extends StateNotifier<ParcelRiderState> {
       } else {
         final parcelList = state.parcelRiderResponse.data.lock[index]
             .copyWith(status: status, parcelStatus: parcelStatus);
-        Logger.i('parcelList: $parcelList');
+        // Logger.i('parcelList: $parcelList');
         final parcelListNew =
             state.parcelRiderResponse.data.lock.replace(index, parcelList);
-        Logger.i('parcelListNew: $parcelListNew');
+        // Logger.i('parcelListNew: $parcelListNew');
 
         state = state.copyWith(
             loading: false,
@@ -106,6 +106,7 @@ class ParcelRiderNotifier extends StateNotifier<ParcelRiderState> {
         //     parcelPickupResponse:
         //         state.parcelPickupResponse.copyWith(data: parcelListNew.unlock));
         // Logger.i('state: $state');
+        success = r.success;
       }
     });
     return success;

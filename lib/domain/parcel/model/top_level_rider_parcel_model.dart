@@ -89,7 +89,7 @@ class TopLevelRiderParcelModel extends Equatable {
 
   @override
   String toString() {
-    return 'TopLevelRiderParcelModel(_id: $id, isComplete: $isComplete, cashCollected: $cashCollected, parcelStatus: $parcelStatus, status: $status, createdAt: $createdAt, updatedAt: $updatedAt, parcel: $parcel)';
+    return 'TopLevelRiderParcelModel(_id: $id, isComplete: $isComplete, cashCollected: $cashCollected, note: $note, parcelStatus: $parcelStatus, status: $status, createdAt: $createdAt, updatedAt: $updatedAt, parcel: $parcel)';
   }
 
   @override
