@@ -13,12 +13,12 @@ import '../../application/parcel_rider/parcel_rider_provider.dart';
 
 class ParcelRiderListTile extends HookConsumerWidget {
   const ParcelRiderListTile({
-    Key? key,
+    super.key,
     required this.index,
     required this.onTapComplete,
     required this.onTapReject,
     required this.pageType,
-  }) : super(key: key);
+  });
 
   final int index;
 
@@ -98,7 +98,7 @@ class ParcelRiderListTile extends HookConsumerWidget {
                   model.parcel.serialId.textSpan
                       .color(Colors.blueGrey)
                       .semiBold
-                      .caption(context)
+                      .bodySmall(context)
                       .letterSpacing(1)
                       .make()
                 ])

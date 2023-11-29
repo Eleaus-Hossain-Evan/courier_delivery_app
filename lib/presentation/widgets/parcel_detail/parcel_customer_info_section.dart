@@ -54,7 +54,7 @@ class ParcelCustomerInfoSection extends StatelessWidget {
                 .withChildren([
                   model.parcel.customerInfo.name.textSpan.semiBold.make(),
                 ])
-                .bodyText2(context)
+                .bodySmall(context)
                 .letterSpacing(.8)
                 .make(),
           ),
@@ -65,7 +65,7 @@ class ParcelCustomerInfoSection extends StatelessWidget {
                 .withChildren([
                   model.parcel.customerInfo.address.textSpan.semiBold.make(),
                 ])
-                .bodyText2(context)
+                .bodySmall(context)
                 .letterSpacing(.8)
                 .make(),
           ),
@@ -76,7 +76,7 @@ class ParcelCustomerInfoSection extends StatelessWidget {
                 .withChildren([
                   model.parcel.customerInfo.phone.textSpan.semiBold.make(),
                 ])
-                .bodyText2(context)
+                .bodySmall(context)
                 .letterSpacing(.8)
                 .make(),
           ),

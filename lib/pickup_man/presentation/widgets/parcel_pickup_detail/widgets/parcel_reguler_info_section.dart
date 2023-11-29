@@ -69,7 +69,7 @@ class ParcelRegularInfoSection extends StatelessWidget {
                             .make(),
                       ])
                       .underline
-                      .bodyText2(context)
+                      .bodySmall(context)
                       .letterSpacing(.8)
                       .make(),
                 ),
@@ -80,7 +80,7 @@ class ParcelRegularInfoSection extends StatelessWidget {
                         model.parcel.regularParcelInfo.weight.textSpan.semiBold
                             .make(),
                       ])
-                      .bodyText2(context)
+                      .bodySmall(context)
                       .letterSpacing(.8)
                       .make(),
                 ),
@@ -94,7 +94,7 @@ class ParcelRegularInfoSection extends StatelessWidget {
                             .semiBold
                             .make(),
                       ])
-                      .bodyText2(context)
+                      .bodySmall(context)
                       .letterSpacing(.8)
                       .make(),
                 ),
@@ -106,7 +106,7 @@ class ParcelRegularInfoSection extends StatelessWidget {
                             .parcel.regularParcelInfo.category.textSpan.semiBold
                             .make(),
                       ])
-                      .bodyText2(context)
+                      .bodySmall(context)
                       .letterSpacing(.8)
                       .make(),
                 ),

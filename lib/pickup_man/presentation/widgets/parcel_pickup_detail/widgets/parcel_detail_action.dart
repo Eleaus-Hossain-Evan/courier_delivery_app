@@ -126,7 +126,7 @@ class ParcelDetailAction extends HookConsumerWidget {
                             .withChildren([
                               model.note.textSpan.make(),
                             ])
-                            .bodyText2(context)
+                            .bodySmall(context)
                             .letterSpacing(.8)
                             .make(),
                       )

@@ -7,8 +7,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import 'package:courier_delivery_app/pickup_man/application/parcel_pickup/parcel_pickup_provider.dart';
-
 import '../../../presentation/widgets/widgets.dart';
 import '../../../utils/utils.dart';
 import '../../domain/parcel/model/top_level_pickup_parcel_model.dart';
@@ -16,11 +14,11 @@ import 'parcel_pickup_detail/parcel_pickup_detail_widget.dart';
 
 class ParcelPickupListTile extends HookConsumerWidget {
   const ParcelPickupListTile({
-    Key? key,
+    super.key,
     required this.model,
     required this.onTapReceive,
     required this.onTapCancel,
-  }) : super(key: key);
+  });
 
   final TopLevelPickupParcelModel model;
 
@@ -29,7 +27,6 @@ class ParcelPickupListTile extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final state = ref.watch(parcelPickupProvider);
     // final model = state.parcelPickupResponse.data[index];
 
     final isReceived = useState(false);

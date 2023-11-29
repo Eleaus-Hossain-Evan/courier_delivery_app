@@ -1,6 +1,5 @@
 import 'package:courier_delivery_app/utils/api_endpoints/api_rider_endpoint.dart';
 
-import '../domain/parcel/model/top_level_rider_parcel_model.dart';
 import '../domain/parcel/parcel_pickup_list_response.dart';
 import '../domain/parcel/update_parcel_rider_response.dart';
 import '../utils/utils.dart';

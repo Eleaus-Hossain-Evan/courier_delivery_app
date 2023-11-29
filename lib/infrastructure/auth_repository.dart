@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:courier_delivery_app/utils/api_endpoints/api_rider_endpoint.dart';
 
-import '../application/auth/auth_provider.dart';
 import '../domain/auth/login_body.dart';
 import '../domain/auth/auth_response.dart';
 import '../domain/auth/model/user_model.dart';

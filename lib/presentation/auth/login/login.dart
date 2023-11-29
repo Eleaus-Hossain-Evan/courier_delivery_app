@@ -7,7 +7,6 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 import '../../../application/auth/auth_provider.dart';
-import '../../../application/auth/loggedin_provider.dart';
 import '../../../domain/auth/login_body.dart';
 import '../../../utils/utils.dart';
 import '../../widgets/widgets.dart';
@@ -40,7 +39,6 @@ class LoginScreen extends HookConsumerWidget {
       return null;
     }, []);
 
-    final local = ref.watch(boxStreamProvider);
     return Scaffold(
       body: Form(
         key: formKey,
@@ -86,28 +84,26 @@ class LoginScreen extends HookConsumerWidget {
                 children: [
                   "Log In as".text.caption(context).bold.make(),
                   const Spacer(),
-                  ...Role.values
-                      .map(
-                        (e) => Row(
-                          mainAxisSize: mainMin,
-                          children: [
-                            Radio<Role>(
-                              value: e,
-                              groupValue: role,
-                              // materialTapTargetSize:
-                              //     MaterialTapTargetSize.shrinkWrap,
-                              // visualDensity: VisualDensity.compact,
-                              onChanged: (v) =>
-                                  ref.read(roleProvider.notifier).state = e,
-                            ),
-                            (e == Role.rider ? "Rider" : "PickUp Man")
-                                .text
-                                .caption(context)
-                                .make(),
-                          ],
+                  ...Role.values.map(
+                    (e) => Row(
+                      mainAxisSize: mainMin,
+                      children: [
+                        Radio<Role>(
+                          value: e,
+                          groupValue: role,
+                          // materialTapTargetSize:
+                          //     MaterialTapTargetSize.shrinkWrap,
+                          // visualDensity: VisualDensity.compact,
+                          onChanged: (v) =>
+                              ref.read(roleProvider.notifier).state = e,
                         ),
-                      )
-                      .toList()
+                        (e == Role.rider ? "Rider" : "PickUp Man")
+                            .text
+                            .caption(context)
+                            .make(),
+                      ],
+                    ),
+                  )
                 ],
               ),
               gap24,

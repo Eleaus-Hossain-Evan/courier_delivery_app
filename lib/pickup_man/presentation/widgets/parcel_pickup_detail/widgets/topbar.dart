@@ -27,9 +27,9 @@ class TopBar extends StatelessWidget {
             Text.rich(
               TextSpan(
                 children: [
-                  'Serial ID: '.textSpan.bodyText2(context).make(),
+                  'Serial ID: '.textSpan.bodySmall(context).make(),
                   model.parcel.serialId.textSpan
-                      .caption(context)
+                      .bodySmall(context)
                       .letterSpacing(.8)
                       .semiBold
                       .make(),

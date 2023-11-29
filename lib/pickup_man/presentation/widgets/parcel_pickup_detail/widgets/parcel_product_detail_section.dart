@@ -23,7 +23,7 @@ class ParcelProductDetailSection extends StatelessWidget {
             .withChildren([
               'No Detail added...'.textSpan.make(),
             ])
-            .caption(context)
+            .bodySmall(context)
             .letterSpacing(.8)
             .make(),
       ),

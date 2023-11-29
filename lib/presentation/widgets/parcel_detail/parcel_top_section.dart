@@ -35,7 +35,7 @@ class ParcelTopSection extends StatelessWidget {
                     children: [
                       'Delivery Information'
                           .textSpan
-                          .bodyText1(context)
+                          .bodyMedium(context)
                           .letterSpacing(.8)
                           .make(),
                       // model.parcel.serialId.textSpan

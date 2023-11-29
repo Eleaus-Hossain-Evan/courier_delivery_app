@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -10,14 +12,14 @@ import 'widgets.dart';
 
 class KUserAvatar extends HookConsumerWidget {
   const KUserAvatar({
-    Key? key,
+    super.key,
     this.imgUrl,
     this.radius = 20,
     this.onTap,
     this.icon,
     this.enableBorder = false,
     this.bgColor,
-  }) : super(key: key);
+  });
 
   final String? imgUrl;
   final double radius;
@@ -49,8 +51,7 @@ class KUserAvatar extends HookConsumerWidget {
               backgroundImage: !isEmptyUrl
                   ? CachedNetworkImageProvider(
                       EndPointPickUp.BASE_URL + url,
-                      errorListener: () =>
-                          const Icon(Icons.error_outline_outlined),
+                      errorListener: (error) => log('error', error: error),
                     )
                   : null,
               child: isEmptyUrl ? icon ?? const Icon(Icons.person) : null,

@@ -8,10 +8,10 @@ import '../../../utils/utils.dart';
 
 class ParcelProductDetailSection extends StatelessWidget {
   const ParcelProductDetailSection({
-    Key? key,
+    super.key,
     required this.model,
     required this.isUndo,
-  }) : super(key: key);
+  });
 
   final TopLevelRiderParcelModel model;
   final bool isUndo;
@@ -29,7 +29,7 @@ class ParcelProductDetailSection extends StatelessWidget {
                 .withChildren([
                   'No Detail added...'.textSpan.semiBold.make(),
                 ])
-                .bodyText2(context)
+                .bodySmall(context)
                 .letterSpacing(.8)
                 .make(),
           ),
@@ -72,9 +72,9 @@ class ParcelProductDetailSection extends StatelessWidget {
               'Note:  '
                   .textSpan
                   .withChildren([
-                    'No Note yet...'.textSpan.caption(context).make(),
+                    'No Note yet...'.textSpan.bodySmall(context).make(),
                   ])
-                  .bodyText2(context)
+                  .bodySmall(context)
                   .letterSpacing(.8)
                   .make(),
             ),
