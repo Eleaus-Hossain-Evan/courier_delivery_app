@@ -41,14 +41,19 @@ class DatabaseService {
     initTheme();
   }
 
-  get savedTheme => ref.watch(hiveProvider as AlwaysAliveProviderListenable).get(AppStrings.theme);
+  get savedTheme => ref
+      .watch(hiveProvider as AlwaysAliveProviderListenable)
+      .get(AppStrings.theme);
 
   void initTheme() {
-    ref.watch(hiveProvider as AlwaysAliveProviderListenable).put(AppStrings.theme, 'light');
+    ref
+        .watch(hiveProvider as AlwaysAliveProviderListenable)
+        .put(AppStrings.theme, 'light');
   }
 
-  void toggleSaveTheme(String mode) =>
-      ref.watch(hiveProvider as AlwaysAliveProviderListenable).put(AppStrings.theme, mode);
+  void toggleSaveTheme(String mode) => ref
+      .watch(hiveProvider as AlwaysAliveProviderListenable)
+      .put(AppStrings.theme, mode);
 }
 
 class MyTheme {
@@ -58,15 +63,15 @@ class MyTheme {
 // that case you can also remove them after copying the theme to your app.
   static final lightTheme = FlexThemeData.light(
     colors: const FlexSchemeColor(
-      primary: ColorPalate.primary,
-      secondary: ColorPalate.secondary,
-      tertiary: ColorPalate.tertiary,
-      error: ColorPalate.error,
+      primary: AppColors.primary,
+      secondary: AppColors.secondary,
+      tertiary: AppColors.tertiary,
+      error: AppColors.error,
     ),
     surfaceMode: FlexSurfaceMode.highSurfaceLowScaffold,
-    scaffoldBackground: ColorPalate.bg200,
-    appBarBackground: ColorPalate.bg200,
-    surface: ColorPalate.bg200,
+    scaffoldBackground: AppColors.bg200,
+    appBarBackground: AppColors.bg200,
+    surface: AppColors.bg200,
     blendLevel: 9,
     subThemesData: FlexSubThemesData(
       useTextTheme: true,
@@ -88,7 +93,7 @@ class MyTheme {
         fontSize: 18.sp,
         fontWeight: FontWeight.w600,
         letterSpacing: .15,
-        color: ColorPalate.bg300,
+        color: AppColors.bg300,
       )),
       filledButtonSchemeColor: SchemeColor.primary,
       elevatedButtonRadius: 8.r,
@@ -111,15 +116,15 @@ class MyTheme {
   );
   static final darkTheme = FlexThemeData.dark(
     colors: const FlexSchemeColor(
-      primary: ColorPalate.primary,
-      secondary: ColorPalate.secondary,
-      tertiary: ColorPalate.tertiary,
-      error: ColorPalate.error,
+      primary: AppColors.primary,
+      secondary: AppColors.secondary,
+      tertiary: AppColors.tertiary,
+      error: AppColors.error,
     ),
     surfaceMode: FlexSurfaceMode.highSurfaceLowScaffold,
-    scaffoldBackground: ColorPalate.bg200,
-    appBarBackground: ColorPalate.bg200,
-    surface: ColorPalate.bg200,
+    scaffoldBackground: AppColors.bg200,
+    appBarBackground: AppColors.bg200,
+    surface: AppColors.bg200,
     blendLevel: 9,
     subThemesData: FlexSubThemesData(
       useTextTheme: true,
@@ -141,7 +146,7 @@ class MyTheme {
         fontSize: 18.sp,
         fontWeight: FontWeight.w600,
         letterSpacing: .15,
-        color: ColorPalate.bg300,
+        color: AppColors.bg300,
       )),
       filledButtonSchemeColor: SchemeColor.primary,
       elevatedButtonRadius: 8.r,

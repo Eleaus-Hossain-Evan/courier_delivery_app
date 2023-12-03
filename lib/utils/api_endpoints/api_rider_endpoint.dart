@@ -4,17 +4,17 @@ class EndPointRider {
   static const String DUMMY_PERSON = 'https://i.pravatar.cc/300';
   static const String WEB_URL = "";
 
-  // static const String BASE_URL = "https://api.courier.b2gsoft.xyz/";
-  static const String BASE_URL = "https://server.greenmaxcourier.com/";
+  static const String BASE_URL = "https://api.courier.b2gsoft.xyz/";
+  // static const String BASE_URL = "https://server.greenmaxcourier.com/";
   // static const String BASE_URL_LOCAL = "http://192.168.68.118:3697/";
   static const String API_V1 = "api/v1/";
 
   //#<<---------------- AUTH ------------------>>
-  static const String SIGN_UP = "${API_V1}merchant/registration";
+  static const String SIGN_UP = "${API_V1}rider/registration";
   static const String LOGIN = "${API_V1}rider/login";
   static const String PROFILE_VIEW = "${API_V1}rider/single-fetch/";
   static const String PASSWORD_UPDATE =
-      "${API_V1}merchant/password-update-by-himself";
+      "${API_V1}rider/password-update-by-himself";
 
   //#<<---------------- Courier Merchant ------------------>>
 

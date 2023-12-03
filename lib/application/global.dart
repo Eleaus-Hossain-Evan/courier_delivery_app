@@ -101,7 +101,7 @@ showErrorToast(String text) => BotToast.showText(
       textStyle: const TextStyle(fontSize: 14, color: Colors.white),
       duration: const Duration(seconds: 3),
       contentPadding: const EdgeInsets.all(10),
-      contentColor: ColorPalate.error,
+      contentColor: AppColors.error,
       borderRadius: radius12,
       wrapToastAnimation: (controller, cancel, Widget child) =>
           CustomAnimationWidget(
@@ -214,8 +214,8 @@ bool? showBotToastDialog({
           width: .32.sw,
           child: cancelWidget ??
               KOutlinedButton(
-                foregroundColor: ColorPalate.primary,
-                borderColor: ColorPalate.primary,
+                foregroundColor: AppColors.primary,
+                borderColor: AppColors.primary,
                 onPressed: () {
                   cancelFunc();
                   cancel();

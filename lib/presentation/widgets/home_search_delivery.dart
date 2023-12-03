@@ -29,7 +29,7 @@ class HomeSearchDelivery extends HookConsumerWidget {
                 decoration: InputDecoration(
                   hintText: AppStrings.trackingNumber,
                   hintStyle: CustomTextStyle.textStyle14w500B800.copyWith(
-                    color: ColorPalate.black600,
+                    color: AppColors.black600,
                   ),
                   contentPadding: EdgeInsets.symmetric(horizontal: 8.w),
                   border: InputBorder.none,
@@ -40,7 +40,7 @@ class HomeSearchDelivery extends HookConsumerWidget {
                     ),
                     borderRadius: BorderRadius.circular(4.w),
                   ),
-                  fillColor: ColorPalate.white,
+                  fillColor: AppColors.white,
                   // prefixIcon: Icon(
                   //   Bootstrap.box_seam,
                   //   size: 18.sp,
@@ -63,10 +63,10 @@ class HomeSearchDelivery extends HookConsumerWidget {
                 text: '',
                 // size: Size(60, 50.h),
                 padding: padding0,
-                backgroundColor: ColorPalate.primary.lighten(),
+                backgroundColor: AppColors.primary.lighten(),
                 child: const Icon(
                   Icons.qr_code_scanner,
-                  color: ColorPalate.bg200,
+                  color: AppColors.bg200,
                 ),
               ),
             ),

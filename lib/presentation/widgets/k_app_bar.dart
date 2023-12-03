@@ -6,7 +6,7 @@ import '../../utils/utils.dart';
 
 class KAppBar extends StatelessWidget implements PreferredSizeWidget {
   const KAppBar({
-    Key? key,
+    super.key,
     this.leading,
     this.title,
     this.titleText,
@@ -17,7 +17,7 @@ class KAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.bottom,
     this.backgroundColor,
     this.elevation,
-  }) : super(key: key);
+  });
 
   final Widget? leading;
   final Widget? title;
@@ -36,15 +36,13 @@ class KAppBar extends StatelessWidget implements PreferredSizeWidget {
       centerTitle: centerTitle,
       automaticallyImplyLeading: automaticallyImplyLeading,
       backgroundColor: backgroundColor ?? Colors.transparent,
-      foregroundColor: ColorPalate.black,
+      foregroundColor: AppColors.black,
       leading: leading,
       title: title ??
           (titleText != null && titleText!.isNotEmpty
-              ? Text(
-                  titleText!,
-                  style: titleTextStyle,
-                )
+              ? Text(titleText!)
               : null),
+      titleTextStyle: titleTextStyle,
       actions: actions,
       bottom: bottom,
       elevation: elevation,
@@ -59,7 +57,7 @@ class KAppBar extends StatelessWidget implements PreferredSizeWidget {
 class KAppBarBGTransparent extends StatelessWidget
     implements PreferredSizeWidget {
   const KAppBarBGTransparent({
-    Key? key,
+    super.key,
     this.leading,
     this.title,
     this.titleText,
@@ -71,7 +69,7 @@ class KAppBarBGTransparent extends StatelessWidget
     this.backgroundColor,
     this.elevation,
     this.isLeading = true,
-  }) : super(key: key);
+  });
 
   final Widget? leading;
   final Widget? title;
@@ -91,11 +89,11 @@ class KAppBarBGTransparent extends StatelessWidget
       automaticallyImplyLeading: automaticallyImplyLeading,
       backgroundColor:
           backgroundColor ?? context.theme.primaryColorLight.darken(),
-      foregroundColor: ColorPalate.white,
+      foregroundColor: AppColors.white,
       systemOverlayStyle: SystemUiOverlayStyle.light,
       leading: isLeading
           ? const CloseButton(
-              color: ColorPalate.white,
+              color: AppColors.white,
             )
           : null,
       title: title ??

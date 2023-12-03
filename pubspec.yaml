@@ -36,11 +36,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   app_version_update: ^4.0.1
   bot_toast: ^4.0.3
-  cached_network_image: ^3.2.2
+  cached_network_image: ^3.3.0
   equatable: ^2.0.5
   fast_immutable_collections: ^9.0.0
   flex_color_scheme: ^7.0.5
-  flutter_easylogger: ^2.3.3
+  flutter_easylogger: ^2.3.1
   flutter_hooks: ^0.20.0
   flutter_html: ^3.0.0-beta.2
   flutter_screenutil: ^5.5.4

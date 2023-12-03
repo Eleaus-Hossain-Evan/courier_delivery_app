@@ -3,6 +3,7 @@ import 'package:courier_delivery_app/application/dashboard/dashboard_provider.da
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:icons_plus/icons_plus.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:velocity_x/velocity_x.dart';
 
@@ -15,92 +16,60 @@ class HomeWorkingSummery extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final asyncDashboard =
-        ref.watch(dashboardProvider(ref.watch(roleProvider) == Role.pickupman));
+    final asyncDashboard = ref.watch(dashboardProvider);
 
     return asyncDashboard
         .when(
-          data: (data) => Row(
-            mainAxisAlignment: mainSpaceBetween,
-            children: [
-              WorkingSummeryItem(
-                icon: Icons.access_time_filled,
-                title: AppStrings.pendingDelivery,
-                count: data.tAssign,
-                textColor: ColorPalate.secondary200,
-                bgColor: ColorPalate.secondary,
+          data: (data) {
+            return SizedBox(
+              height: 240.h,
+              child: GridView(
+                // spacing: 16.w,
+                // runSpacing: 16.h,
+                physics: const NeverScrollableScrollPhysics(),
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16.w,
+                  mainAxisSpacing: 16.h,
+                  childAspectRatio: 1.6,
+                ),
+                children: [
+                  WorkingSummeryItem(
+                    icon: Icons.access_time_filled,
+                    title: AppStrings.pendingDelivery,
+                    count: data.tAssign,
+                    textColor: AppColors.secondary200,
+                    bgColor: AppColors.secondary,
+                  ),
+                  WorkingSummeryItem(
+                    icon: Icons.delivery_dining,
+                    title: AppStrings.cancelDelivery,
+                    count: data.tReject,
+                    textColor: context.colors.error,
+                    bgColor: context.colors.error,
+                  ),
+                  WorkingSummeryItem(
+                    icon: Icons.check_circle,
+                    title: AppStrings.completedDelivery,
+                    count: data.tComplete,
+                    textColor: AppColors.primary200,
+                    bgColor: AppColors.primary,
+                  ),
+                  const WorkingSummeryItem(
+                    icon: Icons.stop_circle_outlined,
+                    title: AppStrings.holdDelivery,
+                    count: 11,
+                    textColor: AppColors.blue,
+                    bgColor: AppColors.crystalBlue,
+                  ),
+                ],
               ),
-              WorkingSummeryItem(
-                icon: Icons.delivery_dining,
-                title: AppStrings.cancelDelivery,
-                count: data.tReject,
-                textColor: context.colors.error,
-                bgColor: context.colors.error,
-              ),
-              WorkingSummeryItem(
-                icon: Icons.check_circle,
-                title: AppStrings.completedDelivery,
-                count: data.tComplete,
-                textColor: ColorPalate.primary200,
-                bgColor: ColorPalate.primary,
-              ),
-            ],
-          ),
+            );
+          },
           error: (error, stackTrace) => error.toString().text.make(),
           loading: () => const WorkingSummeryItemShimmer(),
         )
         .p(16.w);
-  }
-}
-
-class WorkingSummeryItem extends StatelessWidget {
-  const WorkingSummeryItem({
-    Key? key,
-    required this.icon,
-    required this.title,
-    required this.count,
-    required this.textColor,
-    required this.bgColor,
-  }) : super(key: key);
-
-  final IconData icon;
-  final String title;
-  final int count;
-  final Color textColor;
-  final Color bgColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return VStack(
-      [
-        gap12,
-        Icon(
-          icon,
-          color: textColor,
-        ).px12(),
-        gap6,
-        count.text.xl2.bold.color(textColor).make().px12(),
-        gap2,
-        title.text
-            .minFontSize(5)
-            .maxFontSize(9)
-            .bold
-            .color(textColor)
-            .make()
-            .px8(),
-        gap12,
-      ],
-    )
-        .box
-        .color(bgColor.withOpacity(.3))
-        .roundedSM
-        .width(.28.sw)
-        .make()
-        .box
-        .white
-        .roundedSM
-        .shadowSm
-        .make();
   }
 }
 
@@ -112,26 +81,74 @@ class WorkingSummeryItemShimmer extends StatelessWidget {
     return Shimmer.fromColors(
       baseColor: Colors.grey.shade300,
       highlightColor: Colors.white,
-      child: Row(
-        mainAxisAlignment: mainSpaceBetween,
-        children: [
-          VxBox(child: SizedBox(height: 110.h))
-              .colorScaffoldBackground(context)
-              .roundedSM
-              .width(.28.sw)
-              .make(),
-          VxBox(child: SizedBox(height: 110.h))
-              .colorScaffoldBackground(context)
-              .roundedSM
-              .width(.28.sw)
-              .make(),
-          VxBox(child: SizedBox(height: 110.h))
-              .colorScaffoldBackground(context)
-              .roundedSM
-              .width(.28.sw)
-              .make(),
-        ],
+      child: SizedBox(
+        height: 240.h,
+        child: GridView.builder(
+          // spacing: 16.w,
+          // runSpacing: 16.h,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            crossAxisSpacing: 16.w,
+            mainAxisSpacing: 16.h,
+            childAspectRatio: 1.6,
+          ),
+          itemBuilder: (context, index) {
+            return VxBox(child: SizedBox(height: 110.h))
+                .colorScaffoldBackground(context)
+                .roundedSM
+                .width(.28.sw)
+                .make();
+          },
+          itemCount: 4,
+        ),
       ),
     );
+  }
+}
+
+class WorkingSummeryItem extends StatelessWidget {
+  const WorkingSummeryItem({
+    super.key,
+    required this.icon,
+    required this.title,
+    required this.count,
+    required this.textColor,
+    required this.bgColor,
+  });
+
+  final IconData icon;
+  final String title;
+  final int count;
+  final Color textColor;
+  final Color bgColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: mainCenter,
+      crossAxisAlignment: crossStart,
+      children: [
+        gap12,
+        Icon(
+          icon,
+          color: textColor,
+        ).px12(),
+        gap6,
+        count.text.xl2.bold.color(textColor).make().px12(),
+        gap2,
+        title.text.wide.bold.color(textColor).make().px8(),
+        gap12,
+      ],
+    )
+        .box
+        .color(bgColor.withOpacity(.3))
+        .roundedSM
+        .make()
+        .box
+        .width(.42.sw)
+        .white
+        .roundedSM
+        .shadowSm
+        .make();
   }
 }

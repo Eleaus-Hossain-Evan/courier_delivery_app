@@ -94,8 +94,9 @@ class LoginScreen extends HookConsumerWidget {
                           // materialTapTargetSize:
                           //     MaterialTapTargetSize.shrinkWrap,
                           // visualDensity: VisualDensity.compact,
-                          onChanged: (v) =>
-                              ref.read(roleProvider.notifier).state = e,
+                          onChanged: (v) => ref
+                              .read(roleProvider.notifier)
+                              .update((state) => e),
                         ),
                         (e == Role.rider ? "Rider" : "PickUp Man")
                             .text
@@ -118,7 +119,7 @@ class LoginScreen extends HookConsumerWidget {
                 child: const Text(
                   AppStrings.login,
                   style: TextStyle(
-                    color: ColorPalate.bg100,
+                    color: AppColors.bg100,
                   ),
                 ),
               ),
@@ -174,7 +175,7 @@ class LoginScreen extends HookConsumerWidget {
                           AppStrings.forgotPassword,
                           style:
                               CustomTextStyle.textStyle16w600secondary.copyWith(
-                            color: ColorPalate.secondary200,
+                            color: AppColors.secondary200,
                           ),
                         ),
                         onTap: () {},
@@ -196,7 +197,7 @@ class LoginScreen extends HookConsumerWidget {
                     gap16,
                     KElevatedButton(
                       onPressed: () {
-                        context.replace(SignUpScreen.route);
+                        context.push(SignUpScreen.route);
                       },
                       text: AppStrings.createAccount,
                     ),

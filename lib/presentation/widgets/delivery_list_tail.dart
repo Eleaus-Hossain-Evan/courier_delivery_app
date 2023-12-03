@@ -48,7 +48,7 @@ class DeliveryListTile extends StatelessWidget {
                           gap4,
                           address.text.medium
                               .caption(context)
-                              .color(ColorPalate.black700)
+                              .color(AppColors.black700)
                               .make()
                               .box
                               .width(.5.sw)
@@ -70,9 +70,9 @@ class DeliveryListTile extends StatelessWidget {
               ],
             ).p8())
         .box
-        .color(ColorPalate.secondary.lighten().withOpacity(.01))
+        .color(AppColors.secondary.lighten().withOpacity(.01))
         .border(
-          color: ColorPalate.secondary.lighten().withOpacity(.2),
+          color: AppColors.secondary.lighten().withOpacity(.2),
           width: 1.2.w,
         )
         .roundedSM

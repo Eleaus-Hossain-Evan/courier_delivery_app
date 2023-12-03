@@ -9,21 +9,16 @@ import 'package:velocity_x/velocity_x.dart';
 
 import '../../../presentation/widgets/widgets.dart';
 import '../../../utils/utils.dart';
-import '../../application/parcel_rider/parcel_rider_provider.dart';
+import '../../rider/application/parcel_rider/parcel_rider_provider.dart';
 
 class ParcelRiderListTile extends HookConsumerWidget {
   const ParcelRiderListTile({
     super.key,
     required this.index,
-    required this.onTapComplete,
-    required this.onTapReject,
     required this.pageType,
   });
 
   final int index;
-
-  final FutureOr<bool>? Function() onTapComplete;
-  final FutureOr<bool>? Function() onTapReject;
   final ParcelRiderType pageType;
 
   @override
@@ -40,7 +35,7 @@ class ParcelRiderListTile extends HookConsumerWidget {
           ? context.theme.primaryColor
           : model.status == ParcelRiderType.reject
               ? context.colors.error
-              : ColorPalate.secondary200;
+              : AppColors.secondary200;
     }
 
     useEffect(() {
@@ -62,8 +57,6 @@ class ParcelRiderListTile extends HookConsumerWidget {
           child: ParcelRiderDetailWidget(
             model: model,
             pageType: pageType,
-            onTapComplete: onTapComplete,
-            onTapReject: onTapReject,
           ),
         );
       },
@@ -171,14 +164,14 @@ class ParcelRiderListTile extends HookConsumerWidget {
                   VxCapsule(
                     height: 25.h,
                     width: 74.w,
-                    border: Border.all(color: getColor().withOpacity(.4)),
-                    backgroundColor: ColorPalate.bg100,
+                    border: Border.all(color: getColor()),
+                    backgroundColor: getColor(),
                     child: model.status.name
                         .toWordTitleCase()
                         .text
                         .xs
                         .semiBold
-                        .color(getColor())
+                        .color(AppColors.white)
                         .letterSpacing(1.2)
                         .makeCentered()
                         .px12(),
@@ -191,7 +184,7 @@ class ParcelRiderListTile extends HookConsumerWidget {
       ).p16(),
     )
         .box
-        .color(ColorPalate.secondary.lighten().withOpacity(.001))
+        .color(AppColors.secondary.lighten().withOpacity(.001))
         .roundedSM
         .make();
   }

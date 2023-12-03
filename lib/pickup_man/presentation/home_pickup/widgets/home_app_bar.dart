@@ -24,7 +24,7 @@ class HomeAppBar extends HookConsumerWidget implements PreferredSizeWidget {
           Text(
             state.user.name,
             style: CustomTextStyle.textStyle18w500Black800.copyWith(
-              color: ColorPalate.primary300,
+              color: AppColors.primary300,
               fontWeight: FontWeight.bold,
             ),
           ),

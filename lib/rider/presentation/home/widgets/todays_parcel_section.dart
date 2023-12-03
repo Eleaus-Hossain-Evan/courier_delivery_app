@@ -3,35 +3,34 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../../../application/parcel_rider/parcel_rider_state.dart';
-import '../../../utils/utils.dart';
-import '../../main_nav/main_nav.dart';
-import '../../widgets/widgets.dart';
+import '../../../application/parcel_rider/parcel_rider_provider.dart';
+import '../../../../utils/utils.dart';
+import '../../main_nav/main_nav_rider.dart';
+import '../../../../presentation/widgets/widgets.dart';
 
 class TodaysParcelSection extends HookConsumerWidget {
   const TodaysParcelSection({
     super.key,
-    required this.state,
     required this.page,
     required this.currentType,
   });
 
-  final ParcelRiderState state;
   final ValueNotifier<int> page;
   final ValueNotifier<ParcelRiderType> currentType;
 
   @override
   Widget build(BuildContext context, ref) {
+    final state = ref.watch(parcelRiderProvider);
     return Column(
       children: [
         Row(
           mainAxisAlignment: mainSpaceBetween,
           children: [
             AppStrings.todayDelivery.text.bold.lg
-                .color(ColorPalate.black900)
+                .color(AppColors.black900)
                 .make(),
             AppStrings.viewAll.text
-                .color(ColorPalate.secondary200)
+                .color(AppColors.secondary200)
                 .make()
                 .pSymmetric(h: 4, v: 2)
                 .onInkTap(() {
@@ -48,22 +47,22 @@ class TodaysParcelSection extends HookConsumerWidget {
           decoration: state.parcelRiderResponse.data.isEmpty
               ? null
               : BoxDecoration(
-                  color: ColorPalate.white,
+                  color: AppColors.white,
                   borderRadius: BorderRadius.circular(7.5.r),
                   boxShadow: const [
                     BoxShadow(
                         offset: Offset(0.0, 3.0),
                         blurRadius: 1.0,
                         spreadRadius: -2.0,
-                        color: ColorPalate.kKeyUmbraOpacity),
+                        color: AppColors.kKeyUmbraOpacity),
                     BoxShadow(
                         offset: Offset(0.0, 2.0),
                         blurRadius: 2.0,
-                        color: ColorPalate.kKeyPenumbraOpacity),
+                        color: AppColors.kKeyPenumbraOpacity),
                     BoxShadow(
                         offset: Offset(0.0, 1.0),
                         blurRadius: 5.0,
-                        color: ColorPalate.kAmbientShadowOpacity),
+                        color: AppColors.kAmbientShadowOpacity),
                   ],
                 ),
           child: KListViewSeparated(
@@ -71,30 +70,12 @@ class TodaysParcelSection extends HookConsumerWidget {
             physics: const NeverScrollableScrollPhysics(),
             gap: 16,
             padding: padding0,
-            separator: const KDivider(color: ColorPalate.bg300),
+            separator: const KDivider(color: AppColors.bg300),
             itemBuilder: (context, index) {
               // final parcel = state.parcelRiderResponse.data[index];
               return ParcelRiderListTile(
                 index: index,
                 pageType: ParcelRiderType.all,
-                onTapComplete: () {
-                  return null;
-
-                  // return await ref
-                  //     .read(parcelRiderProvider.notifier)
-                  //     .receivedParcel(parcel.id, page.value,
-                  //         shouldRemove:
-                  //             currentType.value == ParcelRiderType.complete);
-                },
-                onTapReject: () {
-                  return null;
-
-                  // return await ref
-                  //     .read(parcelRiderProvider.notifier)
-                  //     .cancelParcel(parcel.id, page.value,
-                  //         shouldRemove:
-                  //             currentType.value == ParcelRiderType.reject);
-                },
               );
             },
             itemCount: state.parcelRiderResponse.data.length,

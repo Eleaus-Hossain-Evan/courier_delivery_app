@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../../../utils/utils.dart';
+import '../../../../utils/utils.dart';
 
 class SummerSection extends SliverPersistentHeaderDelegate {
   @override
@@ -13,7 +13,7 @@ class SummerSection extends SliverPersistentHeaderDelegate {
         VxArc(
           height: 60,
           child: Container(
-            color: ColorPalate.primary,
+            color: AppColors.primary,
             height: 80,
           ),
         ).positioned(
@@ -80,7 +80,7 @@ class SummaryItem extends StatelessWidget {
     )
         .pOnly(top: 16.h, bottom: 8.h, left: 8.w, right: 8.w)
         .box
-        .color(ColorPalate.bg200)
+        .color(AppColors.bg200)
         .shadowSm
         .roundedSM
         .width(.29.sw)

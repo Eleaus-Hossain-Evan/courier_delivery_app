@@ -91,7 +91,7 @@ class ProfileDetailScreen extends HookConsumerWidget {
                         "You can't edit details,\nPlease, contact with admin.");
               },
               icon: const Icon(FontAwesome.pen_to_square)
-                  .iconColor(ColorPalate.white)
+                  .iconColor(AppColors.white)
                   .iconSize(18.sp),
             ),
           ),
@@ -110,7 +110,7 @@ class ProfileDetailScreen extends HookConsumerWidget {
                 leading: Icon(
                   BoxIcons.bxs_user_account,
                   size: 18.sp,
-                  color: ColorPalate.secondary,
+                  color: AppColors.secondary,
                 ),
                 visible: true,
                 containerPadding: paddingV20,
@@ -176,7 +176,7 @@ class ProfileDetailScreen extends HookConsumerWidget {
                 leading: const Icon(
                   FontAwesome.address_card,
                   size: 18,
-                  color: ColorPalate.secondary,
+                  color: AppColors.secondary,
                 ),
                 visible: isEditable.value,
                 containerPadding: paddingV20,
@@ -201,7 +201,7 @@ class ProfileDetailScreen extends HookConsumerWidget {
                 leading: Icon(
                   FontAwesome.map_location_dot,
                   size: 18.sp,
-                  color: ColorPalate.secondary,
+                  color: AppColors.secondary,
                 ),
                 visible: state.user.hub == HubModel.init(),
                 containerPadding: paddingV20,

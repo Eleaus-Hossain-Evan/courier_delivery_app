@@ -52,7 +52,7 @@ class BankDetailsScreen extends HookConsumerWidget {
             child: IconButton(
                 onPressed: () => isUpdate.value = !isUpdate.value,
                 icon: const Icon(FontAwesome.pen_to_square)
-                    .iconColor(ColorPalate.white)
+                    .iconColor(AppColors.white)
                     .iconSize(18.sp)),
           )
         ],
@@ -62,7 +62,7 @@ class BankDetailsScreen extends HookConsumerWidget {
         child: Padding(
           padding: EdgeInsets.only(top: 160.h),
           child: ColoredBox(
-            color: ColorPalate.bg200,
+            color: AppColors.bg200,
             child: Column(
               children: [
                 AppStrings.bankDetails.text.lg.make().objectCenterLeft(),

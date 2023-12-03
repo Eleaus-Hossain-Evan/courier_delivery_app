@@ -14,7 +14,7 @@ final bottomNavigatorKeyPickup = GlobalKey();
 class MainNavPickupMan extends HookConsumerWidget {
   static const route = '/main-nav-pickup-man';
 
-  const MainNavPickupMan({Key? key}) : super(key: key);
+  const MainNavPickupMan({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -29,7 +29,7 @@ class MainNavPickupMan extends HookConsumerWidget {
       return Scaffold(
         body: navWidget[navIndex.value],
         bottomNavigationBar: NavigationBar(
-          backgroundColor: ColorPalate.bg200,
+          backgroundColor: AppColors.bg200,
           elevation: 0,
           surfaceTintColor: Colors.transparent,
           key: bottomNavigatorKeyPickup,
@@ -44,7 +44,7 @@ class MainNavPickupMan extends HookConsumerWidget {
                 Icons.home_filled,
                 color: navIndex.value == 0
                     ? context.colors.primary
-                    : ColorPalate.black600,
+                    : AppColors.black600,
               ),
               label: AppStrings.home,
             ),
@@ -53,7 +53,7 @@ class MainNavPickupMan extends HookConsumerWidget {
                 FontAwesome.list_check,
                 color: navIndex.value == 1
                     ? context.colors.primary
-                    : ColorPalate.black600,
+                    : AppColors.black600,
               ),
               label: AppStrings.history,
             ),
@@ -62,7 +62,7 @@ class MainNavPickupMan extends HookConsumerWidget {
                 Icons.account_box_rounded,
                 color: navIndex.value == 3
                     ? context.colors.primary
-                    : ColorPalate.black600,
+                    : AppColors.black600,
               ),
               label: AppStrings.profile,
             ),

@@ -102,13 +102,13 @@ class DeliveryTabSection extends SliverPersistentHeaderDelegate {
         fontSize: 12.sp,
         letterSpacing: .9,
       ),
-      unselectedLabelColor: ColorPalate.white,
+      unselectedLabelColor: AppColors.white,
       // isScrollable: true,
       indicator: BoxDecoration(
         borderRadius: BorderRadius.circular(
           25.0,
         ),
-        color: ColorPalate.white,
+        color: AppColors.white,
       ),
       indicatorSize: TabBarIndicatorSize.tab,
       indicatorPadding: EdgeInsets.symmetric(vertical: 4.w),

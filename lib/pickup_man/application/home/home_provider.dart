@@ -1,14 +1,14 @@
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import '../../infrastructure/home_repo.dart';
+import '../../infrastructure/home_pickup_repo.dart';
 import 'home_state.dart';
 
 final homeProvider = StateNotifierProvider<HomeNotifier, HomeState>((ref) {
-  return HomeNotifier(HomeRepo(), ref);
+  return HomeNotifier(HomePickupRepo(), ref);
 }, name: "homeProvider");
 
 class HomeNotifier extends StateNotifier<HomeState> {
-  final HomeRepo repo;
+  final HomePickupRepo repo;
   final Ref ref;
 
   HomeNotifier(this.repo, this.ref) : super(HomeState.init());

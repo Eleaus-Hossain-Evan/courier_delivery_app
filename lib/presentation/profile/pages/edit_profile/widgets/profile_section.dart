@@ -44,6 +44,6 @@ class ProfileSection extends StatelessWidget {
         ),
         gap24,
       ],
-    ).box.color(ColorPalate.bg200).make();
+    ).box.color(AppColors.bg200).make();
   }
 }

@@ -112,7 +112,7 @@ class ImagePickWidget extends HookConsumerWidget {
                     end: 0,
                     child: CircleAvatar(
                       radius: 18.r,
-                      backgroundColor: ColorPalate.white,
+                      backgroundColor: AppColors.white,
                       child: CircleAvatar(
                         radius: 16.r,
                         child: const Icon(

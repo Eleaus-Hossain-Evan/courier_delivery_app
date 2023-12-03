@@ -81,7 +81,7 @@ class ParcelPickupListTile extends HookConsumerWidget {
                   .caption(context)
                   .letterSpacing(.8)
                   .semiBold
-                  .color(ColorPalate.black600)
+                  .color(AppColors.black600)
                   .make()
                   .expand(),
               model.status.name.capitalized.text.xs
@@ -242,7 +242,7 @@ class ParcelPickupListTile extends HookConsumerWidget {
       ).p16(),
     )
         .box
-        .color(ColorPalate.secondary.lighten().withOpacity(.01))
+        .color(AppColors.secondary.lighten().withOpacity(.01))
         // .border(
         //   color: ColorPalate.secondary.lighten().withOpacity(.2),
         //   width: 1.2.w,

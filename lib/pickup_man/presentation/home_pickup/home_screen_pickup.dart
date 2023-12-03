@@ -137,7 +137,7 @@ class HomeScreenPickup extends HookConsumerWidget {
                   mainAxisAlignment: mainSpaceBetween,
                   children: [
                     AppStrings.recentDelivery.text.bold.lg
-                        .color(ColorPalate.black900)
+                        .color(AppColors.black900)
                         .make(),
                     // AppStrings.viewAll.text
                     //     .color(ColorPalate.secondary200)
@@ -198,22 +198,22 @@ class HomeScreenPickup extends HookConsumerWidget {
                   decoration: state.parcelPickupResponse.data.isEmpty
                       ? null
                       : BoxDecoration(
-                          color: ColorPalate.white,
+                          color: AppColors.white,
                           borderRadius: BorderRadius.circular(7.5.r),
                           boxShadow: const [
                             BoxShadow(
                                 offset: Offset(0.0, 3.0),
                                 blurRadius: 1.0,
                                 spreadRadius: -2.0,
-                                color: ColorPalate.kKeyUmbraOpacity),
+                                color: AppColors.kKeyUmbraOpacity),
                             BoxShadow(
                                 offset: Offset(0.0, 2.0),
                                 blurRadius: 2.0,
-                                color: ColorPalate.kKeyPenumbraOpacity),
+                                color: AppColors.kKeyPenumbraOpacity),
                             BoxShadow(
                                 offset: Offset(0.0, 1.0),
                                 blurRadius: 5.0,
-                                color: ColorPalate.kAmbientShadowOpacity),
+                                color: AppColors.kAmbientShadowOpacity),
                           ],
                         ),
                   child: KListViewSeparated(

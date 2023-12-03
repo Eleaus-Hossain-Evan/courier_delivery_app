@@ -1,8 +1,8 @@
 import 'package:courier_delivery_app/utils/api_endpoints/api_rider_endpoint.dart';
 
-import '../domain/parcel/parcel_pickup_list_response.dart';
-import '../domain/parcel/update_parcel_rider_response.dart';
-import '../utils/utils.dart';
+import '../domain/parcel_pickup_list_response.dart';
+import '../../domain/parcel/update_parcel_rider_response.dart';
+import '../../utils/utils.dart';
 
 class ParcelRiderRepo {
   final api = NetworkHandler.instance;

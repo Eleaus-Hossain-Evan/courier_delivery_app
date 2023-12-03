@@ -6,8 +6,8 @@ import 'package:velocity_x/velocity_x.dart';
 
 import 'package:courier_delivery_app/utils/utils.dart';
 
-import '../../../application/parcel_rider/parcel_rider_provider.dart';
-import '../../../domain/parcel/model/top_level_rider_parcel_model.dart';
+import '../../../rider/application/parcel_rider/parcel_rider_provider.dart';
+import '../../../rider/domain/top_level_rider_parcel_model.dart';
 import '../widgets.dart';
 
 class ParcelActionSection extends HookConsumerWidget {
@@ -113,7 +113,7 @@ class ParcelActionSection extends HookConsumerWidget {
                       controller: noteController,
                       focusNode: noteFocus,
                       labelText: "Note",
-                      borderColor: ColorPalate.bg300,
+                      borderColor: AppColors.bg300,
                     ),
                     gap8,
                     KOutlinedButton(
@@ -226,12 +226,12 @@ class ActionItem<T> extends StatelessWidget {
             .p12()
             .box
             .roundedSM
-            .border(color: ColorPalate.bg300)
+            .border(color: AppColors.bg300)
             .make()
             .pSymmetric(v: 8.w, h: 0.w),
         title.text.semiBold
             .letterSpacing(.8)
-            .color(ColorPalate.black700)
+            .color(AppColors.black700)
             .make()
             .px8()
             .box

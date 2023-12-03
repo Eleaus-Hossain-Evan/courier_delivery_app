@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../utils/color_palate.dart';
+import '../../utils/app_colors.dart';
 
 class BottomRoundedContainer extends StatelessWidget {
   const BottomRoundedContainer({
     Key? key,
     required this.child,
     this.height,
-    this.backgroundColor = ColorPalate.white,
+    this.backgroundColor = AppColors.white,
     this.padding,
   }) : super(key: key);
 

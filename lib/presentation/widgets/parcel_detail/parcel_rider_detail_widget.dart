@@ -6,7 +6,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:courier_delivery_app/domain/parcel/model/top_level_rider_parcel_model.dart';
+import 'package:courier_delivery_app/rider/domain/top_level_rider_parcel_model.dart';
 
 import '../../../../utils/utils.dart';
 import 'parcel_action_section.dart';
@@ -19,17 +19,12 @@ class ParcelRiderDetailWidget extends HookConsumerWidget {
   const ParcelRiderDetailWidget({
     super.key,
     required this.model,
-    required this.onTapComplete,
-    required this.onTapReject,
     required this.pageType,
   });
 
   final TopLevelRiderParcelModel model;
-
-  final FutureOr<bool>? Function() onTapComplete;
-  final FutureOr<bool>? Function() onTapReject;
-
   final ParcelRiderType pageType;
+  
   @override
   Widget build(BuildContext context, ref) {
     final isReceived = useState(false);

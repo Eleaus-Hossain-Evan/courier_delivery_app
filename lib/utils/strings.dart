@@ -21,6 +21,7 @@ class AppStrings {
   static const String pendingDelivery = "Pending Delivery";
   static const String cancelDelivery = "Cancel Delivery";
   static const String completedDelivery = "Completed Delivery";
+  static const String holdDelivery = "Hold Delivery";
   static const String trackingNumber = "Tracking Number";
 
   //#----------------  Delivery ----------------

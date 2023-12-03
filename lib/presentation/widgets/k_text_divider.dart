@@ -22,7 +22,7 @@ class KTextDivider extends HookConsumerWidget {
             child: Divider(
               endIndent: 32.w,
               thickness: 1.1,
-              color: ColorPalate.black600,
+              color: AppColors.black600,
             ),
           ),
           Text(
@@ -34,7 +34,7 @@ class KTextDivider extends HookConsumerWidget {
             child: Divider(
               indent: 32.w,
               thickness: 1.1,
-              color: ColorPalate.black600,
+              color: AppColors.black600,
             ),
           )
         ],

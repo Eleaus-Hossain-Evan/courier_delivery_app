@@ -31,7 +31,6 @@ class ProfileScreen extends HookConsumerWidget {
     final refreshController =
         useMemoized(() => RefreshController(initialRefresh: false));
 
-
     return Scaffold(
       appBar: const KAppBar(titleText: AppStrings.profile),
       body: SmartRefresher(
@@ -54,10 +53,10 @@ class ProfileScreen extends HookConsumerWidget {
               Container(
                 padding: padding20,
                 decoration: BoxDecoration(
-                  color: ColorPalate.bg100,
+                  color: AppColors.bg100,
                   borderRadius: BorderRadius.circular(16.r),
                   border: Border.all(
-                    color: ColorPalate.primary.withOpacity(.2),
+                    color: AppColors.primary.withOpacity(.2),
                     width: 1.2.w,
                   ),
                 ),
@@ -68,7 +67,7 @@ class ProfileScreen extends HookConsumerWidget {
                       leading: Bootstrap.bank2,
                       title: AppStrings.bankDetail,
                       secondaryTrailing: const Icon(Icons.warning_rounded)
-                          .iconColor(ColorPalate.warning),
+                          .iconColor(AppColors.warning),
                       onTap: () => context.push(BankDetailsScreen.route),
                     ),
                     KDivider(
@@ -109,10 +108,10 @@ class ProfileScreen extends HookConsumerWidget {
               Container(
                 padding: padding20,
                 decoration: BoxDecoration(
-                  color: ColorPalate.bg100,
+                  color: AppColors.bg100,
                   borderRadius: BorderRadius.circular(16.r),
                   border: Border.all(
-                    color: ColorPalate.primary.withOpacity(.2),
+                    color: AppColors.primary.withOpacity(.2),
                     width: 1.2.w,
                   ),
                 ),
@@ -171,7 +170,7 @@ class ProfileOptionsItem extends HookConsumerWidget {
             Icon(
               leading,
               size: 20.sp,
-              color: ColorPalate.secondary,
+              color: AppColors.secondary,
             ),
             gap16,
             Expanded(
@@ -193,7 +192,7 @@ class ProfileOptionsItem extends HookConsumerWidget {
                 ? Icon(
                     Icons.chevron_right_rounded,
                     size: 28.sp,
-                    color: ColorPalate.black,
+                    color: AppColors.black,
                   )
                 : const SizedBox.shrink(),
           ],

@@ -58,7 +58,7 @@ class CustomerDetailScreen extends HookConsumerWidget {
                 .text
                 .lg
                 .semiBold
-                .color(ColorPalate.black700)
+                .color(AppColors.black700)
                 .make(),
           ],
         ),

@@ -1,5 +1,5 @@
 export 'api_endpoints/api_pickup_endpoint.dart';
-export 'color_palate.dart';
+export 'app_colors.dart';
 export 'custom_style.dart';
 export 'ui_constant.dart';
 export '../theme/theme.dart';
@@ -10,3 +10,4 @@ export 'extensions/extensions.dart';
 export 'network_util/network_handler.dart';
 export 'dismiss_keyboard.dart';
 export 'constant/enums.dart';
+export 'provider-log/provider_log.dart';

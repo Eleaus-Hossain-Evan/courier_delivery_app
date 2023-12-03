@@ -118,9 +118,9 @@ class KElevatedButton extends HookConsumerWidget {
             TextStyle(
               fontSize: 18.sp,
               fontWeight: FontWeight.w600,
-              color: ColorPalate.secondary200,
+              color: AppColors.secondary200,
             ),
-        foregroundColor: foregroundColor ?? ColorPalate.secondary200,
+        foregroundColor: foregroundColor ?? AppColors.secondary200,
         backgroundColor: backgroundColor,
         padding: padding,
       ),
@@ -151,7 +151,7 @@ class KOutlinedButton extends HookConsumerWidget {
     required this.text,
     this.backgroundColor,
     this.foregroundColor,
-    this.borderColor = ColorPalate.primary,
+    this.borderColor = AppColors.primary,
     this.borderWidth,
     required this.onPressed,
     this.loading,
@@ -186,17 +186,17 @@ class KOutlinedButton extends HookConsumerWidget {
               fontSize: 16.sp,
               fontWeight: FontWeight.w600,
               color: foregroundColor ??
-                  (isSecondary ? ColorPalate.secondary : ColorPalate.primary),
+                  (isSecondary ? AppColors.secondary : AppColors.primary),
             ),
         foregroundColor: foregroundColor ??
-            (isSecondary ? ColorPalate.secondary : ColorPalate.primary),
-        disabledForegroundColor: ColorPalate.black500,
+            (isSecondary ? AppColors.secondary : AppColors.primary),
+        disabledForegroundColor: AppColors.black500,
         backgroundColor: backgroundColor,
         side: BorderSide(
           color: onPressed == null
-              ? ColorPalate.black500
+              ? AppColors.black500
               : isSecondary
-                  ? ColorPalate.secondary
+                  ? AppColors.secondary
                   : borderColor,
           width: borderWidth ?? 1,
           style: borderStyle ?? BorderStyle.solid,
@@ -326,8 +326,8 @@ class KFilledButton extends HookConsumerWidget {
               fontSize: 16.sp,
               fontWeight: FontWeight.w600,
             ),
-        foregroundColor: foregroundColor ?? ColorPalate.bg200,
-        backgroundColor: isSecondary ? ColorPalate.secondary : backgroundColor,
+        foregroundColor: foregroundColor ?? AppColors.bg200,
+        backgroundColor: isSecondary ? AppColors.secondary : backgroundColor,
         fixedSize: size,
         padding: padding,
       ),
@@ -338,7 +338,7 @@ class KFilledButton extends HookConsumerWidget {
               width: 20.h,
               child: const CircularProgressIndicator(
                 valueColor: AlwaysStoppedAnimation<Color>(
-                  ColorPalate.bg200,
+                  AppColors.bg200,
                 ),
                 strokeWidth: 2,
               ),

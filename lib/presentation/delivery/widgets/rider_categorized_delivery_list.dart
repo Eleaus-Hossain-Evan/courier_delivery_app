@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../../../application/parcel_rider/parcel_rider_provider.dart';
+import '../../../rider/application/parcel_rider/parcel_rider_provider.dart';
 import '../../../utils/utils.dart';
 import '../../widgets/widgets.dart';
 
@@ -15,9 +15,9 @@ const Color _kAmbientShadowOpacity = Color(0x1F000000); // alpha = 0.12
 
 class RiderCategorizedDeliveryList extends HookConsumerWidget {
   const RiderCategorizedDeliveryList({
-    Key? key,
+    super.key,
     required this.type,
-  }) : super(key: key);
+  });
 
   final ParcelRiderType type;
 
@@ -102,7 +102,7 @@ class RiderCategorizedDeliveryList extends HookConsumerWidget {
         decoration: state.parcelRiderResponse.data.isEmpty
             ? null
             : BoxDecoration(
-                color: ColorPalate.white,
+                color: AppColors.white,
                 borderRadius: BorderRadius.circular(7.5.r),
                 boxShadow: const [
                   BoxShadow(
@@ -125,26 +125,12 @@ class RiderCategorizedDeliveryList extends HookConsumerWidget {
           physics: const NeverScrollableScrollPhysics(),
           gap: 16,
           padding: padding0,
-          separator: const KDivider(color: ColorPalate.bg300),
+          separator: const KDivider(color: AppColors.bg300),
           itemBuilder: (context, index) {
             // final parcel = state.parcelRiderResponse.data[index];
             return ParcelRiderListTile(
               index: index,
               pageType: type,
-              onTapComplete: () async {
-                return false;
-                // return await ref
-                //     .read(parcelRiderProvider.notifier)
-                //     .receivedParcel(parcel.id, page.value,
-                //         shouldRemove:
-                //             currentType.value == ParcelRiderType.complete);
-              },
-              onTapReject: () async {
-                return false;
-                // return await ref.read(parcelRiderProvider.notifier).cancelParcel(
-                //     parcel.id, page.value,
-                //     shouldRemove: currentType.value == ParcelRiderType.reject);
-              },
             );
           },
           itemCount: state.parcelRiderResponse.data.length,

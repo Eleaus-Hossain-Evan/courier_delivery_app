@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../../../domain/parcel/model/top_level_rider_parcel_model.dart';
+import '../../../rider/domain/top_level_rider_parcel_model.dart';
 import '../../../utils/utils.dart';
 
 class ParcelTopSection extends StatelessWidget {
@@ -21,7 +21,7 @@ class ParcelTopSection extends StatelessWidget {
           ? context.theme.primaryColor
           : model.status == ParcelRiderType.reject
               ? context.colors.error
-              : ColorPalate.secondary200;
+              : AppColors.secondary200;
     }
 
     return Column(
@@ -69,16 +69,17 @@ class ParcelTopSection extends StatelessWidget {
                 .iconSize(18.sp)
                 .iconColor(context.theme.primaryColorDark),
             gap8,
-            Text.rich("Delivery Status:  "
-                .textSpan
-                .withChildren([
-                  model.status.name.textSpan.capitalize
-                      .color(getColor())
-                      .bold
-                      .make()
-                ])
-                .letterSpacing(.8)
-                .make()),
+            "Delivery Status:".text.make(),
+            gap8,
+            model.status.name.text.capitalize
+                .color(AppColors.white)
+                .bold
+                .make()
+                .pSymmetric(h: 8, v: 2)
+                .box
+                .roundedSM
+                .color(getColor())
+                .make(),
           ],
         ),
       ],

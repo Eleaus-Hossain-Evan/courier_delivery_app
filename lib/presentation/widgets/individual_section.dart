@@ -41,6 +41,6 @@ class IndividualSection extends StatelessWidget {
           child,
         ],
       ),
-    ).box.color(ColorPalate.bg200).make();
+    ).box.color(AppColors.bg200).make();
   }
 }

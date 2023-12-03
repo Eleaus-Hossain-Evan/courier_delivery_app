@@ -24,7 +24,7 @@ class ContainerBGWhite extends StatelessWidget {
         width: 1.sw,
         // margin: EdgeInsets.only(bottom: 28.h),
         decoration: BoxDecoration(
-          color: ColorPalate.bg100,
+          color: AppColors.bg100,
           borderRadius: BorderRadius.circular(16.r),
           // border: Border.all(
           //   color: ColorPalate.primary.withOpacity(.1),

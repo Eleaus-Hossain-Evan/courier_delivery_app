@@ -17,7 +17,7 @@ class KDropDownSearchWidget<T> extends HookConsumerWidget {
         const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
     this.containerMargin,
     this.fillColor = Colors.transparent,
-    this.borderColor = ColorPalate.secondary200,
+    this.borderColor = AppColors.secondary200,
     this.hintTextStyle,
     this.asyncItems,
     this.itemAsString,
@@ -28,7 +28,7 @@ class KDropDownSearchWidget<T> extends HookConsumerWidget {
       // showSelectedItems: true,
       fit: FlexFit.loose,
       menuProps: MenuProps(
-        backgroundColor: ColorPalate.bg200,
+        backgroundColor: AppColors.bg200,
       ),
     ),
     this.focusNode,
@@ -55,7 +55,7 @@ class KDropDownSearchWidget<T> extends HookConsumerWidget {
     final border = OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.r),
       borderSide: const BorderSide(
-        color: ColorPalate.black600,
+        color: AppColors.black600,
         width: 1,
       ),
     );

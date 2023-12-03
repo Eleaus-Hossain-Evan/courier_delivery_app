@@ -24,7 +24,7 @@ class KContainer extends StatelessWidget {
           padding ?? EdgeInsetsDirectional.fromSTEB(12.w, 16.h, 12.w, 16.h),
       width: double.infinity,
       decoration: BoxDecoration(
-        color: backgroundColor ?? ColorPalate.white,
+        color: backgroundColor ?? AppColors.white,
         borderRadius: radius6,
       ),
       child: child,

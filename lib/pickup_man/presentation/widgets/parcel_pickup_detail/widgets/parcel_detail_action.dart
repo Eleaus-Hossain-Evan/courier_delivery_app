@@ -134,7 +134,7 @@ class ParcelDetailAction extends HookConsumerWidget {
                           .box
                           .roundedSM
                           .colorPrimary(context, opacity: .1)
-                          .border(color: ColorPalate.primary300.withOpacity(.4))
+                          .border(color: AppColors.primary300.withOpacity(.4))
                           .width(1.sw)
                           .make()
                           .px8(),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../../../utils/utils.dart';
+import '../../../../utils/utils.dart';
 
 class EarningListTile extends StatelessWidget {
   const EarningListTile({
@@ -50,6 +50,6 @@ class EarningListTile extends StatelessWidget {
             .flexible(),
         gap28,
       ],
-    ).box.roundedSM.border(color: ColorPalate.bg300).white.make().px(16);
+    ).box.roundedSM.border(color: AppColors.bg300).white.make().px(16);
   }
 }

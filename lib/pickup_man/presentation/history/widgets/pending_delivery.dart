@@ -13,7 +13,7 @@ class PendingDelivery extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: ColorPalate.bg100,
+      color: AppColors.bg100,
       child: KListViewSeparated(
         padding: EdgeInsets.symmetric(
           horizontal: 16.w,

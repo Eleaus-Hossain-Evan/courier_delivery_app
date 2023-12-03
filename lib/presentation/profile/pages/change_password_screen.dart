@@ -66,7 +66,7 @@ class ChangePasswordScreen extends HookConsumerWidget {
                 KTextFormField2(
                   hintText: AppStrings.newPassword,
                   controller: newPasswordController,
-                  borderColor: ColorPalate.secondary,
+                  borderColor: AppColors.secondary,
                   focusNode: newPasswordFocus,
                   textInputAction: TextInputAction.next,
                   validator: ValidationBuilder()
@@ -87,7 +87,7 @@ class ChangePasswordScreen extends HookConsumerWidget {
                 gap16,
                 KTextFormField2(
                   hintText: AppStrings.reTypePassword,
-                  borderColor: ColorPalate.secondary,
+                  borderColor: AppColors.secondary,
                   focusNode: reNewPasswordFocus,
                   controller: reNewPasswordController,
                   textInputAction: TextInputAction.done,
@@ -121,7 +121,7 @@ class ChangePasswordScreen extends HookConsumerWidget {
                     },
                     text: '',
                     backgroundColor: context.colors.secondary,
-                    foregroundColor: ColorPalate.black800,
+                    foregroundColor: AppColors.black800,
                     child: AppStrings.save.text.base.make(),
                   ),
                 ),

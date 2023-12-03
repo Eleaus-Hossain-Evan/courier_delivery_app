@@ -11,7 +11,6 @@ import 'package:velocity_x/velocity_x.dart';
 import '../../../application/auth/auth_provider.dart';
 import '../../../utils/utils.dart';
 import '../../widgets/widgets.dart';
-import '../login/login.dart';
 
 class SignUpScreen extends HookConsumerWidget {
   static String route = "/sign-up";
@@ -40,7 +39,6 @@ class SignUpScreen extends HookConsumerWidget {
       }
     });
     return Scaffold(
-      backgroundColor: ColorPalate.white,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
       ),
@@ -66,7 +64,7 @@ class SignUpScreen extends HookConsumerWidget {
                     style: context.bodyMedium!.copyWith(
                       fontWeight: FontWeight.w400,
                       fontSize: 16,
-                      color: ColorPalate.black,
+                      color: AppColors.black,
                     ),
                   ),
                 ),
@@ -139,7 +137,7 @@ class SignUpScreen extends HookConsumerWidget {
                     fontWeight: FontWeight.w400,
                     fontSize: 12.sp,
                     letterSpacing: .02,
-                    color: ColorPalate.black600,
+                    color: AppColors.black600,
                   ),
                 ),
                 gap12,
@@ -167,7 +165,7 @@ class SignUpScreen extends HookConsumerWidget {
                     TextSpan(
                       text: AppStrings.alreadyHaveAccount,
                       style: context.headlineSmall!.copyWith(
-                        color: ColorPalate.black600,
+                        color: AppColors.black600,
                         fontSize: 16,
                         fontWeight: FontWeight.w500,
                       ),
@@ -180,12 +178,12 @@ class SignUpScreen extends HookConsumerWidget {
                         TextSpan(
                           text: AppStrings.login,
                           style: context.headlineMedium!.copyWith(
-                            color: ColorPalate.primary,
+                            color: AppColors.primary,
                             fontSize: 16,
                             fontWeight: FontWeight.w700,
                           ),
                           recognizer: TapGestureRecognizer()
-                            ..onTap = () => context.go(LoginScreen.route),
+                            ..onTap = () => context.pop(),
                         )
                       ],
                     ),

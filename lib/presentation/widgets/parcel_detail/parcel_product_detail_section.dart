@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../../../domain/parcel/model/top_level_rider_parcel_model.dart';
+import '../../../rider/domain/top_level_rider_parcel_model.dart';
 import '../../../utils/utils.dart';
 
 class ParcelProductDetailSection extends StatelessWidget {
@@ -45,7 +45,7 @@ class ParcelProductDetailSection extends StatelessWidget {
                   ).circle(
                     radius: 16,
                     backgroundColor: context.colors.background,
-                    border: Border.all(color: ColorPalate.black700),
+                    border: Border.all(color: AppColors.black700),
                   ),
                   gap4,
                   'Parcel Details'
@@ -90,7 +90,7 @@ class ParcelProductDetailSection extends StatelessWidget {
                     ).circle(
                       radius: 16,
                       backgroundColor: context.colors.background,
-                      border: Border.all(color: ColorPalate.black700),
+                      border: Border.all(color: AppColors.black700),
                     ),
                     gap4,
                     'Note'

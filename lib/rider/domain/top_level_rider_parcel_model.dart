@@ -2,9 +2,9 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
-import '../../../../domain/parcel/model/parcel_model.dart';
-import '../../../utils/utils.dart';
-import 'status_history_model.dart';
+import '../../../domain/parcel/model/parcel_model.dart';
+import '../../utils/utils.dart';
+import '../../domain/parcel/model/status_history_model.dart';
 
 class TopLevelRiderParcelModel extends Equatable {
   final String id;

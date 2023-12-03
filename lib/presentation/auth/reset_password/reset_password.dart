@@ -16,9 +16,9 @@ class ResetPasswordScreen extends HookConsumerWidget {
     final emailController = useTextEditingController();
     final emailFocus = useFocusNode();
     return Scaffold(
-      backgroundColor: ColorPalate.white,
+      backgroundColor: AppColors.white,
       appBar: AppBar(
-        backgroundColor: ColorPalate.white,
+        backgroundColor: AppColors.white,
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 12.w),
@@ -37,7 +37,7 @@ class ResetPasswordScreen extends HookConsumerWidget {
                 style: context.bodyMedium!.copyWith(
                   fontWeight: FontWeight.w400,
                   fontSize: 16,
-                  color: ColorPalate.black,
+                  color: AppColors.black,
                 ),
               ),
             ),

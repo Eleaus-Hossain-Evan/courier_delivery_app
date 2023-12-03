@@ -3,7 +3,7 @@ import 'package:flutter_easylogger/flutter_logger.dart';
 import '../domain/home/home_response.dart';
 import '../../utils/utils.dart';
 
-class HomeRepo {
+class HomePickupRepo {
   final api = NetworkHandler.instance;
 
   Future<Either<CleanFailure, HomeResponse>> getHomeDate() async {

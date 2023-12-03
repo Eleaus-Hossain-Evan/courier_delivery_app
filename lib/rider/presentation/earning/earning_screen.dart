@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../../utils/utils.dart';
+import '../../../utils/utils.dart';
 import 'widgets/earning_list_tile.dart';
 import 'widgets/earning_summery_item.dart';
 

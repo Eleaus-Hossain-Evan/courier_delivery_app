@@ -26,7 +26,7 @@ class ProfilePicWidget extends HookConsumerWidget {
       child: Container(
         padding: padding20,
         decoration: BoxDecoration(
-          color: ColorPalate.bg100,
+          color: AppColors.bg100,
           borderRadius: radius16,
         ),
         child: Row(
@@ -59,7 +59,7 @@ class ProfilePicWidget extends HookConsumerWidget {
             Icon(
               Icons.chevron_right_rounded,
               size: 28.sp,
-              color: ColorPalate.black,
+              color: AppColors.black,
             ),
           ],
         ),

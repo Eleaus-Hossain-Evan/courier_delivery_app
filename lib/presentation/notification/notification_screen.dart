@@ -60,7 +60,7 @@ class NotificationScreen extends HookConsumerWidget {
                   .text
                   .caption(context)
                   .lg
-                  .color(ColorPalate.black700)
+                  .color(AppColors.black700)
                   .make(),
             ),
           ],

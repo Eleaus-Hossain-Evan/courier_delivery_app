@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-import 'package:courier_delivery_app/application/parcel_rider/parcel_rider_state.dart';
-import 'package:courier_delivery_app/infrastructure/parcel_rider_repo.dart';
+import 'package:courier_delivery_app/rider/application/parcel_rider/parcel_rider_state.dart';
+import 'package:courier_delivery_app/rider/infrastructure/parcel_rider_repo.dart';
 
-import '../../utils/utils.dart';
-import '../global.dart';
+import '../../../utils/utils.dart';
+import '../../../application/global.dart';
 
 final parcelRiderProvider =
     StateNotifierProvider<ParcelRiderNotifier, ParcelRiderState>((ref) {

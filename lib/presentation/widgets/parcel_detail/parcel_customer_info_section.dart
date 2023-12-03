@@ -4,7 +4,7 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../../../domain/parcel/model/top_level_rider_parcel_model.dart';
+import '../../../rider/domain/top_level_rider_parcel_model.dart';
 import '../../../utils/utils.dart';
 
 class ParcelCustomerInfoSection extends StatelessWidget {
@@ -28,7 +28,7 @@ class ParcelCustomerInfoSection extends StatelessWidget {
             Images.iconUser.assetImage().circle(
                   radius: 22,
                   backgroundColor: context.colors.background,
-                  border: Border.all(color: ColorPalate.black700),
+                  border: Border.all(color: AppColors.black700),
                 ),
             gap10,
             'Customer Information'
@@ -85,8 +85,8 @@ class ParcelCustomerInfoSection extends StatelessWidget {
             onPressed: () async => await launchUrl(phoneLaunchUri),
             style: OutlinedButton.styleFrom(
               padding: padding0,
-              foregroundColor: ColorPalate.black700,
-              side: const BorderSide(color: ColorPalate.black700),
+              foregroundColor: AppColors.black700,
+              side: const BorderSide(color: AppColors.black700),
             ),
             label: 'Call Now'.text.make(),
             icon: const Icon(BoxIcons.bx_phone_call),

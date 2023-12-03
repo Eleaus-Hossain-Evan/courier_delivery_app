@@ -28,7 +28,7 @@ class KDivider extends StatelessWidget {
         child: Divider(
           thickness: thickness ?? 1.h,
           height: height ?? 0,
-          color: color ?? ColorPalate.black600,
+          color: color ?? AppColors.black600,
         ),
       ),
     );

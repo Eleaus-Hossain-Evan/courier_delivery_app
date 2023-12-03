@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
-import 'package:courier_delivery_app/domain/parcel/parcel_pickup_list_response.dart';
+import 'package:courier_delivery_app/rider/domain/parcel_pickup_list_response.dart';
 
 class ParcelRiderState extends Equatable {
   final bool loading;

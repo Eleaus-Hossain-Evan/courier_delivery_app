@@ -1,16 +1,17 @@
 import 'package:bot_toast/bot_toast.dart';
-import 'package:courier_delivery_app/application/parcel_rider/parcel_rider_provider.dart';
+import 'package:courier_delivery_app/application/dashboard/dashboard_provider.dart';
+import 'package:courier_delivery_app/rider/application/parcel_rider/parcel_rider_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-import '../../utils/utils.dart';
+import '../../../utils/utils.dart';
 import 'widgets/home_app_bar.dart';
-import '../widgets/home_search_delivery.dart';
+import '../../../presentation/widgets/home_search_delivery.dart';
 import 'widgets/todays_parcel_section.dart';
-import '../widgets/home_working_summery.dart';
+import '../../../presentation/widgets/home_working_summery.dart';
 
 const pageSize = 10;
 
@@ -30,12 +31,12 @@ class HomeScreenRider extends HookConsumerWidget {
     final totalPage = useState(0);
 
     ref.listen(parcelRiderProvider, (previous, next) {
-      if (previous!.loading == false && next.loading) {
-        BotToast.showLoading();
-      }
-      if (previous.loading == true && next.loading == false) {
-        BotToast.closeAllLoading();
-      }
+      // if (previous!.loading == false && next.loading) {
+      //   BotToast.showLoading();
+      // }
+      // if (previous.loading == true && next.loading == false) {
+      //   BotToast.closeAllLoading();
+      // }
 
       totalPage.value = next.parcelRiderResponse.metaData.totalPage;
     });
@@ -69,23 +70,24 @@ class HomeScreenRider extends HookConsumerWidget {
           onRefresh: () async {
             page.value = 1;
             // state.copyWith(parcelPickupResponse: ParcelListResponse.init());
-            return ref
-                .refresh(parcelRiderProvider.notifier)
-                .parcelPickupList(
-                  page: page.value,
-                  limit: pageSize,
-                  type: currentType.value,
-                )
-                .then((value) {
+            return Future.wait([
+              ref.refresh(parcelRiderProvider.notifier).parcelPickupList(
+                    page: page.value,
+                    limit: pageSize,
+                    type: currentType.value,
+                  ),
+              ref.refresh(dashboardProvider.future),
+            ]).then((value) {
               // return value ? IndicatorResult.success : IndicatorResult.fail;
               refreshController.refreshCompleted(resetFooterState: true);
             });
           },
           onLoading: () async {
-            if (state.parcelRiderResponse.data.isNotEmpty) {
-              refreshController.loadComplete();
-            }
-            if (totalPage.value == 0 || page.value == totalPage.value) {
+            // if (state.parcelRiderResponse.data.isNotEmpty) {
+            //   refreshController.loadComplete();
+            // }
+            if (state.parcelRiderResponse.metaData.totalPage == 0 ||
+                page.value == state.parcelRiderResponse.metaData.totalPage) {
               // return IndicatorResult.noMore;
               refreshController.loadNoData();
             }
@@ -119,7 +121,6 @@ class HomeScreenRider extends HookConsumerWidget {
                 const HomeSearchDelivery(),
                 gap12,
                 TodaysParcelSection(
-                  state: state,
                   page: page,
                   currentType: currentType,
                 ),

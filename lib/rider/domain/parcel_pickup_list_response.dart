@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:courier_delivery_app/domain/meta_data_model.dart';
-import 'package:courier_delivery_app/domain/parcel/model/top_level_rider_parcel_model.dart';
+import 'package:courier_delivery_app/rider/domain/top_level_rider_parcel_model.dart';
 import 'package:equatable/equatable.dart';
 
 class ParcelRiderListResponse extends Equatable {

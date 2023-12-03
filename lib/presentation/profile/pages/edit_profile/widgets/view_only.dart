@@ -26,7 +26,7 @@ class ViewOnlyWidget extends HookConsumerWidget {
           leading: Icon(
             BoxIcons.bxs_bank,
             size: 22.sp,
-            color: ColorPalate.secondary,
+            color: AppColors.secondary,
           ),
           visible: true,
           child: Column(
@@ -67,7 +67,7 @@ class ViewOnlyWidget extends HookConsumerWidget {
           leading: Icon(
             BoxIcons.bxs_credit_card,
             size: 22.sp,
-            color: ColorPalate.secondary,
+            color: AppColors.secondary,
           ),
           visible: true,
           child: Column(
@@ -98,7 +98,7 @@ class ViewOnlyWidget extends HookConsumerWidget {
           leading: Icon(
             FontAwesome.money_bill_1_wave,
             size: 18.sp,
-            color: ColorPalate.secondary,
+            color: AppColors.secondary,
           ),
           visible: true,
           child: BankDetailItem(

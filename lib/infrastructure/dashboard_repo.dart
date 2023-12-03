@@ -1,7 +1,12 @@
 import 'package:courier_delivery_app/domain/dashboard/dashboard_reponse.dart';
 import 'package:courier_delivery_app/utils/api_endpoints/api_rider_endpoint.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import '../utils/utils.dart';
+
+final dashboardRepoProvider = Provider<DashboardRepo>((ref) {
+  return DashboardRepo();
+});
 
 class DashboardRepo {
   final api = NetworkHandler.instance;

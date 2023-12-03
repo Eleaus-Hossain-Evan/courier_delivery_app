@@ -30,16 +30,17 @@ Future<void> main() async {
     true, // isEnable ，if production ，please false
     isShowFile: false, // In the IDE, whether the file name is displayed
     isShowTime: false, // In the IDE, whether the time is displayed
+    isShowNavigation: true,
     levelVerbose: 247,
     levelDebug: 15,
     levelInfo: 10,
     levelWarn: 5,
     levelError: 9,
     phoneVerbose: Colors.white,
-    phoneDebug: ColorPalate.success,
-    phoneInfo: ColorPalate.info,
-    phoneWarn: ColorPalate.warning,
-    phoneError: ColorPalate.error,
+    phoneDebug: AppColors.success,
+    phoneInfo: AppColors.info,
+    phoneWarn: AppColors.warning,
+    phoneError: AppColors.error,
   );
   final box = container.read(hiveProvider);
   await box.init();
@@ -65,7 +66,7 @@ Future<void> main() async {
 }
 
 class MyApp extends HookConsumerWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -142,22 +143,5 @@ class MyApp extends HookConsumerWidget {
         );
       },
     );
-  }
-}
-
-class ProviderLog extends ProviderObserver {
-  @override
-  void didUpdateProvider(
-    ProviderBase provider,
-    Object? previousValue,
-    Object? newValue,
-    ProviderContainer container,
-  ) {
-    Logger.i('''
-{
-  "PROVIDER": "${provider.name}; ${provider.runtimeType.toString()}"
-
-}''');
-    log("$newValue");
   }
 }

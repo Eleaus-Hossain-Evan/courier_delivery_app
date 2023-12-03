@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
 
-import '../presentation/main_nav/main_nav.dart';
+import '../rider/presentation/main_nav/main_nav_rider.dart';
 
 List<GoRoute> riderRoute = [
   GoRoute(
