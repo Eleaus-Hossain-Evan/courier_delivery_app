@@ -6,11 +6,11 @@ import '../../../../utils/utils.dart';
 
 class EarningListTile extends StatelessWidget {
   const EarningListTile({
-    Key? key,
+    super.key,
     required this.name,
     required this.orderId,
     required this.amount,
-  }) : super(key: key);
+  });
 
   final String name;
   final String orderId;
@@ -18,38 +18,60 @@ class EarningListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          width: 4.w,
-          height: 54.h,
-          margin: paddingV2,
-          decoration: BoxDecoration(
-            color: context.colors.secondary,
-            borderRadius: BorderRadius.all(
-              Radius.circular(6.r),
+    return Container(
+      margin: paddingH16,
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.all(
+          Radius.circular(6.r),
+        ),
+      ),
+      child: Row(
+        children: [
+          Container(
+            width: 4.w,
+            height: 54.w,
+            margin: paddingV2,
+            decoration: BoxDecoration(
+              color: context.colors.secondary,
+              borderRadius: BorderRadius.all(
+                Radius.circular(6.r),
+              ),
             ),
           ),
-        ),
-        gap24,
-        Column(
-          crossAxisAlignment: crossStart,
-          mainAxisAlignment: mainSpaceBetween,
-          mainAxisSize: mainMax,
-          children: [
-            name.text.lg.semiBold.make(),
-            gap4,
-            "Order $orderId".text.caption(context).make(),
-          ],
-        ),
-        "${AppStrings.tk}$amount"
-            .text
-            .xl2
-            .make()
-            .objectCenterRight()
-            .flexible(),
-        gap28,
-      ],
-    ).box.roundedSM.border(color: AppColors.bg300).white.make().px(16);
+          gap24,
+          Expanded(
+            child: SizedBox(
+              height: 54,
+              child: Column(
+                crossAxisAlignment: crossStart,
+                mainAxisAlignment: mainSpaceAround,
+                mainAxisSize: mainMax,
+                children: [
+                  Text(
+                    name,
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  Text(
+                    "Date: ${orderId.toFormatDividerDate()}",
+                    style: context.bodySmall,
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Text(
+            "${AppStrings.tk}$amount",
+            style: context.titleMedium!.copyWith(
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          gap28,
+        ],
+      ),
+    );
   }
 }
