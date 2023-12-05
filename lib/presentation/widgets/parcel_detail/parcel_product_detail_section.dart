@@ -3,17 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../../../rider/domain/top_level_rider_parcel_model.dart';
 import '../../../utils/utils.dart';
 
 class ParcelProductDetailSection extends StatelessWidget {
   const ParcelProductDetailSection({
     super.key,
-    required this.model,
+    required this.details,
+    required this.note,
     required this.isUndo,
   });
 
-  final TopLevelRiderParcelModel model;
+  final String details;
+  final String note;
   final bool isUndo;
 
   @override
@@ -22,7 +23,7 @@ class ParcelProductDetailSection extends StatelessWidget {
       crossAxisAlignment: crossStart,
       children: [
         Visibility(
-          visible: model.parcel.regularParcelInfo.details.isNotEmptyAndNotNull,
+          visible: details.isNotEmptyAndNotNull,
           replacement: Text.rich(
             'Parcel Detail:  '
                 .textSpan
@@ -57,7 +58,7 @@ class ParcelProductDetailSection extends StatelessWidget {
                       .makeCentered(),
                 ],
               ),
-              model.parcel.regularParcelInfo.details.text.lg
+              details.text.lg
                   .letterSpacing(.8)
                   .make()
                   .pSymmetric(h: 16.w, v: 8.w),
@@ -67,7 +68,7 @@ class ParcelProductDetailSection extends StatelessWidget {
         Visibility(
           visible: !isUndo,
           child: Visibility(
-            visible: model.note.isNotEmptyAndNotNull,
+            visible: note.isNotEmptyAndNotNull,
             replacement: Text.rich(
               'Note:  '
                   .textSpan
@@ -102,7 +103,7 @@ class ParcelProductDetailSection extends StatelessWidget {
                         .makeCentered(),
                   ],
                 ),
-                model.note.text.lg
+                note.text.lg
                     .letterSpacing(.8)
                     .make()
                     .pSymmetric(h: 16.w, v: 8.w),

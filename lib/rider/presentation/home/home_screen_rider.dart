@@ -20,10 +20,10 @@ class HomeScreenRider extends HookConsumerWidget {
   const HomeScreenRider({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final scrollController = useScrollController();
+    // final scrollController = useScrollController();
 
-    final refreshController = useMemoized(
-        () => RefreshController(initialLoadStatus: LoadStatus.canLoading));
+    final refreshController = useMemoized(RefreshController.new);
+
     final state = ref.watch(parcelRiderProvider);
     final currentType = useState(ParcelRiderType.all);
 
@@ -57,6 +57,40 @@ class HomeScreenRider extends HookConsumerWidget {
       };
     }, []);
 
+    onRefresh() async {
+      page.value = 1;
+      return Future.wait([
+        ref.refresh(parcelRiderProvider.notifier).parcelPickupList(
+              page: page.value,
+              limit: pageSize,
+              type: currentType.value,
+            ),
+        ref.refresh(dashboardProvider.future),
+      ]).then((value) {
+        refreshController.refreshCompleted(resetFooterState: true);
+      });
+    }
+
+    onLoading() async {
+      if (totalPage.value == 0 || page.value == totalPage.value) {
+        refreshController.loadNoData();
+      }
+      if (page.value < totalPage.value) {
+        page.value = page.value + 1;
+        final success =
+            await ref.read(parcelRiderProvider.notifier).parcelPickupList(
+                  page: page.value,
+                  limit: pageSize,
+                  type: currentType.value,
+                );
+        if (success) {
+          refreshController.loadComplete();
+        } else {
+          refreshController.loadFailed();
+        }
+      }
+    }
+
     return Scaffold(
       appBar: const HomeAppBar(),
       body: SizedBox(
@@ -66,54 +100,9 @@ class HomeScreenRider extends HookConsumerWidget {
           controller: refreshController,
           enablePullDown: true,
           enablePullUp: true,
-          // header: const MaterialHeader(),
-          onRefresh: () async {
-            page.value = 1;
-            // state.copyWith(parcelPickupResponse: ParcelListResponse.init());
-            return Future.wait([
-              ref.refresh(parcelRiderProvider.notifier).parcelPickupList(
-                    page: page.value,
-                    limit: pageSize,
-                    type: currentType.value,
-                  ),
-              ref.refresh(dashboardProvider.future),
-            ]).then((value) {
-              // return value ? IndicatorResult.success : IndicatorResult.fail;
-              refreshController.refreshCompleted(resetFooterState: true);
-            });
-          },
-          onLoading: () async {
-            // if (state.parcelRiderResponse.data.isNotEmpty) {
-            //   refreshController.loadComplete();
-            // }
-            if (state.parcelRiderResponse.metaData.totalPage == 0 ||
-                page.value == state.parcelRiderResponse.metaData.totalPage) {
-              // return IndicatorResult.noMore;
-              refreshController.loadNoData();
-            }
-            if (page.value < totalPage.value) {
-              // easyController.callLoad(
-              //   scrollController: scrollController,
-              //   force: true,
-              // );
-              page.value = page.value + 1;
-              final success =
-                  await ref.read(parcelRiderProvider.notifier).parcelPickupList(
-                        page: page.value,
-                        limit: pageSize,
-                        type: currentType.value,
-                      );
-              if (success) {
-                // return IndicatorResult.success;
-                refreshController.loadComplete();
-              } else {
-                // return IndicatorResult.fail;
-                refreshController.loadFailed();
-              }
-            }
-          },
+          onRefresh: onRefresh,
+          onLoading: onLoading,
           child: SingleChildScrollView(
-            controller: scrollController,
             child: Column(
               crossAxisAlignment: crossStart,
               children: [

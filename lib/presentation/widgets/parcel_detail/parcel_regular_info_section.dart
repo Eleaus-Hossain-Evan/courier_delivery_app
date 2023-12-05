@@ -3,16 +3,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../../../rider/domain/top_level_rider_parcel_model.dart';
+import '../../../domain/parcel/model/regular_parcel_info_model.dart';
 import '../../../utils/utils.dart';
 
 class ParcelRegularInfoSection extends StatelessWidget {
   const ParcelRegularInfoSection({
     super.key,
-    required this.model,
+    required this.regularParcel,
+    required this.createdAt,
   });
 
-  final TopLevelRiderParcelModel model;
+  final RegularParcelInfoModel regularParcel;
+  final String createdAt;
 
   @override
   Widget build(BuildContext context) {
@@ -52,20 +54,17 @@ class ParcelRegularInfoSection extends StatelessWidget {
             crossAxisAlignment: crossStart,
             children: [
               Visibility(
-                visible: model.parcel.regularParcelInfo.materialType.value
-                    .isNotEmptyAndNotNull,
+                visible: regularParcel.materialType.value.isNotEmptyAndNotNull,
                 child: Column(
                   children: [
-                    model.parcel.regularParcelInfo.materialType ==
-                            ParcelMaterialType.regular
+                    regularParcel.materialType == ParcelMaterialType.regular
                         ? const Icon(BoxIcons.bx_box).iconSize(18.sp)
-                        : model.parcel.regularParcelInfo.materialType ==
+                        : regularParcel.materialType ==
                                 ParcelMaterialType.fragile
                             ? const Icon(Bootstrap.box_seam).iconSize(18.sp)
                             : const Icon(BoxIcons.bx_water).iconSize(18.sp),
                     gap4,
-                    model.parcel.regularParcelInfo.materialType.value
-                        .capitalized.text.bold.xl
+                    regularParcel.materialType.value.capitalized.text.bold.xl
                         .make(),
                   ],
                 ).p12().box.roundedSM.colorScaffoldBackground(context).make(),
@@ -80,7 +79,7 @@ class ParcelRegularInfoSection extends StatelessWidget {
                     'Created At:  '
                         .textSpan
                         .withChildren([
-                          model.createdAt
+                          createdAt
                               .toFormatShortDate()
                               .textSpan
                               .italic
@@ -96,19 +95,20 @@ class ParcelRegularInfoSection extends StatelessWidget {
                     'Weight:  '
                         .textSpan
                         .withChildren([
-                          model
-                              .parcel.regularParcelInfo.weight.textSpan.semiBold
-                              .make(),
+                          regularParcel.weight.textSpan.semiBold.make(),
                         ])
                         .bodySmall(context)
                         .letterSpacing(.8)
                         .make(),
                   ),
                   Text.rich(
-                    'Quantity:  '
+                    'Category:  '
                         .textSpan
                         .withChildren([
-                          model.parcel.regularParcelInfo.category.textSpan
+                          (regularParcel.category.isNotEmptyAndNotNull
+                                  ? regularParcel.category
+                                  : '-')
+                              .textSpan
                               .semiBold
                               .make(),
                         ])

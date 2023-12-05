@@ -68,7 +68,6 @@ class TodaysParcelSection extends HookConsumerWidget {
           child: KListViewSeparated(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            gap: 16,
             padding: padding0,
             separator: const KDivider(color: AppColors.bg300),
             itemBuilder: (context, index) {

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:fast_immutable_collections/fast_immutable_collections.dart';
+import 'package:flutter_easylogger/flutter_logger.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:courier_delivery_app/rider/application/parcel_rider/parcel_rider_state.dart';
@@ -77,9 +78,9 @@ class ParcelRiderNotifier extends StateNotifier<ParcelRiderState> {
       // final parcelList = state.parcelPickupResponse.data.lock
       //   ..firstWhere((e) => e.id == r.data.id).copyWith(status: r.data.status);
 
-      final index = state.parcelRiderResponse.data.lock
-          .indexWhere((e) => e.id == parcelId);
-      // Logger.i(index);
+      final index = state.parcelRiderResponse.data.lock.indexWhere(
+          (e) => e.id == r.data.id && e.parcel.id == r.data.parcelId);
+      Logger.i(index);
 
       if (shouldRemove) {
         final parcelList = state.parcelRiderResponse.data.lock.removeAt(index);
@@ -88,23 +89,19 @@ class ParcelRiderNotifier extends StateNotifier<ParcelRiderState> {
             parcelRiderResponse:
                 state.parcelRiderResponse.copyWith(data: parcelList.unlock));
       } else {
-        final parcelList = state.parcelRiderResponse.data.lock[index]
-            .copyWith(status: status, parcelStatus: parcelStatus);
-        // Logger.i('parcelList: $parcelList');
-        final parcelListNew =
-            state.parcelRiderResponse.data.lock.replace(index, parcelList);
-        // Logger.i('parcelListNew: $parcelListNew');
-
+        final parcelList = state.parcelRiderResponse.data.lock.replace(
+          index,
+          state.parcelRiderResponse.data[index].copyWith(
+            status: r.data.status,
+            parcelStatus: r.data.parcelStatus,
+            note: r.data.note,
+            isComplete: r.data.isComplete,
+          ),
+        );
         state = state.copyWith(
-            loading: false,
-            parcelRiderResponse:
-                state.parcelRiderResponse.copyWith(data: parcelListNew.unlock));
-
-        // state = state.copyWith(
-        //     loading: false,
-        //     parcelPickupResponse:
-        //         state.parcelPickupResponse.copyWith(data: parcelListNew.unlock));
-        // Logger.i('state: $state');
+          parcelRiderResponse:
+              state.parcelRiderResponse.copyWith(data: parcelList.unlock),
+        );
         success = r.success;
       }
     });

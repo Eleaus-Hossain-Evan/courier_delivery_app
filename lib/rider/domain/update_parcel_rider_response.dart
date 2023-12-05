@@ -4,6 +4,8 @@ import 'package:equatable/equatable.dart';
 
 import 'package:courier_delivery_app/domain/parcel/model/status_history_model.dart';
 
+import '../../utils/utils.dart';
+
 class UpdateParcelRiderResponse extends Equatable {
   final UpdateParcelRiderModel data;
   final String message;
@@ -56,12 +58,12 @@ class UpdateParcelRiderResponse extends Equatable {
 }
 
 class UpdateParcelRiderModel extends Equatable {
+  final String id;
   final bool isComplete;
   final int cashCollected;
   final String note;
-  final String parcelStatus;
-  final String status;
-  final String id;
+  final ParcelRiderStatus parcelStatus;
+  final ParcelRiderType status;
   final String hubId;
   final String riderId;
   final String parcelId;
@@ -88,8 +90,8 @@ class UpdateParcelRiderModel extends Equatable {
     bool? isComplete,
     int? cashCollected,
     String? note,
-    String? parcelStatus,
-    String? status,
+    ParcelRiderStatus? parcelStatus,
+    ParcelRiderType? status,
     String? id,
     String? hubId,
     String? riderId,
@@ -116,12 +118,12 @@ class UpdateParcelRiderModel extends Equatable {
 
   Map<String, dynamic> toMap() {
     return {
+      '_id': id,
       'isComplete': isComplete,
       'cashCollected': cashCollected,
       'note': note,
       'parcelStatus': parcelStatus,
       'status': status,
-      'id': id,
       'hubId': hubId,
       'riderId': riderId,
       'parcelId': parcelId,
@@ -133,12 +135,13 @@ class UpdateParcelRiderModel extends Equatable {
 
   factory UpdateParcelRiderModel.fromMap(Map<String, dynamic> map) {
     return UpdateParcelRiderModel(
+      id: map['_id'] ?? '',
       isComplete: map['isComplete'] ?? false,
       cashCollected: map['cashCollected']?.toInt() ?? 0,
       note: map['note'] ?? '',
-      parcelStatus: map['parcelStatus'] ?? '',
-      status: map['status'] ?? '',
-      id: map['id'] ?? '',
+      parcelStatus: ParcelRiderStatus.values
+          .firstWhere((e) => e.value == map['parcelStatus']),
+      status: ParcelRiderType.values.byName(map['status']),
       hubId: map['hubId'] ?? '',
       riderId: map['riderId'] ?? '',
       parcelId: map['parcelId'] ?? '',

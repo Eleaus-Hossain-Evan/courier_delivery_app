@@ -1,9 +1,12 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:courier_delivery_app/rider/presentation/home/widgets/scan_result_screen.dart';
+import 'package:courier_delivery_app/rider/presentation/home/widgets/scan_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:courier_delivery_app/pickup_man/presentation/main_nav_pickup/main_nav_pickup.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../application/auth/loggedin_provider.dart';
 import '../presentation/auth/login/login.dart';
@@ -144,6 +147,20 @@ class RouterNotifier extends ChangeNotifier {
         child: const ChangePasswordScreen(),
       ),
     ),
+    GoRoute(
+      path: ScanScreen.route,
+      pageBuilder: (context, state) => SlideRightToLeftTransitionPage(
+        key: state.pageKey,
+        child: const ScanScreen(),
+      ),
+    ),
+    GoRoute(
+      path: ScanResultScreen.route,
+      pageBuilder: (context, state) => SlideRightToLeftTransitionPage(
+        key: state.pageKey,
+        child: const ScanResultScreen(),
+      ),
+    ),
   ];
 
   Page<void> _errorPageBuilder(BuildContext context, GoRouterState state) =>
@@ -160,12 +177,10 @@ class RouterNotifier extends ChangeNotifier {
 
 class SlideRightToLeftTransitionPage extends CustomTransitionPage {
   SlideRightToLeftTransitionPage({
-    LocalKey? key,
-    required Widget child,
-    bool fullscreenDialog = true,
+    super.key,
+    required super.child,
+    super.fullscreenDialog = true,
   }) : super(
-          key: key,
-          fullscreenDialog: fullscreenDialog,
           transitionsBuilder: (
             BuildContext context,
             Animation<double> animation,
@@ -183,18 +198,15 @@ class SlideRightToLeftTransitionPage extends CustomTransitionPage {
               ),
               child: child,
             );
-          },
-          child:
-              child, // Here you may also wrap this child with some common designed widget
+          }, // Here you may also wrap this child with some common designed widget
         );
 }
 
 class SlideBottomToTopTransitionPage extends CustomTransitionPage {
   SlideBottomToTopTransitionPage({
-    LocalKey? key,
-    required Widget child,
+    super.key,
+    required super.child,
   }) : super(
-          key: key,
           fullscreenDialog: true,
           transitionsBuilder: (
             BuildContext context,
@@ -213,18 +225,15 @@ class SlideBottomToTopTransitionPage extends CustomTransitionPage {
               ),
               child: child,
             );
-          },
-          child:
-              child, // Here you may also wrap this child with some common designed widget
+          }, // Here you may also wrap this child with some common designed widget
         );
 }
 
 class NoTransitionPage extends CustomTransitionPage {
   NoTransitionPage({
-    LocalKey? key,
-    required Widget child,
+    super.key,
+    required super.child,
   }) : super(
-          key: key,
           fullscreenDialog: true,
           transitionsBuilder: (
             BuildContext context,
@@ -234,6 +243,5 @@ class NoTransitionPage extends CustomTransitionPage {
           ) {
             return child;
           },
-          child: child,
         );
 }

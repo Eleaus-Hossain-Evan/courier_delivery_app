@@ -2,20 +2,17 @@ enum Role { rider, pickupman }
 
 enum ParcelRiderType { all, assign, complete, reject }
 
-enum ParcelRiderStatus { none, dropoff, partial, returns }
+enum ParcelRiderStatus { none, dropoff, partial, hold, returns }
 
 extension ParcelRiderStatusExt on ParcelRiderStatus {
   String get value {
-    switch (this) {
-      case ParcelRiderStatus.none:
-        return "";
-      case ParcelRiderStatus.dropoff:
-        return "dropoff";
-      case ParcelRiderStatus.partial:
-        return "partial";
-      case ParcelRiderStatus.returns:
-        return "return";
-    }
+    return switch (this) {
+      ParcelRiderStatus.none => "",
+      ParcelRiderStatus.dropoff => "dropoff",
+      ParcelRiderStatus.partial => "partial",
+      ParcelRiderStatus.hold => "hold",
+      ParcelRiderStatus.returns => "return",
+    };
   }
 }
 

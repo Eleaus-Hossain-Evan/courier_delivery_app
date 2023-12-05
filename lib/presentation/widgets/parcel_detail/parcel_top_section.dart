@@ -25,6 +25,7 @@ class ParcelTopSection extends StatelessWidget {
     }
 
     return Column(
+      crossAxisAlignment: crossStart,
       children: [
         Row(
           children: [
@@ -54,15 +55,16 @@ class ParcelTopSection extends StatelessWidget {
                 .make()
                 .expand(),
             gap12,
-            IconButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              icon: const Icon(EvaIcons.close),
-            )
+
+            //, Close Button
+
+            const CloseButton()
           ],
         ),
         gap16,
+
+        //,  --- Delivery Status ---
+
         Row(
           children: [
             const Icon(Bootstrap.info_circle)
@@ -79,6 +81,35 @@ class ParcelTopSection extends StatelessWidget {
                 .box
                 .roundedSM
                 .color(getColor())
+                .make(),
+          ],
+        ),
+        gap16,
+
+        //, ---- Serial ID ----
+
+        Row(
+          children: [
+            const Icon(Bootstrap.patch_check)
+                .iconSize(18.sp)
+                .iconColor(context.theme.primaryColorDark),
+            gap10,
+            "Serial ID:".text.make(),
+            gap8,
+            SelectableRegion(
+              focusNode: FocusNode(),
+              selectionControls: MaterialTextSelectionControls(),
+              child: model.parcel.serialId.text
+                  .color(AppColors.black800)
+                  .semiBold
+                  .bodyText2(context)
+                  .letterSpacing(1)
+                  .make(),
+            )
+                .pSymmetric(h: 8, v: 2)
+                .box
+                .roundedSM
+                .color(AppColors.bg300.withOpacity(.5))
                 .make(),
           ],
         ),

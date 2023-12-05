@@ -8,14 +8,14 @@ import 'k_inkwell.dart';
 
 class KIconElevatedButton extends HookConsumerWidget {
   const KIconElevatedButton({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.text,
     required this.icon,
     this.backgroundColor,
     this.foregroundColor,
     this.loading = false,
-  }) : super(key: key);
+  });
 
   final String text;
   final Widget icon;
@@ -68,7 +68,7 @@ class KIconElevatedButton extends HookConsumerWidget {
 
 class KElevatedButton extends HookConsumerWidget {
   const KElevatedButton({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.text,
     this.backgroundColor,
@@ -79,7 +79,7 @@ class KElevatedButton extends HookConsumerWidget {
     this.textStyle,
     this.size,
     this.padding,
-  }) : super(key: key);
+  });
 
   final String text;
   final Color? backgroundColor;
@@ -147,7 +147,7 @@ class KElevatedButton extends HookConsumerWidget {
 
 class KOutlinedButton extends HookConsumerWidget {
   const KOutlinedButton({
-    Key? key,
+    super.key,
     required this.text,
     this.backgroundColor,
     this.foregroundColor,
@@ -161,7 +161,7 @@ class KOutlinedButton extends HookConsumerWidget {
     this.child,
     this.borderSide,
     this.borderStyle,
-  }) : super(key: key);
+  });
 
   final String text;
   final Color? backgroundColor;
@@ -223,14 +223,14 @@ class KOutlinedButton extends HookConsumerWidget {
 
 class KButton extends HookConsumerWidget {
   const KButton({
-    Key? key,
+    super.key,
     required this.onPressed,
     required this.text,
     this.backgroundColor,
     this.foregroundColor,
     this.loading,
     this.child,
-  }) : super(key: key);
+  });
 
   final String text;
   final Color? backgroundColor;
@@ -274,8 +274,8 @@ class KButton extends HookConsumerWidget {
 
 class KFilledButton extends HookConsumerWidget {
   const KFilledButton({
-    Key? key,
-    required this.text,
+    super.key,
+    this.text,
     this.backgroundColor,
     this.foregroundColor,
     required this.onPressed,
@@ -285,9 +285,9 @@ class KFilledButton extends HookConsumerWidget {
     this.textStyle,
     this.size,
     this.padding,
-  }) : super(key: key);
+  });
 
-  final String text;
+  final String? text;
   final Color? backgroundColor;
   final Color? foregroundColor;
   final VoidCallback? onPressed;
@@ -343,19 +343,19 @@ class KFilledButton extends HookConsumerWidget {
                 strokeWidth: 2,
               ),
             )
-          : child ?? Text(text),
+          : child ?? (text != null ? Text(text!) : const SizedBox.shrink()),
     );
   }
 }
 
 class KCircularButton extends StatelessWidget {
   const KCircularButton({
-    Key? key,
+    super.key,
     this.radius = 20,
     this.onTap,
     this.icon,
     this.bgColor,
-  }) : super(key: key);
+  });
 
   final double radius;
 
@@ -387,7 +387,7 @@ class KCircularButton extends StatelessWidget {
 
 class KTextButton extends StatelessWidget {
   const KTextButton({
-    Key? key,
+    super.key,
     this.child,
     required this.onPressed,
     this.borderRadius = BorderRadius.zero,
@@ -395,7 +395,7 @@ class KTextButton extends StatelessWidget {
     this.style,
     this.text,
     this.foregroundColor,
-  }) : super(key: key);
+  });
 
   final String? text;
   final Widget? child;

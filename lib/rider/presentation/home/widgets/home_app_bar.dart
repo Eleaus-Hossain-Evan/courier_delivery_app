@@ -23,7 +23,7 @@ class HomeAppBar extends HookConsumerWidget implements PreferredSizeWidget {
           Column(
             crossAxisAlignment: crossEnd,
             children: [
-              "Hello,".text.sm.bold.make(),
+              "Hello,".text.xs.bold.make(),
               state.user.name.text.lg.bold.gray500.make(),
             ],
           ),
@@ -33,5 +33,5 @@ class HomeAppBar extends HookConsumerWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(kToolbarHeight + 12.h);
+  Size get preferredSize => Size.fromHeight(kToolbarHeight + 14.h);
 }

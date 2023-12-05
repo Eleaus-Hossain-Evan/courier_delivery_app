@@ -91,7 +91,11 @@ class KTextFormField extends HookConsumerWidget {
         border: border,
         focusedBorder: border,
         enabledBorder: border,
-        errorBorder: border,
+        errorBorder: border.copyWith(
+          borderSide: const BorderSide(
+            color: AppColors.error,
+          ),
+        ),
         disabledBorder: border,
         isDense: true,
         filled: true,

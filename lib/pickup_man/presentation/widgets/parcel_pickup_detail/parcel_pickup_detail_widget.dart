@@ -9,7 +9,7 @@ import 'package:velocity_x/velocity_x.dart';
 import '../../../../utils/utils.dart';
 import '../../../domain/parcel/model/top_level_pickup_parcel_model.dart';
 import 'widgets/parcel_detail_action.dart';
-import 'widgets/parcel_merchant_info_section.dart';
+import '../../../../presentation/widgets/parcel_detail/parcel_merchant_info_section.dart';
 import 'widgets/parcel_product_detail_section.dart';
 import 'widgets/parcel_reguler_info_section.dart';
 import 'widgets/topbar.dart';
@@ -75,7 +75,7 @@ class ParcelPickupDetailWidget extends HookConsumerWidget {
           gap16,
           ParcelProductDetailSection(model: model),
           gap16,
-          ParcelMerchantInfoSection(model: model),
+          ParcelMerchantInfoSection(merchant: model.parcel.merchantInfo),
           gap16,
           ParcelDetailAction(
             model: model,

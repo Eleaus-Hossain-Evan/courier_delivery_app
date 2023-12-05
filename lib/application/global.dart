@@ -87,9 +87,9 @@ showToast(String text) => BotToast.showText(
       text: text,
       textStyle: const TextStyle(fontSize: 14, color: Colors.white),
       duration: const Duration(seconds: 3),
-      contentPadding: const EdgeInsets.all(10),
+      contentPadding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       contentColor: const Color(0xFF3D3D3D),
-      borderRadius: radius12,
+      borderRadius: BorderRadius.circular(32.r),
       wrapToastAnimation: (controller, cancel, Widget child) =>
           CustomAnimationWidget(
         controller: controller,
@@ -288,8 +288,7 @@ class CustomOffsetAnimation extends HookConsumerWidget {
   final Widget child;
 
   const CustomOffsetAnimation(
-      {Key? key, required this.controller, required this.child})
-      : super(key: key);
+      {super.key, required this.controller, required this.child});
 
   @override
   Widget build(BuildContext context, ref) {
@@ -326,10 +325,10 @@ class CustomAnimationWidget extends HookConsumerWidget {
   final Widget child;
 
   const CustomAnimationWidget({
-    Key? key,
+    super.key,
     required this.controller,
     required this.child,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, ref) {
@@ -365,10 +364,10 @@ class CustomAttachedAnimation extends HookConsumerWidget {
   final Widget child;
 
   const CustomAttachedAnimation({
-    Key? key,
+    super.key,
     required this.controller,
     required this.child,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context, ref) {

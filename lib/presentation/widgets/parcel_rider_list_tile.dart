@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -9,6 +10,7 @@ import 'package:velocity_x/velocity_x.dart';
 
 import '../../../presentation/widgets/widgets.dart';
 import '../../../utils/utils.dart';
+import '../../application/global.dart';
 import '../../rider/application/parcel_rider/parcel_rider_provider.dart';
 
 class ParcelRiderListTile extends HookConsumerWidget {
@@ -63,7 +65,7 @@ class ParcelRiderListTile extends HookConsumerWidget {
       child: Column(
         crossAxisAlignment: crossStart,
         children: [
-          //  --- Customer Name ---
+          //,  --- Customer Name & Cash Collection ---
           Row(
             mainAxisAlignment: mainSpaceBetween,
             children: [
@@ -83,24 +85,34 @@ class ParcelRiderListTile extends HookConsumerWidget {
           ),
           gap8,
 
-          //  --- Serial ID ---
-          Text.rich(
-            "Serial ID:  "
-                .textSpan
-                .withChildren([
-                  model.parcel.serialId.textSpan
-                      .color(Colors.blueGrey)
-                      .semiBold
-                      .bodySmall(context)
-                      .letterSpacing(1)
-                      .make()
-                ])
-                .letterSpacing(.8)
-                .make(),
+          //,  --- Serial ID ---
+
+          Row(
+            children: [
+              "#".text.letterSpacing(.8).lg.bold.make(),
+              gap4,
+              SelectableRegion(
+                focusNode: FocusNode(),
+                selectionControls: MaterialTextSelectionControls(),
+                child: model.parcel.serialId.text.sm
+                    .color(Colors.blueGrey)
+                    .bold
+                    .letterSpacing(1)
+                    .make(),
+              ),
+              Icon(
+                BoxIcons.bx_copy_alt,
+                size: 18.sp,
+                color: context.colors.primary,
+              ).p4().onInkTap(() {
+                showToast("Copied");
+                Clipboard.setData(ClipboardData(text: model.parcel.serialId));
+              }),
+            ],
           ),
           gap4,
 
-          //  --- Phone & Address ---
+          //,  --- Phone & Address ---
           Column(
             crossAxisAlignment: crossStart,
             mainAxisSize: mainMin,
@@ -126,7 +138,7 @@ class ParcelRiderListTile extends HookConsumerWidget {
               ),
               gap4,
 
-              //   --- Material type && Weight ---
+              //,   --- Material type && Weight ---
               Row(
                 children: [
                   Visibility(
@@ -161,20 +173,20 @@ class ParcelRiderListTile extends HookConsumerWidget {
                     ),
                   ),
                   const Spacer(),
-                  VxCapsule(
-                    height: 25.h,
-                    width: 74.w,
-                    border: Border.all(color: getColor()),
+                  Chip(
                     backgroundColor: getColor(),
-                    child: model.status.name
-                        .toWordTitleCase()
-                        .text
-                        .xs
-                        .semiBold
-                        .color(AppColors.white)
-                        .letterSpacing(1.2)
-                        .makeCentered()
-                        .px12(),
+                    shape: const StadiumBorder(),
+                    side: BorderSide.none,
+                    labelPadding: EdgeInsets.symmetric(horizontal: 8.w),
+                    label: Text(
+                      model.status.name.toWordTitleCase(),
+                      style: TextStyle(
+                        color: AppColors.white,
+                        fontSize: 12.sp,
+                        fontWeight: FontWeight.w700,
+                        letterSpacing: .8,
+                      ),
+                    ),
                   ),
                 ],
               ),
