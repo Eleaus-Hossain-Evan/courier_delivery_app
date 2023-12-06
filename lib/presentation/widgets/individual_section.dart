@@ -7,7 +7,7 @@ import 'widgets.dart';
 
 class IndividualSection extends StatelessWidget {
   const IndividualSection({
-    Key? key,
+    super.key,
     required this.title,
     this.leading,
     this.visible = true,
@@ -15,7 +15,7 @@ class IndividualSection extends StatelessWidget {
     this.replacement,
     this.containerPadding,
     this.action,
-  }) : super(key: key);
+  });
 
   final String title;
   final Widget? leading, action;

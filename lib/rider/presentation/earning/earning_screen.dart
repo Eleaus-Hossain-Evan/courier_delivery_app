@@ -49,14 +49,17 @@ class EarningScreen extends HookConsumerWidget {
             delegate: SummerSection(),
           ),
           // const SummerSection().toSliverBox(),
-          SliverList.separated(
-            itemBuilder: (context, index) => EarningListTile(
-              name: "Samsul Alom",
-              orderId: DateTime.now().toString(),
-              amount: '7',
+          SliverPadding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            sliver: SliverList.separated(
+              itemBuilder: (context, index) => EarningListTile(
+                name: "Samsul Alom",
+                orderId: DateTime.now().toString(),
+                amount: '7',
+              ),
+              itemCount: 15,
+              separatorBuilder: (context, index) => const HeightBox(16),
             ),
-            itemCount: 15,
-            separatorBuilder: (context, index) => const HeightBox(16),
           ),
         ],
       ),

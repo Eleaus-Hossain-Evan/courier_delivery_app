@@ -41,19 +41,14 @@ class DatabaseService {
     initTheme();
   }
 
-  get savedTheme => ref
-      .watch(hiveProvider as AlwaysAliveProviderListenable)
-      .get(AppStrings.theme);
+  get savedTheme => ref.watch(hiveProvider).get(AppStrings.theme);
 
   void initTheme() {
-    ref
-        .watch(hiveProvider as AlwaysAliveProviderListenable)
-        .put(AppStrings.theme, 'light');
+    ref.watch(hiveProvider).put(AppStrings.theme, 'light');
   }
 
-  void toggleSaveTheme(String mode) => ref
-      .watch(hiveProvider as AlwaysAliveProviderListenable)
-      .put(AppStrings.theme, mode);
+  void toggleSaveTheme(String mode) =>
+      ref.watch(hiveProvider).put(AppStrings.theme, mode);
 }
 
 class MyTheme {
@@ -82,7 +77,7 @@ class MyTheme {
       bottomSheetModalBackgroundColor: SchemeColor.surface,
       bottomSheetBackgroundColor: SchemeColor.surface,
       dialogBackgroundSchemeColor: SchemeColor.background,
-      buttonMinSize: Size(1.sw, 42.h),
+      buttonMinSize: Size(1.sw, 40),
       outlinedButtonRadius: 8.r,
       outlinedButtonTextStyle: MaterialStateProperty.all(
         CustomTextStyle.textStyle16w600Black1000,

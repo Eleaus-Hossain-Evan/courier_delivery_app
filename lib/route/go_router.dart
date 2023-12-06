@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 import 'package:courier_delivery_app/pickup_man/presentation/main_nav_pickup/main_nav_pickup.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../application/auth/loggedin_provider.dart';
 import '../presentation/auth/login/login.dart';

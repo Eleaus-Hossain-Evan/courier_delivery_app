@@ -59,7 +59,7 @@ class HomeSearchDelivery extends HookConsumerWidget {
             gap16,
             SizedBox(
               width: 60.w,
-              height: 50.h,
+              height: 64.h,
               child: KFilledButton(
                 onPressed: () {
                   context.push(ScanScreen.route);

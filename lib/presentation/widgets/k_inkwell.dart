@@ -3,7 +3,7 @@ import 'package:velocity_x/velocity_x.dart';
 
 class KInkWell extends StatelessWidget {
   const KInkWell({
-    Key? key,
+    super.key,
     required this.child,
     this.onTap,
     this.borderRadius,
@@ -11,7 +11,7 @@ class KInkWell extends StatelessWidget {
     this.rippleColor,
     this.padding,
     this.backgroundColor = Colors.transparent,
-  }) : super(key: key);
+  });
 
   final VoidCallback? onTap;
   final Widget child;
@@ -31,9 +31,9 @@ class KInkWell extends StatelessWidget {
             borderRadius: borderRadius ?? BorderRadius.zero),
         // borderRadius: borderRadius ?? BorderRadius.zero,
         radius: radius,
-        highlightColor: context.colors.secondary.withOpacity(.12),
+        highlightColor: context.colors.primary.withOpacity(.08),
         splashColor: rippleColor?.withOpacity(.12) ??
-            context.colors.secondary.withOpacity(.12),
+            context.colors.primary.withOpacity(.08),
         // overlayColor: MaterialStateProperty.resolveWith((states) {
         //   if (states.contains(MaterialState.hovered)) {
         //     return rippleColor?.withOpacity(.12) ??

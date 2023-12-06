@@ -79,6 +79,9 @@ class ProfileScreen extends HookConsumerWidget {
                       onTap: () => context.push(ChangePasswordScreen.route),
                     ),
                     KDivider(height: 36.h),
+
+                    //. ---- Logout -----
+
                     ProfileOptionsItem(
                       leading: EvaIcons.log_out,
                       title: AppStrings.logout,

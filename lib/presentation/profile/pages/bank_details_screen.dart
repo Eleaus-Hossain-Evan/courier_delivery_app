@@ -74,7 +74,7 @@ class BankDetailsScreen extends HookConsumerWidget {
               children: [
                 AppStrings.bankDetails.text.lg.make().objectCenterLeft(),
                 gap8,
-                ContainerBGWhite(
+                ContainerBGWhiteSlideFromRight(
                   padding: paddingV20,
                   child: Column(
                     children: [
@@ -123,7 +123,7 @@ class BankDetailsScreen extends HookConsumerWidget {
                 gap24,
                 AppStrings.otherPaymentMethod.text.lg.make().objectCenterLeft(),
                 gap8,
-                ContainerBGWhite(
+                ContainerBGWhiteSlideFromLeft(
                   padding: paddingV20,
                   child: Column(
                     children: [
@@ -150,7 +150,7 @@ class BankDetailsScreen extends HookConsumerWidget {
                 gap24,
                 AppStrings.defaultPayment.text.lg.make().objectCenterLeft(),
                 gap8,
-                ContainerBGWhite(
+                ContainerBGWhiteSlideFromLeft(
                   padding: paddingV20,
                   child: Column(
                     children: [
@@ -171,7 +171,7 @@ class BankDetailsScreen extends HookConsumerWidget {
                 gap24,
                 AppStrings.paymentStyle.text.lg.make().objectCenterLeft(),
                 gap8,
-                ContainerBGWhite(
+                ContainerBGWhiteSlideFromLeft(
                   padding: paddingV20,
                   child: Column(
                     children: [
