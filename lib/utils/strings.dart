@@ -34,7 +34,6 @@ class AppStrings {
   static const String earning = "Earning";
   static const String myEarnings = "My Earnings";
   static const String totalEarnings = "Total Earnings";
-  static const String tk = "৳";
   static const String dailyOrders = "Daily\nOrders";
   static const String dailyEarings = "Daily\nEarnings";
   static const String monthlyEarings = "Monthly\nEarnings";

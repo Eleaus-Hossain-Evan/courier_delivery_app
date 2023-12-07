@@ -71,7 +71,7 @@ class EarningListTile extends StatelessWidget {
               ),
             ),
             Text(
-              "${AppStrings.tk}$amount",
+              "${AppStrings.tkSymbol}$amount",
               style: context.titleMedium!.copyWith(
                 fontWeight: FontWeight.w700,
               ),

@@ -6,10 +6,10 @@ import 'animations/animations.dart';
 
 class ContainerBGWhite extends StatelessWidget {
   const ContainerBGWhite({
-    Key? key,
+    super.key,
     required this.child,
     this.padding,
-  }) : super(key: key);
+  });
 
   final Widget child;
   final EdgeInsetsGeometry? padding;
@@ -46,22 +46,22 @@ class ContainerBGWhite extends StatelessWidget {
   }
 }
 
-
 class ContainerBGWhiteSlideFromRight extends StatelessWidget {
   const ContainerBGWhiteSlideFromRight({
     super.key,
     required this.child,
     this.padding,
     this.bgColor = AppColors.bg100,
-    this.borderColor = AppColors.bg100,
+    this.borderColor,
     this.borderRadius,
-    this.isBorder = false,
+    this.isBorder = true,
     this.margin,
   });
 
   final Widget child;
   final EdgeInsetsGeometry? padding;
-  final Color bgColor, borderColor;
+  final Color bgColor;
+  final Color? borderColor;
   final BorderRadiusGeometry? borderRadius;
   final bool isBorder;
   final EdgeInsets? margin;
@@ -69,11 +69,11 @@ class ContainerBGWhiteSlideFromRight extends StatelessWidget {
   Widget build(BuildContext context) {
     final border = isBorder
         ? Border.all(
-            color: AppColors.primary.withOpacity(.1),
+            color: borderColor ?? AppColors.primary.withOpacity(.4),
             width: 1.2.w,
           )
         : Border.all(
-            color: borderColor,
+            color: bgColor,
             width: 1.2.w,
           );
     return FadeAnimation(

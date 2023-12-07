@@ -39,11 +39,11 @@ class SummerSection extends SliverPersistentHeaderDelegate {
             ),
             children: const [
               SummaryItem(
-                count: '${AppStrings.tk}10367',
+                count: '${AppStrings.tkSymbol}10367',
                 title: AppStrings.monthlyEarings,
               ),
               SummaryItem(
-                count: '${AppStrings.tk}600',
+                count: '${AppStrings.tkSymbol}600',
                 title: AppStrings.dailyEarings,
               ),
               SummaryItem(

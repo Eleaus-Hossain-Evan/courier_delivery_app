@@ -33,7 +33,7 @@ class TotalEarningSection extends SliverPersistentHeaderDelegate {
                 mainAxisAlignment: mainSpaceBetween,
                 children: [
                   AppStrings.totalEarnings.text.semiBold.white.make(),
-                  "${AppStrings.tk} 4321".text.white.bold.make(),
+                  "${AppStrings.tkSymbol} 4321".text.white.bold.make(),
                 ],
               ),
             ),
