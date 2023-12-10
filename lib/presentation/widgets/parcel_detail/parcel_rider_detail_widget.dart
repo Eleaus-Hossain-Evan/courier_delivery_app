@@ -21,10 +21,12 @@ class ParcelRiderDetailWidget extends HookConsumerWidget {
     super.key,
     required this.model,
     required this.pageType,
+    this.inEarning = false,
   });
 
   final TopLevelRiderParcelModel model;
   final ParcelRiderType pageType;
+  final bool inEarning;
 
   @override
   Widget build(BuildContext context, ref) {

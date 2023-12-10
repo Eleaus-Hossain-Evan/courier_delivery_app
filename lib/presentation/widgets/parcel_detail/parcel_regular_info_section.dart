@@ -18,39 +18,43 @@ class ParcelRegularInfoSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          mainAxisAlignment: mainCenter,
-          children: [
-            Icon(
-              Bootstrap.boxes,
-              size: 14.sp,
-            ).circle(
-              radius: 22,
-              backgroundColor: context.colors.background,
-              border: Border.all(color: AppColors.black700),
+    return Flexible(
+      child: Column(
+        children: [
+          Container(
+            decoration: BoxDecoration(
+              color: context.theme.scaffoldBackgroundColor,
+              borderRadius: BorderRadius.all(
+                Radius.circular(10.r),
+              ),
             ),
-            gap10,
-            'Parcel Information'
-                .text
-                .bodyText2(context)
-                .letterSpacing(.8)
-                .bold
-                .lg
-                .makeCentered(),
-          ],
-        )
-            .p8()
-            .box
-            .width(1.sw)
-            .colorScaffoldBackground(context)
-            .roundedSM
-            .make(),
-        gap8,
-        SizedBox(
-          height: 88.h,
-          child: Row(
+            child: Padding(
+              padding: EdgeInsets.all(8.w),
+              child: Row(
+                mainAxisAlignment: mainCenter,
+                children: [
+                  Icon(
+                    Bootstrap.boxes,
+                    size: 14.sp,
+                  ).circle(
+                    radius: 22,
+                    backgroundColor: context.colors.background,
+                    border: Border.all(color: AppColors.black700),
+                  ),
+                  gap10,
+                  'Parcel Information'
+                      .text
+                      .bodyText2(context)
+                      .letterSpacing(.8)
+                      .bold
+                      .lg
+                      .makeCentered(),
+                ],
+              ),
+            ),
+          ),
+          gap8,
+          Row(
             crossAxisAlignment: crossStart,
             children: [
               Visibility(
@@ -70,58 +74,59 @@ class ParcelRegularInfoSection extends StatelessWidget {
                 ).p12().box.roundedSM.colorScaffoldBackground(context).make(),
               ),
               gap16,
-              Column(
-                mainAxisAlignment: mainSpaceAround,
-                crossAxisAlignment: crossStart,
-                mainAxisSize: mainMax,
-                children: [
-                  Text.rich(
-                    'Created At:  '
-                        .textSpan
-                        .withChildren([
-                          createdAt
-                              .toFormatShortDate()
-                              .textSpan
-                              .italic
-                              .light
-                              .blue900
-                              .make(),
-                        ])
-                        .bodySmall(context)
-                        .letterSpacing(.8)
-                        .make(),
-                  ),
-                  Text.rich(
-                    'Weight:  '
-                        .textSpan
-                        .withChildren([
-                          regularParcel.weight.textSpan.semiBold.make(),
-                        ])
-                        .bodySmall(context)
-                        .letterSpacing(.8)
-                        .make(),
-                  ),
-                  Text.rich(
-                    'Category:  '
-                        .textSpan
-                        .withChildren([
-                          (regularParcel.category.isNotEmptyAndNotNull
-                                  ? regularParcel.category
-                                  : '-')
-                              .textSpan
-                              .semiBold
-                              .make(),
-                        ])
-                        .bodySmall(context)
-                        .letterSpacing(.8)
-                        .make(),
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: mainSpaceAround,
+                  crossAxisAlignment: crossStart,
+                  children: [
+                    Text.rich(
+                      'Created At:  '
+                          .textSpan
+                          .withChildren([
+                            createdAt
+                                .toFormatShortDate()
+                                .textSpan
+                                .italic
+                                .light
+                                .blue900
+                                .make(),
+                          ])
+                          .bodySmall(context)
+                          .letterSpacing(.8)
+                          .make(),
+                    ),
+                    Text.rich(
+                      'Weight:  '
+                          .textSpan
+                          .withChildren([
+                            regularParcel.weight.textSpan.semiBold.make(),
+                          ])
+                          .bodySmall(context)
+                          .letterSpacing(.8)
+                          .make(),
+                    ),
+                    Text.rich(
+                      'Category:  '
+                          .textSpan
+                          .withChildren([
+                            (regularParcel.category.isNotEmptyAndNotNull
+                                    ? regularParcel.category
+                                    : '-')
+                                .textSpan
+                                .semiBold
+                                .make(),
+                          ])
+                          .bodySmall(context)
+                          .letterSpacing(.8)
+                          .make(),
+                    ),
+                  ],
+                ),
               )
             ],
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
