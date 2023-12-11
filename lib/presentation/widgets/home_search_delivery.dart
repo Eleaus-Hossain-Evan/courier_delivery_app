@@ -33,7 +33,10 @@ class HomeSearchDelivery extends HookConsumerWidget {
                   hintStyle: CustomTextStyle.textStyle14w500B800.copyWith(
                     color: AppColors.black600,
                   ),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 8.w),
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 12.w,
+                    vertical: 4.h,
+                  ),
                   border: InputBorder.none,
                   enabledBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -58,8 +61,8 @@ class HomeSearchDelivery extends HookConsumerWidget {
             ),
             gap16,
             SizedBox(
-              width: 60.w,
-              height: 64.h,
+              width: 68.w,
+              height: 48,
               child: KFilledButton(
                 onPressed: () {
                   context.push(ScanScreen.route);

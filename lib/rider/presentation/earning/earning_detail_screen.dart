@@ -1,10 +1,8 @@
-import 'package:courier_delivery_app/pickup_man/domain/parcel/model/top_level_pickup_parcel_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import '../../../application/auth/auth_provider.dart';
 import '../../../presentation/widgets/widgets.dart';
 import '../../../utils/utils.dart';
 import '../../domain/top_level_rider_parcel_model.dart';
@@ -20,7 +18,6 @@ class EarningDetailScreen extends HookConsumerWidget {
   final String id;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(authProvider).user;
     return Scaffold(
       backgroundColor: AppColors.bg100,
       appBar: const KAppBar(),
@@ -56,7 +53,7 @@ class EarningDetailScreen extends HookConsumerWidget {
                     value: "10000",
                   ),
                   SummeryItemTile(
-                    title: "Total Receded Parcel: 8",
+                    title: "Total Received Parcel: 8",
                     value: "8000",
                   ),
                   SummeryItemTile(

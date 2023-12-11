@@ -1,9 +1,7 @@
-import 'package:courier_delivery_app/application/auth/auth_provider.dart';
 import 'package:courier_delivery_app/application/dashboard/dashboard_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:icons_plus/icons_plus.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:velocity_x/velocity_x.dart';
 

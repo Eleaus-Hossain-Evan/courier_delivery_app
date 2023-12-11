@@ -24,7 +24,6 @@ class HomeScreenRider extends HookConsumerWidget {
 
     final refreshController = useMemoized(RefreshController.new);
 
-    final state = ref.watch(parcelRiderProvider);
     final currentType = useState(ParcelRiderType.all);
 
     final page = useState(1);

@@ -77,12 +77,14 @@ class ParcelRiderDetailWidget extends HookConsumerWidget {
               isUndo: isUndo.value,
             ),
             gap16,
-            ParcelActionSection(
-              model: model,
-              pageType: pageType,
-              onUndoTap: (p0) => isUndo.value = p0,
+            Visibility(
+              visible: !inEarning,
+              child: ParcelActionSection(
+                model: model,
+                pageType: pageType,
+                onUndoTap: (p0) => isUndo.value = p0,
+              ),
             ),
-            gap16,
           ],
         ),
       ),

@@ -230,7 +230,9 @@ class ActionItem<T> extends StatelessWidget {
 
     return Stack(
       children: [
-        Row(
+        Wrap(
+          alignment: WrapAlignment.start,
+          spacing: 18.w,
           children: list
               .map(
                 (e) => Row(
@@ -240,19 +242,18 @@ class ActionItem<T> extends StatelessWidget {
                       value: e,
                       groupValue: item,
                       // materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                      // visualDensity: VisualDensity.compact,
+                      visualDensity: VisualDensity.compact,
                       onChanged: onChanged,
                     ),
-                    selectedItemAsString(e)
-                        .capitalized
-                        .text
-                        .base
-                        .letterSpacing(1)
-                        .caption(context)
-                        .make()
-                        .onInkTap(() {
-                      onChanged!(e);
-                    }),
+                    GestureDetector(
+                      onTap: () => onChanged!(e),
+                      child: Text(
+                        selectedItemAsString(e).capitalized,
+                        style: context.captionStyle!.copyWith(
+                          letterSpacing: 1,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               )
@@ -260,14 +261,18 @@ class ActionItem<T> extends StatelessWidget {
         )
             .p12()
             .box
+            .width(context.screenWidth)
             .roundedSM
             .border(color: AppColors.bg300)
             .make()
             .pSymmetric(v: 8.w, h: 0.w),
-        title.text.semiBold
-            .letterSpacing(.8)
-            .color(AppColors.black700)
-            .make()
+        Text(
+          title,
+          style: const TextStyle(
+              fontWeight: FontWeight.w600,
+              letterSpacing: .8,
+              color: AppColors.black700),
+        )
             .px8()
             .box
             .colorScaffoldBackground(context)
