@@ -28,7 +28,7 @@ class HomeWorkingSummery extends HookConsumerWidget {
               crossAxisCount: 2,
               crossAxisSpacing: 16.w,
               mainAxisSpacing: 16.h,
-              childAspectRatio: 1.6.w,
+              childAspectRatio: 1.6,
             ),
             children: [
               WorkingSummeryItem(
@@ -96,13 +96,14 @@ class WorkingSummeryItem extends StatelessWidget {
           color: textColor,
         ).px12(),
         count.text.xl2.bold.color(textColor).make().px12(),
-        title.text.isIntrinsic
-            .textStyle(TextStyle(fontSize: 14.sp))
-            .wide
+        title.text
+            .textStyle(TextStyle(fontSize: 14.w))
+            .ellipsis
+            // .wide
             .bold
             .color(textColor)
             .make()
-            .pOnly(left: 8),
+            .pOnly(left: 8.w),
       ],
     )
         .py12()
