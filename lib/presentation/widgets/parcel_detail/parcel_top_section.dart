@@ -102,7 +102,7 @@ class ParcelTopSection extends StatelessWidget {
               child: model.parcel.serialId.text
                   .color(AppColors.black800)
                   .semiBold
-                  .bodyText2(context)
+                  .bodySmall(context)
                   .letterSpacing(1)
                   .make(),
             )

@@ -12,7 +12,7 @@ import '../widgets/widgets.dart';
 
 class NotificationScreen extends HookConsumerWidget {
   static String route = "/notification";
-  const NotificationScreen({Key? key}) : super(key: key);
+  const NotificationScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -58,7 +58,7 @@ class NotificationScreen extends HookConsumerWidget {
               separator: SizedBox(height: 12.h),
               alternateWidget: "No Notification available"
                   .text
-                  .caption(context)
+                  .labelSmall(context)
                   .lg
                   .color(AppColors.black700)
                   .make(),

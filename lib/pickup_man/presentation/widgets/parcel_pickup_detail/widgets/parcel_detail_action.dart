@@ -111,7 +111,7 @@ class ParcelDetailAction extends HookConsumerWidget {
                       visible: model.note.isNotBlank,
                       replacement: "No Note"
                           .text
-                          .caption(context)
+                          .labelSmall(context)
                           .makeCentered()
                           .p12()
                           .box

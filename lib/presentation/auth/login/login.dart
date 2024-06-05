@@ -82,7 +82,7 @@ class LoginScreen extends HookConsumerWidget {
               Row(
                 // mainAxisAlignment: mainSpaceBetween,
                 children: [
-                  "Log In as".text.caption(context).bold.make(),
+                  "Log In as".text.labelSmall(context).bold.make(),
                   const Spacer(),
                   ...Role.values.map(
                     (e) => Row(
@@ -100,7 +100,7 @@ class LoginScreen extends HookConsumerWidget {
                         ),
                         (e == Role.rider ? "Rider" : "PickUp Man")
                             .text
-                            .caption(context)
+                            .labelSmall(context)
                             .make(),
                       ],
                     ),

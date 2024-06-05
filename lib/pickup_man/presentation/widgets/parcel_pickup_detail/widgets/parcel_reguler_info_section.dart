@@ -20,7 +20,7 @@ class ParcelRegularInfoSection extends StatelessWidget {
       children: [
         'Parcel Information'
             .text
-            .bodyText2(context)
+            .bodySmall(context)
             .letterSpacing(.8)
             .bold
             .lg

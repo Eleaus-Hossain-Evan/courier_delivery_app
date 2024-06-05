@@ -45,13 +45,13 @@ class ParcelProductDetailSection extends StatelessWidget {
                     size: 8.sp,
                   ).circle(
                     radius: 16,
-                    backgroundColor: context.colors.background,
+                    backgroundColor: context.colors.surface,
                     border: Border.all(color: AppColors.black700),
                   ),
                   gap4,
                   'Parcel Details'
                       .text
-                      .bodyText2(context)
+                      .bodySmall(context)
                       .base
                       .bold
                       .letterSpacing(.8)
@@ -90,13 +90,13 @@ class ParcelProductDetailSection extends StatelessWidget {
                       size: 8.sp,
                     ).circle(
                       radius: 16,
-                      backgroundColor: context.colors.background,
+                      backgroundColor: context.colors.surface,
                       border: Border.all(color: AppColors.black700),
                     ),
                     gap4,
                     'Note'
                         .text
-                        .bodyText2(context)
+                        .bodySmall(context)
                         .base
                         .bold
                         .letterSpacing(.8)

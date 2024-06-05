@@ -4,8 +4,8 @@ class EndPointPickUp {
   static const String DUMMY_PERSON = 'https://i.pravatar.cc/300';
   static const String WEB_URL = "";
 
-  static const String BASE_URL = "https://api.courier.b2gsoft.xyz/";
-  // static const String BASE_URL = "https://server.greenmaxcourier.com/";
+  // static const String BASE_URL = "https://api.courier.b2gsoft.xyz/";
+  static const String BASE_URL = "https://server.greenmaxcourier.com/";
   // static const String BASE_URL_LOCAL = "http://192.168.68.118:3697/";
   static const String API_V1 = "api/v1/";
 

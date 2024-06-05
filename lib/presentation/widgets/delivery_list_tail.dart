@@ -7,12 +7,12 @@ import 'widgets.dart';
 
 class DeliveryListTile extends StatelessWidget {
   const DeliveryListTile({
-    Key? key,
+    super.key,
     this.leadingImage = Images.deliveryBoxList,
     required this.customerName,
     required this.address,
     required this.distance,
-  }) : super(key: key);
+  });
 
   final String leadingImage;
   final String customerName;
@@ -47,7 +47,7 @@ class DeliveryListTile extends StatelessWidget {
                               .iconSize(16.sp),
                           gap4,
                           address.text.medium
-                              .caption(context)
+                              .labelSmall(context)
                               .color(AppColors.black700)
                               .make()
                               .box
@@ -61,7 +61,7 @@ class DeliveryListTile extends StatelessWidget {
                           const Icon(Icons.location_on)
                               .iconSize(16.sp)
                               .iconColor(context.theme.primaryColorDark),
-                          distance.text.caption(context).make(),
+                          distance.text.labelSmall(context).make(),
                         ],
                       ),
                     ],

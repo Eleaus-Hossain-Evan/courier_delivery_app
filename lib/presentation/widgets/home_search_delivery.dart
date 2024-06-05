@@ -20,7 +20,7 @@ class HomeSearchDelivery extends HookConsumerWidget {
       children: [
         "Track your package".text.xl.extraBold.make(),
         gap12,
-        "Please enter your tracking number".text.caption(context).make(),
+        "Please enter your tracking number".text.labelSmall(context).make(),
         gap14,
         Row(
           mainAxisAlignment: MainAxisAlignment.start,

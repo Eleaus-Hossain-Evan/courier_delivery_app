@@ -25,13 +25,13 @@ class ParcelCustomerInfoSection extends StatelessWidget {
           children: [
             Images.iconUser.assetImage().circle(
                   radius: 22,
-                  backgroundColor: context.colors.background,
+                  backgroundColor: context.colors.surface,
                   border: Border.all(color: AppColors.black700),
                 ),
             gap10,
             'Customer Information'
                 .text
-                .bodyText2(context)
+                .bodySmall(context)
                 .letterSpacing(.8)
                 .bold
                 .lg

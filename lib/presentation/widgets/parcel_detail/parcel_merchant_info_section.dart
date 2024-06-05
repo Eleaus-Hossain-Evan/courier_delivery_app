@@ -28,13 +28,13 @@ class ParcelMerchantInfoSection extends StatelessWidget {
               size: 14.sp,
             ).circle(
               radius: 22,
-              backgroundColor: context.colors.background,
+              backgroundColor: context.colors.surface,
               border: Border.all(color: AppColors.black700),
             ),
             gap10,
             'Merchant Information'
                 .text
-                .bodyText2(context)
+                .bodySmall(context)
                 .letterSpacing(.8)
                 .bold
                 .lg

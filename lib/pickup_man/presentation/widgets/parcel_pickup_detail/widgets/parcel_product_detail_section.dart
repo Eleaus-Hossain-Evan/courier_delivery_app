@@ -32,7 +32,7 @@ class ParcelProductDetailSection extends StatelessWidget {
         children: [
           'Detail'
               .text
-              .bodyText2(context)
+              .bodySmall(context)
               .letterSpacing(.8)
               .bold
               .lg

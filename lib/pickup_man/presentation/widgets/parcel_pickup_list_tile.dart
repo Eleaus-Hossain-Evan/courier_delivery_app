@@ -78,7 +78,7 @@ class ParcelPickupListTile extends HookConsumerWidget {
                   .iconColor(context.theme.primaryColorDark),
               gap8,
               model.parcel.serialId.text
-                  .caption(context)
+                  .labelSmall(context)
                   .letterSpacing(.8)
                   .semiBold
                   .color(AppColors.black600)
